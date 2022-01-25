@@ -64,3 +64,9 @@ CREATE USER 'dev'@'localhost' IDENTIFIED BY '12345Abcde';
 GRANT ALL PRIVILEGES ON igobide.* TO 'dev'@'localhost';
 FLUSH PRIVILEGES;
 ```
+
+## 8- Migraciones
+Ejecutamos las migraciones existentes para generar las tablas y así poder probar la aplicación:  
+```bash
+php artisan migrate
+```
