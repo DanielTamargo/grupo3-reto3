@@ -7,6 +7,7 @@ Lo primero será clonar el repositorio, clonarlo donde tengas los demás proyect
 
 ## 2- Fichero .env
 El fichero .env **nunca** debería publicarse, por lo que se incluye en el .gitignore. Como es un proyecto de clase y lo que buscamos es trabajar en conjunto y aprender, sí que subiremos un fichero llamado ejemplo.env el cual renombraremos a .env y así tendremos disponibles las variables de entorno que configuran nuestro proyecto.  
+Accedemos a la carpeta del proyecto y ejecutamos:  
 ```bash
 # Nos situamos en la ruta del proyecto
 copy ejemplo.env .env
@@ -37,14 +38,17 @@ Modificamos el fichero hosts ubicado en C:\Windows\System32\drivers\etc y añadi
 
 ## 4- Instalar dependencias
 Hemos clonado el repositorio pero no tenemos las dependencias instaladas, estas se incluyen en el .gitignore para ahorrar mucho espacio en la nube y aprovechándonos de los ficheros de configuración de dependencias como **package.json** nos permitirán instalarlas con un solo comando.  
-Desde Windows (para evitar problemas de symlinks) accedemos a la ruta del proyecto y ejecutamos el comando 
+Desde Windows (para evitar problemas de symlinks) accedemos dentro del proyecto y ejecutamos el comando:  
 ```bash
 npm install
 ```  
 
 ## 5- Reload --provision
 Con estos cambios ya hechos, vamos a recargar y volver a lanzar las provisiones para que se aplique bien la configuración y poder probar.  
-`vagrant reload --provision`
+Para ello, en el directorio de Homestead (donde tenemos el Homestead.yaml) ejecutamos el comando: 
+```bash
+vagrant reload --provision
+```
 
 ## 6- BBDD
 Accedemos a la máquina virtual con `vagrant ssh` y a la consola mysql con `mysql -u root`
@@ -57,32 +61,3 @@ CREATE USER 'dev'@'localhost' IDENTIFIED BY '12345Abcde';
 GRANT ALL PRIVILEGES ON igobide.* TO 'dev'@'localhost';
 FLUSH PRIVILEGES;
 ```
-
-
-
-----
-----
-----
-----
-----
-----
-----
-----
-----
-----
-
-# Preguntas:
-
-- Si nos dan un logo y un color característico de la empresa
-- Si una tarea puede ser asignada a varios técnicos
-- Si un jefe de equipo puede actualizar (subir y reemplazar) manuales PDF de los modelos de ascensor
-- Si nos proporcionan información sobre ascensores (tipos, modelos reales, etc)
-- Si cada jefe de equipo tiene su equipo a gestionar, o todos gestionan en general al departamento de mantenimiento
-- Si los operarios van a poder dar parte de la tarea
-
-
-# Funcionalidades:
-
-- Operador puede registrar nuevas tareas
-- Técnico puede dar parte de las tareas notificando qué ha hecho y en qué estado ha quedado
-- 
