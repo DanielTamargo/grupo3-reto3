@@ -36,7 +36,7 @@ Modificamos el fichero hosts ubicado en C:\Windows\System32\drivers\etc y añadi
 > **Nota:**   
 > 192.168.10.10 es la ip que he indicado en la primera línea del Homestead.yaml, si tenéis otra, poned la vuestra. Lo mismo para el dominio, si habéis configurado otro dominio, poned el que hayáis indicado.  
 
-## 4- Instalar dependencias
+## 4- Instalar dependencias node.js
 Hemos clonado el repositorio pero no tenemos las dependencias instaladas, estas se incluyen en el .gitignore para ahorrar mucho espacio en la nube y aprovechándonos de los ficheros de configuración de dependencias como **package.json** nos permitirán instalarlas con un solo comando.  
 Desde Windows (para evitar problemas de symlinks) accedemos dentro del proyecto y ejecutamos el comando:  
 ```bash
@@ -50,7 +50,10 @@ Para ello, en el directorio de Homestead (donde tenemos el Homestead.yaml) ejecu
 vagrant reload --provision
 ```
 
-## 6- BBDD
+## 6- Instalar dependencias composer
+Ya tenemos casi todo configurado, ahora tenemos que instalar las dependencias del lado del servidor utilizando composer. Para ello ejecutamos `vagrant ssh`, accedemos a la carpeta del proyecto y ejecutamos el comando `composer install`
+
+## 7- BBDD
 Accedemos a la máquina virtual con `vagrant ssh` y a la consola mysql con `mysql -u root`
 ```bash
 # Creamos la base de datos para tenerla disponible
