@@ -1,3 +1,7 @@
+# Documentación
+
+- [Bibliografía](/doc/bibliografia.md)
+
 # Set up
 
 Partiendo de que ya tenemos Laravel (homestead) funcionando, realizamos una serie de pasos para configurar el proyecto y poder trabajar todos juntos sobre el mismo.  
@@ -45,7 +49,7 @@ npm install
 
 ## 5- Reload --provision
 Con estos cambios ya hechos, vamos a recargar y volver a lanzar las provisiones para que se aplique bien la configuración y poder probar.  
-Para ello, en el directorio de Homestead (donde tenemos el Homestead.yaml) ejecutamos el comando: 
+**Importante**: Para ello, en el directorio de Homestead (donde tenemos el Homestead.yaml) ejecutamos el comando: 
 ```bash
 vagrant reload --provision
 ```
