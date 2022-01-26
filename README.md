@@ -38,7 +38,7 @@ Modificamos el fichero hosts ubicado en C:\Windows\System32\drivers\etc y añadi
 
 ## 4- Instalar dependencias node.js
 Hemos clonado el repositorio pero no tenemos las dependencias instaladas, estas se incluyen en el .gitignore para ahorrar mucho espacio en la nube y aprovechándonos de los ficheros de configuración de dependencias como **package.json** nos permitirán instalarlas con un solo comando.  
-Desde Windows (para evitar problemas de symlinks) accedemos dentro del proyecto y ejecutamos el comando:  
+Desde Windows (para evitar problemas de bin links) accedemos dentro del proyecto y ejecutamos el comando:  
 ```bash
 npm install
 ```  
