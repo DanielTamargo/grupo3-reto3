@@ -20,3 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/login', function () {
+    return view('login');
+});
+Route::get('/homeTecnico', function() {
+    return view('tecnicos.home');
+});
+Route::get('/createTecnico', function() {
+    return view('tecnicos.makepartes');
+});
