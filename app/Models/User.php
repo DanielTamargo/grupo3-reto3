@@ -18,8 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nombre',
+        'apellidos',
+        'rol',
         'email',
+        'telefono',
+        'dni',
         'password',
     ];
 
@@ -41,4 +45,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * Devuelve la entidad asociada al usuario, sea operador, tecnico, jefedeequipo o administrador
+     */
+    public function puesto() {
+        // Dependiendo del rol que tenga el usuario, su entidad puesto será una u otra
+        if ($this->attributes['rol'] == "operador") return $this->hasOne(Operador::class);
+        if ($this->attributes['rol'] == "jefeequipo") return $this->hasOne(JefeEquipo::class);
+        if ($this->attributes['rol'] == "tecnico") return $this->hasOne(Tecnico::class);
+        if ($this->attributes['rol'] == "administrador") return $this->hasOne(Administrador::class);
+
+
+        // Si no encuentra ninguno, devuelve un técnico (que no existirá y devolverá un objeto nulo o vacío)
+        return $this->hasOne(Tecnico::class);
+    }
 }
