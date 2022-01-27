@@ -18,14 +18,14 @@
     </style>
 </head>
 <body class="container-fluid">
-    <div class="row mx-2 justify-content-center h-100">
-        <div class="col-12 text-center">
-            <header class="row text center" id="head">
+    <div class="row mx-1 justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-6 text-center">
+            <div class="row text center" id="head">
                 <div class="col">
                     <p class="display-4">Ascensores igobide</p>
                 </div>
-            </header>
-            <main class="row bg-light h-75">
+            </div>
+            <div class="row bg-light">
                 <form action="" method="POST" class="p-5 col">
                     <div class="row justify-content-center">
                         <div class="col-12 col-md-8">
@@ -35,7 +35,7 @@
                     </div>
                     <input type="submit" value="Iniciar sesion" class="btn btn-primary btn-lg mt-2">
                 </form>
-            </main>
+            </div>
             
         </div>
     </div>

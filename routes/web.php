@@ -27,5 +27,11 @@ Route::get('/homeTecnico', function() {
     return view('tecnicos.home');
 });
 Route::get('/createTecnico', function() {
-    return view('tecnicos.makepartes');
+    return view('tecnicos.create');
+});
+Route::get('/showTecnico', function() {
+    return view('tecnicos.show');
+});
+Route::get('/historialTecnico', function() {
+    return view('tecnicos.historial');
 });
