@@ -18,12 +18,19 @@
   border: $btn-border-width solid transparent;
   @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
   @include transition($btn-transition);
-
+ 
   &:hover {
-    color: $body-color;
+    color: $black !important;
+    
     text-decoration: if($link-hover-decoration == underline, none, null);
   }
-
+  a {
+    color: #fcf8e3;
+    text-decoration: underline;
+  }
+  a:hover {
+    color: #000;
+  }
   .btn-check:focus + &,
   &:focus {
     outline: 0;
@@ -49,6 +56,7 @@
     @include box-shadow(none);
   }
 }
+
 
 
 //

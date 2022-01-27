@@ -27,6 +27,19 @@ class OperadorController extends Controller
         //
     }
 
+    public function nuevaAveria(){
+        return view('operadores.nuevaAveria');
+    }
+    public function crearParte(){
+        return view('operadores.nuevoParte');
+    }
+    public function mostrarUltimasRevisiones(){
+        return view('operadores.ultimasRevisiones');
+    }
+    public function asignarRevisiones(){
+        return view('operadores.nuevaRevision');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

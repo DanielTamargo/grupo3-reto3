@@ -3013,7 +3013,15 @@ textarea.form-control-lg {
   }
 }
 .btn:hover {
-  color: #212529;
+  color: #000 !important;
+  background-color: #a55eea;
+}
+.btn a {
+  color: #fcf8e3;
+  text-decoration: underline;
+}
+.btn a:hover {
+  color: #000;
 }
 .btn-check:focus + .btn, .btn:focus {
   outline: 0;
@@ -4024,6 +4032,7 @@ textarea.form-control-lg {
 }
 
 .navbar {
+  height: 10vh;
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -11281,4 +11290,7 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+main {
+  height: 90vh;
 }
