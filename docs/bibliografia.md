@@ -4,10 +4,9 @@
 - FakerPHP
   - [Enlace packagist](https://packagist.org/packages/fakerphp/faker)
   - [Documentación oficial](https://fakerphp.github.io/)
-- Bootstrap
+- Laravel UI Bootstrap + Auth
   - [Documentación oficial](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
   - [Instalación más abajo](#Bootstrap)
-- Laravel Auth
  
 # Instalaciones
 

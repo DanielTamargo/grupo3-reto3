@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// RUTAS CON PRUEBAS
+Route::get('/pruebas', function() {
+    return view('pruebas.usuarios')
+        ->with('users', App\Models\User::all())
+        ->with('jefesequipos', App\Models\JefeEquipo::all())
+        ->with('tecnicos', App\Models\Tecnico::all())
+        ->with('operadores', App\Models\Operador::all());
+})->name('pruebas.usuarios');
+
 Route::get('/', function () {
     return view('welcome');
 });
