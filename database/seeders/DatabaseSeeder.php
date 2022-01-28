@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->command->info("Starting Seeding: ");
+        $this->command->info("Starting Seeding. ");
 
         // Datos fijos
         // Administrador
@@ -80,6 +80,27 @@ class DatabaseSeeder extends Seeder
             ])->save();
         }
         $this->command->comment("Operadores creados con éxito");
+        // -------------------------------------------------------------------------------------
+        // MODELOS
+
+
+        // -------------------------------------------------------------------------------------
+        // ASCENSORES (basados en modelos) (generar muchísimos ascensores instalados en diferentes calles) (desde fechas antiguas a más recientes)
+
+
+
+        // -------------------------------------------------------------------------------------
+        // TAREAS PASADAS (basadas en ascensores, asignadas por un operador a un tecnico) (generar muchas)
+
+
+
+        // TAREAS PENDIENTES (basadas en ascensores, asignadas por un operador a un tecnico) (generar máximo 1 o 2 por cada ascensor)
+
+        // -------------------------------------------------------------------------------------
+        // PARTES REALIZADOS (basados en las tareas, realizados por un técnico) (generar muchos) (todos con fecha pasada)
+
+
+        //
 
     }
 }
