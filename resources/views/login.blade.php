@@ -8,24 +8,35 @@
     <!-- enlace a los estilos bootstrap -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
-        body {
-            height: 100vh;
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:wght@500&family=Ubuntu&display=swap');
+        #contentcontainer {
+            min-height: 75vh;
         }
 
         #head {
             background-color: blueviolet;
         }
+        #head div p {
+            font-family: 'Roboto', sans-serif;
+        }
+        #contentcontainer > * {
+            font-family: 'Ubuntu', sans-serif;
+        }
     </style>
 </head>
-<body class="container-fluid">
+<body class="container-fluid min-vh-100">
     <div class="row mx-2 justify-content-center h-100">
         <div class="col-12 text-center">
             <header class="row text center" id="head">
+                <div class="col-3 col-md-2">
+                    <img src="" alt="logo" class="img-fluid">
+            
+                </div>
                 <div class="col">
-                    <p class="display-4">Ascensores igobide</p>
+                    <p class="display-5 mt-3">Ascensores igobide</p>
                 </div>
             </header>
-            <main class="row bg-light h-75">
+            <main class="row bg-light" id="contentcontainer">
                 <form action="" method="POST" class="p-5 col">
                     <div class="row justify-content-center">
                         <div class="col-12 col-md-8">
