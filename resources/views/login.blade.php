@@ -29,7 +29,7 @@
         <div class="col-12 text-center">
             <header class="row text center" id="head">
                 <div class="col-3 col-md-2">
-                    <img src="" alt="logo" class="img-fluid">
+                    <img src="" alt="logo" class="img-fluid m-auto">
             
                 </div>
                 <div class="col">
