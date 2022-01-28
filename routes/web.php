@@ -23,12 +23,20 @@ Route::get('/pruebas', function() {
 })->name('pruebas.usuarios');
 
 Route::get('/', function () {
-    return view('operadores.home-operador');
-})->name('home.operador');
+    return view('welcome');
+});
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+/*
+----------------------------------------------------------------------------------------------
+OPERADORES
+----------------------------------------------------------------------------------------------
+*/
+
+Route::get('/operador', function () {return view('operadores.home-operador');})->name('home.operador');
 Route::get('/operador/nueva-averia', [App\Http\Controllers\OperadorController::class, 'nuevaAveria'])->name('nuevaaveria.create');
 Route::get('/operador/nuevo-parte', [App\Http\Controllers\OperadorController::class, 'crearParte'])->name('crearparte.create');
 Route::get('/operador/ultimas-revisiones', [App\Http\Controllers\OperadorController::class, 'mostrarUltimasRevisiones'])->name('ultimasrevisiones.show');

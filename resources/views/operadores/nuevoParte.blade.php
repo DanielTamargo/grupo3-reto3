@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-12">
                 <form action="" method="post">
 
@@ -49,7 +49,8 @@
                         <div class="col-12 mt-2 d-flex justify-content-center">
                             <button type="submit" class="btn btn-outline-light"><a href="#" class="text-decoration-none">Añadir</a></button>
                         </div>
-                    </div>        
+                    </div>     
+                       
                 </form>
             </div>
         </div>

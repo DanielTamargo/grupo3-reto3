@@ -11,8 +11,8 @@
         </div>
     </div>
 
-<div class="row">
-    <div class="col-12 mt-5">
+<div class="row mt-5">
+    <div class="col-12">
         <table class="table table-striped text-center">
             <thead>
                 <tr class="table-light">
