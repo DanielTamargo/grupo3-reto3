@@ -48,6 +48,20 @@ $teal:    #20c997 !default;
 $cyan:    #0dcaf0 !default;
 // scss-docs-end color-variables
 
+//variables personalizados
+$gris1:   rgb(34, 47, 62);
+$gris2:   rgb(131, 149, 167);
+$gris3:   rgb(200, 214, 229);
+
+$morado1: rgb(52, 31, 151);
+$morado2: rgb(95, 39, 205);
+$morado3: rgb(165, 94, 234);
+
+$azul1: rgb(116, 185, 255);
+$azul2: rgb(9, 132, 227);
+$azul3: rgb(30, 55, 153);
+
+
 // scss-docs-start colors-map
 $colors: (
   "blue":       $blue,
@@ -864,7 +878,7 @@ $input-border-radius-sm:                $border-radius-sm !default;
 $input-border-radius-lg:                $border-radius-lg !default;
 
 $input-focus-bg:                        $input-bg !default;
-$input-focus-border-color:              tint-color($component-active-bg, 50%) !default;
+$input-focus-border-color:              $white !default;
 $input-focus-color:                     $input-color !default;
 $input-focus-width:                     $input-btn-focus-width !default;
 $input-focus-box-shadow:                $input-btn-focus-box-shadow !default;
