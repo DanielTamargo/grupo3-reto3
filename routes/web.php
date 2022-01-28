@@ -22,16 +22,22 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/login', function () {
     return view('login');
-});
-Route::get('/homeTecnico', function() {
+})->name("login");
+Route::get('/hometecnico', function() {
     return view('tecnicos.home');
-});
-Route::get('/createTecnico', function() {
+})->name("tecnico.home");
+Route::get('/createtecnico', function() {
     return view('tecnicos.create');
-});
-Route::get('/showTecnico', function() {
+})->name("tecnico.create");
+Route::get('/showtecnico', function() {
     return view('tecnicos.show');
-});
-Route::get('/historialTecnico', function() {
+})->name("tecnico.show");
+Route::get('/historialtecnico', function() {
     return view('tecnicos.historial');
-});
+})->name("tecnico.historial");
+Route::get('/manualtecnico', function() {
+    return view('tecnicos.manual');
+})->name("tecnico.manual");
+Route::get('/piezastecnico', function() {
+    return view('tecnicos.piezas');
+})->name("tecnico.piezas");

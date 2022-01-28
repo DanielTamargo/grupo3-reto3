@@ -23,6 +23,9 @@ Home
             <li class="list-group-item list-group-item-success">
                 descargar manuales
             </li>
+            <li class="list-group-item list-group-item-success">
+                pedir piezas
+            </li>
         </ol>
 
     @endsection

@@ -8,10 +8,11 @@ Parte
 @endsection
 
 @section('content')
+        <p class="display-4">Dar parte del trabajo</p>
         <form action="" method="POST">
             <label for="id" class="form-label">Identificador de tarea:</label>
             <input type="text" name="idtarea" id="id" class="form-control">
-            <label for="est" class="form-label">Estado</label>
+            <label for="est" class="form-label">Estado:</label>
             <select name="estado" id="est" class="form-select">
                 <!-- posibles estados -->
                 <option value="">solucionado</option>
@@ -21,6 +22,6 @@ Parte
             </select>
             <label for="anot" class="form-label">Ovservaciones:</label>
             <textarea name="anotacion" id="anot" cols="30" rows="10" class="form-control"></textarea>
-            <input type="submit" value="finalizar" class="mt-2 btn btn-primary float-end">
+            <input type="submit" value="Finalizar" class="mt-2 btn btn-primary float-end">
         </form>
 @endsection
