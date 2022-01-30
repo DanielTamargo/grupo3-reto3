@@ -17,12 +17,14 @@ class CreatePartesTable extends Migration
             // Datos base
             $table->id();
             $table->timestamps();
-            $table->string('estado_resultado')->default('sintratar'); // TODO dani: enum
             $table->string('anotacion')->nullable(true);
-            $table->string('tipo_tarea')->default('averia'); // TODO dani: que determine si estaba bien indicado el tipo
+            $table->timestamp('fecha_parte');
             // Datos relaciones
             $table->unsignedBigInteger('tarea_id');
             $table->string('tecnico_codigo');
+            // Datos que rellena el técnico y que actualizarán la información de la tarea, pero también quedarán registrados en el parte
+            $table->string('tarea_estado');
+            $table->string('tarea_tipo');
 
             // Relaciones
             $table->foreign('tarea_id')->references('id')->on('tareas')->onDelete('cascade');

@@ -18,8 +18,8 @@ class CreateAscensoresTable extends Migration
             $table->string('ubicacion');
             $table->unsignedBigInteger('modelo_id');
             $table->integer('num_plantas');
-            $table->date('fecha_instalacion');
-            $table->date('fecha_ultima_revision');
+            $table->timestamp('fecha_instalacion')->useCurrent(); // <- useCurrent = Set TIMESTAMP columns to use CURRENT_TIMESTAMP as default value.
+            $table->timestamp('fecha_ultima_revision')->useCurrent(); // fuente: https://laravel.com/docs/8.x/migrations#column-modifiers
             $table->timestamps();
 
             // Relación con el modelo

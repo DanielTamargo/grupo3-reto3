@@ -16,11 +16,11 @@ class CreateTareasTable extends Migration
         Schema::create('tareas', function (Blueprint $table) {
             // Datos base
             $table->id();
-            $table->date('fecha_creacion');
-            $table->date('fecha_finalizacion')->default(null);
+            $table->timestamp('fecha_creacion')->useCurrent();
+            $table->timestamp('fecha_finalizacion')->nullable()->default(null);
             $table->string('descripcion');
-            $table->string('tipo')->default('Avería');
-            $table->string('estado')->default('sintratar'); // TODO dani: enum
+            $table->string('tipo')->default('incidencia');
+            $table->string('estado')->default('sintratar');
             $table->integer('prioridad')->default(0); // 0 = baja, 5 = urgencia (por ejemplo (?))
             $table->timestamps();
             // Datos relaciones

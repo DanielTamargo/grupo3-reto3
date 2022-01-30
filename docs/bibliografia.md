@@ -5,12 +5,15 @@
   - [Enlace packagist](https://packagist.org/packages/fakerphp/faker)
   - [Documentación oficial](https://fakerphp.github.io/)
 - Laravel UI Bootstrap + Auth
-  - [Documentación oficial](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
-  - [Instalación más abajo](#Bootstrap)
+  - [Documentación oficial BootStrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+  - [Instalación](#Bootstrap-y-Auth)
+
+## Metodologías y decisiones
+- [¿Por qué no hemos usado enums en las migraciones de Laravel?](http://komlenic.com/244/8-reasons-why-mysqls-enum-data-type-is-evil/)
  
 # Instalaciones
 
-## Bootstrap + Auth
+## Bootstrap y Auth
 
 **Instalación y compilación**
 ```bash

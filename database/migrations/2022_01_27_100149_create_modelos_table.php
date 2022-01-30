@@ -15,10 +15,11 @@ class CreateModelosTable extends Migration
     {
         Schema::create('modelos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->integer('num_puertas');
             $table->integer('peso_max');
             $table->integer('num_personas');
-            $table->boolean('llave');
+            $table->boolean('llave')->default(false);
             $table->string('tipoaccionamiento');
             $table->string('manual');
             $table->timestamps();
