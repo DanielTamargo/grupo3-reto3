@@ -1,35 +1,19 @@
 <?php /*
-    vista del historial de tareas que ha realizado el tecnico
+    vista de las tareas que va a tener el tecnico
 */?>
 @extends('layouts.tecnico')
 
 @section('title')
-Historial
+Tareas
 @endsection
 
 @section('content')
-    <p class="display-4">Historial</p>
-    <form action="">
-        <div class="input-group mb-3">
-            <input type="text" name="" class="form-control rounded-pill bg-dark text-white" placeholder="buscar">
-            <button class="btn btn-outline-light rounded-pill bg-dark text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-            </button>
-        </div>
-        <div class="form-check rounded-pill bg-dark text-white">
-            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-            buscar por fecha
-            </label>
-        </div>
-    </form>
-
-    
-
+    <p class="display-5">Tareas pendientes</p>
     <div class="accordion">
-        <!-- despues blade generara los item de esta lista-->
+        <!-- despues blade generara los item de esta lista.
+
+        posible que las tareas tengan un codigo de color dependiendo de 
+        su prioridad / que aparezcan primero-->
         <div class="accordion-item">
             <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                 <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
@@ -70,5 +54,4 @@ Historial
             </div>
         </div>
     </div>
-    
 @endsection

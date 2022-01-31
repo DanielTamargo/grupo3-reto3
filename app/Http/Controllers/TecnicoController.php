@@ -82,4 +82,25 @@ class TecnicoController extends Controller
     {
         //
     }
+
+    /* muestra la vista nuevaParte */
+    public function nuevaParte() {
+        return view('tecnicos.nuevaParte');
+    }
+    /* muestra la vista tareas */
+    public function showTareas() {
+        return view('tecnicos.tareas');
+    }
+    /* muestra la vista historial */
+    public function showHistorial() {
+        return view('tecnicos.historial');
+    }
+    /* muestra la vista manual */
+    public function showManual() {
+        return view('tecnicos.manual');
+    }
+    /* muestra la vista piezas */
+    public function piezas() {
+        return view('tecnicos.piezas');
+    }
 }
