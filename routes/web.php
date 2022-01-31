@@ -30,6 +30,29 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/login', function () {
+    return view('login');
+})->name("login");
+Route::get('/hometecnico', function() {
+    return view('tecnicos.home');
+})->name("tecnico.home");
+Route::get('/createtecnico', function() {
+    return view('tecnicos.create');
+})->name("tecnico.create");
+Route::get('/showtecnico', function() {
+    return view('tecnicos.show');
+})->name("tecnico.show");
+Route::get('/historialtecnico', function() {
+    return view('tecnicos.historial');
+})->name("tecnico.historial");
+Route::get('/manualtecnico', function() {
+    return view('tecnicos.manual');
+})->name("tecnico.manual");
+Route::get('/piezastecnico', function() {
+    return view('tecnicos.piezas');
+})->name("tecnico.piezas");
+
+
 /*
 ----------------------------------------------------------------------------------------------
 OPERADORES
@@ -56,3 +79,4 @@ Route::get('/jefes/borrarusuarios', [App\Http\Controllers\JefeEquipoController::
 Route::get('/jefes/modificarusuarios', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaModificarUsuarios'])->name('usuarios.modificar.create');
 Route::get('/jefes/subirmanuales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaSubirManuales'])->name('manuales.create');
 Route::get('/jefes/historiales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaHistorial'])->name('historial.create');
+
