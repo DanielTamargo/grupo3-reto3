@@ -27,13 +27,8 @@
             <p class="display-5 mt-3">Ascensores igobide</p>
         </div>
     </header>
-    <div class="row py-2" id="maincontainer">
+    <div class="row pt-2" id="maincontainer">
         @yield('maincontent')
     </div>
-    <footer class="row bg-warning">
-        <div class="col">
-            &copy;footer
-        </div>
-    </footer>
 </body>
 </html>
