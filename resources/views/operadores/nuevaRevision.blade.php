@@ -12,6 +12,7 @@
     <div class="row mt-5">
         <div class="col-12">
             <form action="" method="post">
+            @csrf
                 <div class="row">
                     <div class="col-12">
                         <input type="number" name="id" placeholder=" Id" id="idAscensor" class="form-control rounded-pill bg-dark mt-2 text-white"/>

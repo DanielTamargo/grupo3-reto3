@@ -11,7 +11,7 @@
     <div class="row mt-5">
         <div class="col-12">
             <form action="" method="post">
-
+            @csrf
                 <div class="row">
                     <div class="col-12">
                         <input type="text" name="ref" placeholder=" Referencia/Dirección" class="form-control rounded-pill mt-2 bg-dark text-white" id="ref"/>
