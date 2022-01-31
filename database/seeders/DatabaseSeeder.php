@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Enums\EstadosTareas;
+use App\Models\Enums\EstadosTareas as EnumsEstadosTareas;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -10,6 +12,7 @@ use DateTime;
 // Enums
 use App\Models\Enums\Roles;
 use App\Models\Enums\TiposAccionamientos;
+use App\Models\Enums\TiposTareas;
 
 class DatabaseSeeder extends Seeder
 {
@@ -64,11 +67,13 @@ class DatabaseSeeder extends Seeder
             $tecnicos = \App\Models\User::factory($numTecnicos)->create(['rol' => Roles::TECNICO]);
             // Entidades empleo Tecnico de cada técnico creado
             foreach($tecnicos as $tecnico) {
-                \App\Models\Tecnico::create([
+                $datos = \App\Models\Tecnico::create([
                     'codigo' => "tec_" .str_pad($tecnico->id, 5, "0", STR_PAD_LEFT),
                     'user_id' => $tecnico->id,
                     'jefe_codigo' => $jefeequipo->codigo,
-                ])->save();
+                ]);
+                $datos->save();
+                $tecnico["codigo"] = $datos->codigo;
             }
         }
         $this->command->comment("Equipos creados con éxito");
@@ -81,10 +86,12 @@ class DatabaseSeeder extends Seeder
         $operadores = \App\Models\User::factory($numOperadores)->create(['rol' => Roles::OPERADOR]);
         // Entidades empleo Operador de cada operador creado
         foreach($operadores as $operador) {
-            \App\Models\Operador::create([
+            $datos = \App\Models\Operador::create([
                 'codigo' => "op_" .str_pad($operador->id, 5, "0", STR_PAD_LEFT),
                 'user_id' => $operador->id,
-            ])->save();
+            ]);
+            $datos->save();
+            $operador["codigo"] = $datos->codigo;
         }
         $this->command->comment("Operadores creados con éxito");
         // -------------------------------------------------------------------------------------
@@ -118,14 +125,79 @@ class DatabaseSeeder extends Seeder
         $this->command->line("Creando Tareas (+clientes +partes) pasadas");
         foreach($ascensores_modelos as $ascensores) {
             foreach($ascensores as $ascensor) {
-                $fecha_inst = $ascensor->fecha_instalacion->getTimestamp();
-                // Se generan fechas de creación del parte desde que se instaló el ascensor hasta 14 días antes de hoy
-                $fecha_inicio_tarea = new DateTime();
-                $fecha_inicio_tarea->setTimestamp(rand($fecha_inst, time() - (14 * 24 * 60 * 60)));
+                // Obtenemos el timestamp de la fecha de instalación
+                $timestamp_inst_asc = $ascensor->fecha_instalacion->getTimestamp();
+                if ($timestamp_inst_asc >= time() - (14 * 24 * 60 * 60)) continue; // <- si el ascensor lleva menos de 14 días instalado, pasamos
+                // Generamos un número aleatorio de tareas resueltas del ascensor
+                $num_tareas = rand(0, 5);
+                for($i = 0; $i < $num_tareas; $i++) {
+                    // Se genera una fecha aleatoria de creación del parte desde que se instaló el ascensor hasta 14 días antes de hoy
+                    $fecha_inicio_tarea = new DateTime();
+                    $fecha_inicio_tarea->setTimestamp(rand($timestamp_inst_asc, time() - (14 * 24 * 60 * 60)));
+                    // Generamos unas tareas
+                    $tareas_asc = \App\Models\Tarea::factory(random_int(2, 8))
+                                    ->create([
+                                        'ascensor_ref' => $ascensor->num_ref,
+                                        'operador_codigo' => $operadores[rand(0, count($operadores) - 1)]->codigo, //operador tecnico
+                                        'tecnico_codigo' => $tecnicos[rand(0, count($tecnicos) -1)]->codigo, //tecnico aleatorio
+                                        'fecha_creacion' => $fecha_inicio_tarea
+                                    ]);
+                    
+                    // PARTES REALIZADOS (basados en las tareas, realizados por un técnico) (generar muchos) (todos con fecha pasada)
+                    foreach($tareas_asc as $tarea) {
+                        // Por cada tarea generamos partes
+                        // Fecha del parte
+                        $timestamp_creacion_tarea = $tarea->fecha_creacion->getTimestamp();
+                        $fecha_parte = new DateTime();
+                        $fecha_parte->setTimestamp(rand($timestamp_creacion_tarea, time()));
+                        // 0-5 probabilidad de imposiblesolucionar
+                        // 6-15 probabilidad de que no se solventase en la primera
+                        // 16-100 se solventó a la primera
+                        $finalizado = false;
+                        while (!$finalizado) {
+                            $random = rand(0, 100); // sacamos el número del 0 al 100 para las probabilidades
+                            $estado = EstadosTareas::FINALIZADO;
+                            if ($random >= 16) {
+                                $finalizado = true;
+                                $tarea->fecha_finalizacion = $fecha_parte;
+                            } else if ($random >= 6) {
+                                // Mitad mitad para retrasado y materialnecesario
+                                if ($random  >= 10) {
+                                    $estado = EnumsEstadosTareas::MATERIALNECESARIO;
+                                } else {
+                                    $estado = EnumsEstadosTareas::RETRASADO;
+                                }
+                                $timestamp_parte = $fecha_parte->getTimestamp();
+                                $fecha_parte->setTimestamp(rand($timestamp_parte, time()));
+                            } else {
+                                $estado = EnumsEstadosTareas::IMPOSIBLESOLUCIONAR;
+                                $tarea->fecha_finalizacion = $fecha_parte;
+                            }
+                            
+
+                            \App\Models\Parte::create([
+                                'tecnico_codigo' => $tarea->tecnico_codigo,
+                                'tarea_tipo' => $tarea->tipo,
+                                'tarea_id' => $tarea->id,
+                                'fecha_parte' => $fecha_parte,
+                                'tarea_estado' => $estado,
+                                'anotacion' => 'Parte autogenerado',
+                            ])->save();
+
+                            $tarea->estado = $estado;
+                            $tarea->save();
+
+                            if ($tarea->tipo == TiposTareas::REVISION) {
+                                //TODO dani actualizar fecha ultima revision ascensor
+                            }
+                        }
+                    }
+                }
 
             }
         }
-        // PARTES REALIZADOS (basados en las tareas, realizados por un técnico) (generar muchos) (todos con fecha pasada)
+        $this->command->comment("Tareas (+clientes +partes) pasadas creadas con éxito");
+
 
 
 
@@ -134,7 +206,19 @@ class DatabaseSeeder extends Seeder
         // TAREAS PENDIENTES (basadas en ascensores, asignadas por un operador a un tecnico) (generar máximo 1 o 2 por cada ascensor)
         $this->command->line("Creando Tareas (+clientes +partes) pendientes");
 
+        // Generamos entre 10 y 20 tareas pendientes
+        $num_tareas_pendientes = rand(10, 20);
+        for($i = 0; $i < $num_tareas_pendientes; $i++) {
+            // Datos referencias
+            $ascensores_modelo = $ascensores_modelos[rand(0, count($ascensores_modelos))];
+            //$ascensor_ref = $ascensores_modelo[rand(0, count($ascensores_modelo))];
+            $this->command->comment($ascensores_modelo);
 
+            $tecnico_codigo = $tecnicos[rand(0, count($tecnicos) -1)]->codigo;
+            $operador_codigo = $operadores[rand(0, count($operadores) - 1)]->codigo;
+
+
+        }
 
 
     }

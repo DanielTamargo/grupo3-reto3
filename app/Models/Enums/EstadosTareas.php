@@ -2,7 +2,7 @@
 
 namespace App\Models\Enums;
 
-enum EstadosPartes: string {
+enum EstadosTareas: string {
     case SINTRATAR = "sintratar";
     case RETRASADO = "retrasar";
     case IMPOSIBLESOLUCIONAR = "imposiblesolucionar";
