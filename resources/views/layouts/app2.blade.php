@@ -17,7 +17,7 @@
         }
     </style>
 </head>
-<body class="container-fluid min-vh-100">
+<body class="container-fluid min-vh-100 text-black bg-dark">
     <header class="row bg-primary">
         <div class="col-3 col-md-2">
             <img src="" alt="logo" class="img-fluid m-auto">

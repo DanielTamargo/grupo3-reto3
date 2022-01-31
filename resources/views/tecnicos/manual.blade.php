@@ -9,7 +9,7 @@ manuales
 
 @section('content')
     <p class="display-4">Manuales disponibles</p>
-    <ul class="list-group">
+    <ul class="list-group text-white">
         <!-- despues blade generara los item de esta lista-->
         <li class="list-group-item">un manual <a href="#" class="float-end">descargar</a></li>
         <li class="list-group-item">un manual<a href="#" class="float-end">descargar</a></li>
