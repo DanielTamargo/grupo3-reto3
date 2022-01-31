@@ -27,9 +27,12 @@ class TareaFactory extends Factory
 
         $estado = EstadosTareas::SINTRATAR;
 
+        $prioridad = $this->faker->numberBetween(0, 5);
+        if ($prioridad == 5) $tipo = TiposTareas::AVERIA;
+
         return [
             'descripcion' => $this->faker->realText(100),
-            'prioridad' => $this->faker->numberBetween(0, 5),
+            'prioridad' => $prioridad,
             'tipo' => $tipo,
             'estado' => $estado,
             'cliente_id' => $cliente->id

@@ -23,11 +23,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // VARIABLES QUE VARIARÁN EL NÚMERO DE DATOS A GENERAR
+        $v_num_jefes_equipos = 5; // mínimo 1, default 5
+        $v_num_min_tecnicos_equipo = 1; // mínimo 1, default 1
+        $v_num_max_tecnicos_equipo = 5; // default 5
+        $v_num_min_operadores = 4; // mínimo 1, default 4
+        $v_num_max_operadores = 8; // default 8
+        $v_num_min_ascensores_modelo = 1; // default 1
+        $v_num_max_ascensores_modelo = 8; // default 8
+        $v_num_min_tareas = 0; // POR ASCENSOR, default 0
+        $v_num_max_tareas = 15; // POR ASCENSOR, default 15
+        $v_num_min_tareas_pendientes = 15; // default 15
+        $v_num_max_tareas_pendientes = 30; // default 30
 
+        // COMIENZO DEL SEEDING
         $this->command->info("Starting Seeding. ");
-
-        // Datos fijos
-        // Administrador
+        // -------------------------------------------------------------------------------------
+        // DATOS FIJOS
+        // -------------------------------------------------------------------------------------
+        $this->command->line("Creando datos fijos (administradores)");
+        // Administradores
         $dani = \App\Models\User::create([
             'nombre' => 'Daniel',
             'apellidos' => 'Tamargo Saiz',
@@ -46,13 +61,15 @@ class DatabaseSeeder extends Seeder
             'user_id' => $dani->id
         ]);
         $dani->save();
+        $this->command->comment("Datos fijos (administradores) creados correctamente");
 
         // -------------------------------------------------------------------------------------
         // DATOS FAKE ALEATORIOS
         // -------------------------------------------------------------------------------------
         // EQUIPOS (JEFE + TÉCNICOS)
         $this->command->line("Creando Equipos (Jefes de Equipo + Técnicos)");
-        for ($i = 0; $i < 5; $i++) { // 5 Jefes de Equipo
+        $tecnicos = [];
+        for ($i = 0; $i < $v_num_jefes_equipos; $i++) { // 5 Jefes de Equipo
             // Usuario jefe de equipo
             $jefeequipo = \App\Models\User::factory(1)->create(['rol' => Roles::JEFEEQUIPO])[0];
             // Entidad empleo JefeEquipo
@@ -60,13 +77,14 @@ class DatabaseSeeder extends Seeder
                 'codigo' => "jef_" .str_pad($jefeequipo->id, 5, "0", STR_PAD_LEFT),
                 'user_id' => $jefeequipo->id
             ]);
+            $jefeequipo->save();
 
             // Número de técnicos que tendrá asignado cada jefe
-            $numTecnicos = random_int(1, 5);
+            $numTecnicos = rand($v_num_min_tecnicos_equipo, $v_num_max_tecnicos_equipo);
             // Usuarios técnicos asignados al jefe
-            $tecnicos = \App\Models\User::factory($numTecnicos)->create(['rol' => Roles::TECNICO]);
+            $tecnicos_equipo = \App\Models\User::factory($numTecnicos)->create(['rol' => Roles::TECNICO]);
             // Entidades empleo Tecnico de cada técnico creado
-            foreach($tecnicos as $tecnico) {
+            foreach($tecnicos_equipo as $tecnico) {
                 $datos = \App\Models\Tecnico::create([
                     'codigo' => "tec_" .str_pad($tecnico->id, 5, "0", STR_PAD_LEFT),
                     'user_id' => $tecnico->id,
@@ -75,13 +93,15 @@ class DatabaseSeeder extends Seeder
                 $datos->save();
                 $tecnico["codigo"] = $datos->codigo;
             }
+
+            array_push($tecnicos, $tecnicos_equipo);
         }
         $this->command->comment("Equipos creados con éxito");
         // -------------------------------------------------------------------------------------
         // OPERADORES
         $this->command->line("Creando Operadores");
         // Número de operadores
-        $numOperadores = random_int(4, 8);
+        $numOperadores = rand($v_num_min_operadores, $v_num_max_operadores);
         // Usuarios operadores
         $operadores = \App\Models\User::factory($numOperadores)->create(['rol' => Roles::OPERADOR]);
         // Entidades empleo Operador de cada operador creado
@@ -116,7 +136,9 @@ class DatabaseSeeder extends Seeder
         $ascensores_modelos = [];
         foreach($modelos as $modelo) {
             $modelo->save();
-            array_push($ascensores_modelos, \App\Models\Ascensor::factory(random_int(1, 8))->create(['modelo_id' => $modelo->id]));
+            array_push($ascensores_modelos, \App\Models\Ascensor::factory(
+                    rand($v_num_min_ascensores_modelo, $v_num_max_ascensores_modelo)
+                )->create(['modelo_id' => $modelo->id]));
         }
         $this->command->comment("Ascensores creados con éxito");
 
@@ -129,20 +151,23 @@ class DatabaseSeeder extends Seeder
                 $timestamp_inst_asc = $ascensor->fecha_instalacion->getTimestamp();
                 if ($timestamp_inst_asc >= time() - (14 * 24 * 60 * 60)) continue; // <- si el ascensor lleva menos de 14 días instalado, pasamos
                 // Generamos un número aleatorio de tareas resueltas del ascensor
-                $num_tareas = rand(0, 5);
+                $num_tareas = rand($v_num_min_tareas, $v_num_max_tareas);
                 for($i = 0; $i < $num_tareas; $i++) {
                     // Se genera una fecha aleatoria de creación del parte desde que se instaló el ascensor hasta 14 días antes de hoy
                     $fecha_inicio_tarea = new DateTime();
                     $fecha_inicio_tarea->setTimestamp(rand($timestamp_inst_asc, time() - (14 * 24 * 60 * 60)));
+                    // Seleccionamos técnico aleatorio
+                    $tecnicos_equipo = $tecnicos[rand(0, count($tecnicos) - 1)];
+                    $tecnico_codigo = $tecnicos_equipo[rand(0, count($tecnicos_equipo) - 1)]->codigo; //tecnico aleatorio
                     // Generamos unas tareas
-                    $tareas_asc = \App\Models\Tarea::factory(random_int(2, 8))
+                    $tareas_asc = \App\Models\Tarea::factory(1)
                                     ->create([
                                         'ascensor_ref' => $ascensor->num_ref,
                                         'operador_codigo' => $operadores[rand(0, count($operadores) - 1)]->codigo, //operador tecnico
-                                        'tecnico_codigo' => $tecnicos[rand(0, count($tecnicos) -1)]->codigo, //tecnico aleatorio
+                                        'tecnico_codigo' => $tecnico_codigo, //tecnico aleatorio
                                         'fecha_creacion' => $fecha_inicio_tarea
                                     ]);
-                    
+
                     // PARTES REALIZADOS (basados en las tareas, realizados por un técnico) (generar muchos) (todos con fecha pasada)
                     foreach($tareas_asc as $tarea) {
                         // Por cada tarea generamos partes
@@ -173,8 +198,8 @@ class DatabaseSeeder extends Seeder
                                 $estado = EnumsEstadosTareas::IMPOSIBLESOLUCIONAR;
                                 $tarea->fecha_finalizacion = $fecha_parte;
                             }
-                            
 
+                            // Guardamos el parte
                             \App\Models\Parte::create([
                                 'tecnico_codigo' => $tarea->tecnico_codigo,
                                 'tarea_tipo' => $tarea->tipo,
@@ -184,11 +209,17 @@ class DatabaseSeeder extends Seeder
                                 'anotacion' => 'Parte autogenerado',
                             ])->save();
 
+                            // Actualizamos el estado de la tarea al estado que haya determinado el parte
                             $tarea->estado = $estado;
                             $tarea->save();
 
+                            // Si era una revisión, actualizamos la fecha de la última revisión
                             if ($tarea->tipo == TiposTareas::REVISION) {
-                                //TODO dani actualizar fecha ultima revision ascensor
+                                $asc = \App\Models\Ascensor::find($tarea->ascensor_ref);
+                                $asc->fecha_ultima_revision = $fecha_parte;
+                                $asc->save();
+                                // Otra forma:
+                                //\Illuminate\Support\Facades\DB::table('ascensores')->where('num_ref', $tarea->ascensor_ref)->update(['fecha_ultima_revision' => $fecha_parte]);
                             }
                         }
                     }
@@ -198,28 +229,31 @@ class DatabaseSeeder extends Seeder
         }
         $this->command->comment("Tareas (+clientes +partes) pasadas creadas con éxito");
 
-
-
-
-
         // -------------------------------------------------------------------------------------
         // TAREAS PENDIENTES (basadas en ascensores, asignadas por un operador a un tecnico) (generar máximo 1 o 2 por cada ascensor)
-        $this->command->line("Creando Tareas (+clientes +partes) pendientes");
+        $this->command->line("Creando Tareas (+clientes) pendientes");
 
         // Generamos entre 10 y 20 tareas pendientes
-        $num_tareas_pendientes = rand(10, 20);
+        $num_tareas_pendientes = rand($v_num_min_tareas_pendientes, $v_num_max_tareas_pendientes);
         for($i = 0; $i < $num_tareas_pendientes; $i++) {
             // Datos referencias
-            $ascensores_modelo = $ascensores_modelos[rand(0, count($ascensores_modelos))];
-            //$ascensor_ref = $ascensores_modelo[rand(0, count($ascensores_modelo))];
-            $this->command->comment($ascensores_modelo);
+            $ascensores_modelo = $ascensores_modelos[rand(0, count($ascensores_modelos) - 1)];
+            $ascensor_ref = $ascensores_modelo[rand(0, count($ascensores_modelo) - 1)]->num_ref; //ascensor aleatorio
+            $tecnicos_equipo = $tecnicos[rand(0, count($tecnicos) - 1)];
+            $tecnico_codigo = $tecnicos_equipo[rand(0, count($tecnicos_equipo) - 1)]->codigo; //tecnico aleatorio
+            $operador_codigo = $operadores[rand(0, count($operadores) - 1)]->codigo; //operador tecnico
 
-            $tecnico_codigo = $tecnicos[rand(0, count($tecnicos) -1)]->codigo;
-            $operador_codigo = $operadores[rand(0, count($operadores) - 1)]->codigo;
-
-
+            // Tareas pendientes:
+            \App\Models\Tarea::factory(1)->create([
+                'ascensor_ref' => $ascensor_ref,
+                'operador_codigo' => $operador_codigo,
+                'tecnico_codigo' => $tecnico_codigo,
+                'fecha_creacion' => new DateTime()
+            ]);
         }
+        $this->command->comment("Tareas (+clientes) pendientes creadas con éxito");
 
+        // TODO dani (opcional): Datos fijos para finalizar: un jefe de equipo, un tecnico y unas cuantas tareas para el técnico
 
     }
 }

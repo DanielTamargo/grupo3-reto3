@@ -13,6 +13,6 @@ class Modelo extends Model
      * Devuelve los ascensores que se basan en dicho modelo
      */
     public function ascensores() {
-        return $this->hasMany(Ascensor::class);
+        return $this->hasMany(Ascensor::class, 'modelo_id', 'id');
     }
 }

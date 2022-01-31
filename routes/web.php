@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rato! >:[
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,11 @@ Route::get('/pruebas', function() {
         ->with('users', App\Models\User::all())
         ->with('jefesequipos', App\Models\JefeEquipo::all())
         ->with('tecnicos', App\Models\Tecnico::all())
-        ->with('operadores', App\Models\Operador::all());
+        ->with('operadores', App\Models\Operador::all())
+        ->with('mostrar_usuarios', true)
+        ->with('modelos', App\Models\Modelo::all())
+        ->with('ascensores', App\Models\Ascensor::all())
+        ->with('mostrar_modelos', true);
 })->name('pruebas.usuarios');
 
 Route::get('/', function () {
