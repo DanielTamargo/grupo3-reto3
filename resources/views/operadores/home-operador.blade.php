@@ -22,6 +22,7 @@
                         <button type="button" class="btn btn-outline-light"><a href=" {{ route('crearparte.create') }}" class="text-decoration-none">Crear Parte</a></button>
                         <button type="button" class="btn btn-outline-light"><a href=" {{ route('ultimasrevisiones.show') }}" class="text-decoration-none">Ver &Uacute;ltimas Revisiones</a></button>
                         <button type="button" class="btn btn-outline-light"><a href=" {{ route('asignarrevisiones.create') }}" class="text-decoration-none">Asignar Nuevas Revisiones</a></button>
+                        
                     </form>
                 </div>
             </div>

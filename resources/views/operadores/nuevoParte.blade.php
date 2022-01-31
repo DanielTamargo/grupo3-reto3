@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="col-2 d-flex justify-content-start">
-    <button type="button" class="btn btn-outline-light"><a href="{{ route('home.operador') }}" class="text-decoration-none"> Volver al inicio</a></button>
-</div>
+
 
     <div class="col-12 d-flex flex-column justify-content-center align-items-center">
 

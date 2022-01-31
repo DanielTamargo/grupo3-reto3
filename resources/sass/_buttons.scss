@@ -21,15 +21,9 @@
  
   &:hover {
     color: $black !important;
-    
     text-decoration: if($link-hover-decoration == underline, none, null);
   }
-  a {
-    color: #fcf8e3;
-  }
-  a:hover {
-    color: #000;
-  }
+
   .btn-check:focus + &,
   &:focus {
     outline: 0;

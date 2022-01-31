@@ -14,3 +14,11 @@ main{
    
 }
 
+.btn-outline-light{
+    border-color:$light;
+    &:hover{
+        background-color: $light;
+        border:$light;
+        color:$white !important;
+    }
+}

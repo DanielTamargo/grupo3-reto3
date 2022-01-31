@@ -19,10 +19,10 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="bg-dark text-white" >
+<body class="bg-dark text-black" >
     <div id="app" class="container-fluid" style="height: 100vh;">
         <div class="row">
-        <nav class="col-12 navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="col-12 navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
