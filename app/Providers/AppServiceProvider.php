@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // https://stackoverflow.com/questions/35827062/how-to-force-laravel-project-to-use-https-for-all-routes
+        if($this->app->environment('PRODUCTION')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
     }
 }

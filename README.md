@@ -1,6 +1,6 @@
 # Documentación
 
-- [Bibliografía](/doc/bibliografia.md)
+- [Bibliografía](/docs/bibliografia.md)
 
 # Set up
 
