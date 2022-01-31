@@ -2,7 +2,7 @@
 
 namespace App\Models\Enums;
 
-enum TiposPartes: string {
+enum TiposTareas: string {
     case INCIDENCIA = "incidencia";
     case AVERIA = "averia";
     case REVISION = "revision";

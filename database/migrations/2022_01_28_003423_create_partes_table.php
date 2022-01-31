@@ -18,7 +18,7 @@ class CreatePartesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('anotacion')->nullable(true);
-            $table->timestamp('fecha_parte');
+            $table->timestamp('fecha_parte')->useCurrent();
             // Datos relaciones
             $table->unsignedBigInteger('tarea_id');
             $table->string('tecnico_codigo');
