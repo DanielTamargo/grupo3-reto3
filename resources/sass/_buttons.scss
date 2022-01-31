@@ -18,9 +18,9 @@
   border: $btn-border-width solid transparent;
   @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
   @include transition($btn-transition);
-
+ 
   &:hover {
-    color: $body-color;
+    color: $black !important;
     text-decoration: if($link-hover-decoration == underline, none, null);
   }
 
@@ -49,6 +49,7 @@
     @include box-shadow(none);
   }
 }
+
 
 
 //
