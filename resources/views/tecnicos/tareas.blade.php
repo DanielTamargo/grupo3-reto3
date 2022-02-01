@@ -20,7 +20,7 @@ Tareas
                 <h2 class="accordion-header" id="panelsStayOpen-heading{{ $x }}">
                     <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ $x }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse{{ $x }}">
                     <span class="me-4 bg-info rounded-pill">
-                            prioridad: {{ $tareas[$x]->prioridad }};
+                            prioridad: {{ $tareas[$x]->prioridad }}
                     </span>
 
                     id: {{ $tareas[$x]->id }}

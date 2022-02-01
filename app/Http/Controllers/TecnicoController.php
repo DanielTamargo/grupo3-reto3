@@ -99,10 +99,10 @@ class TecnicoController extends Controller
     /* muestra la vista tareas */
     public function showTareas($codigo ) {
         
-        $errorview = $this->validarTecnico($codigo);
-        if ($errorview != "") {
-            return view($errorview);
-        }
+        //$errorview = $this->validarTecnico($codigo);
+        //if ($errorview != "") {
+        //    return view($errorview);
+        // }
 
         $tec = Tecnico::find($codigo);
         
