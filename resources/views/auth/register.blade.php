@@ -53,18 +53,22 @@
                     <div class="mb-3 col-12 col-md-8 col-xl-6" id="registro-jefe-asignado">
                         {{-- Se cargan dinámicamente a través del script js --}}
                     </div>
-
-                    <div class="mt-3 mb-3 col-12" id="registro-jefe-asignado-multiples-tecnicos">
-                        <p class="p-3 border border-1 rounded border-danger">¡Ojo! El jefe seleccionado ya tiene asignados 5 o más técnicos a su cargo</p>
-                    </div>
                 </div>
                 <button type="submit" id="registro-submit" class="btn btn-primary border border-secondary rounded">Registrar Empleado</button>
             </form>
+
+            <div class="mt-2 mb-3 col-12" id="registro-avisos">
+                {{-- Se printean los avisos según van surgiendo --}}
+            </div>
+            <div class="mt-2 mb-3 col-12" id="registro-errores">
+                {{-- Se printean los errores según van surgiendo --}}
+            </div>
         </div>
     </div>
 </div>
 
 <script src="{{ asset('js/lib/jquery-3.6.0.min.js')}}"></script>
+<script src="{{ asset('js/lib/notify.min.js')}}"></script>
 <script src="{{ asset('js/views/register.js')}}"></script>
 
 @endsection

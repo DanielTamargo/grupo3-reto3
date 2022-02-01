@@ -37,7 +37,7 @@ class ApiController extends Controller
             $codigos_jefes[$jefe->codigo] = [
                 "nombre" => $jefe->user->nombre . " " . $jefe->user->apellidos,
                 "codigo" => $jefe->codigo,
-                "num_tecnicos" => $jefe->codigo,
+                "num_tecnicos" => count($jefe->tecnicos),
             ];
         }
 
