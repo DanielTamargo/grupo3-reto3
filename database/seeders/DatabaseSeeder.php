@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         $dani = \App\Models\User::create([
             'nombre' => 'Daniel',
             'apellidos' => 'Tamargo Saiz',
-            'email' => 'daniel.tamargo@ikasle.egibide.org',
+            'email' => 'daniel.tamargo@igobide.com',
             'email_verified_at' => now(),
             'telefono' => '648703215',
             'rol' => Roles::ADMINISTRADOR, // administrador, tecnico, operador, jefeequipo
