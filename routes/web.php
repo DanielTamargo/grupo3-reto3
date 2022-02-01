@@ -35,9 +35,17 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Route::get('/api/codigosJefes', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('api.codigosJefes');
+
 Route::get('/login', function () {
-    return view('login');
+    return view('auth.login');
 })->name("login");
+Route::get('/register', function() {
+    return view('auth.register');
+})->middleware('auth')
+  ->name("register");
 
 /*
 ----------------------------------------------------------------------------------------------
