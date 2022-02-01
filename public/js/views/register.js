@@ -2,7 +2,7 @@
 
 // Document Ready
 $(() => {
-    $.ajaxSetup({
+    /*$.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
@@ -10,8 +10,8 @@ $(() => {
 
     $.get("./api/codigosJefes", function(data, status){
         console.log(data)
-    });
-    
+    });*/
+
 
     // Generamos una contraseña aleatoria
     passwordAleatoria();
@@ -49,8 +49,36 @@ function passwordAleatoria(length=8) {
 /**
  * Valida el DNI introducido (expresión regular y comprobación dni válida)
  */
-function validarDNI() {
+function validarDNI(dni) {
+    // Comprobamos que hemos recibido un string
+    if (typeof dni != "string") {
+        console.log('Error: no se ha recibido un string');
+        return false;
+    }
 
+    dni = dni.toUpperCase();
+    let regex_dni = /^\d{8}[a-zA-Z]$/;
+
+    // Comprobamos la expresión regular
+    if (!regex_dni.test(dni)) {
+        // Error: ¡Formato no válido!
+        console.log('Error: formato DNI no válido');
+        return false;
+    }
+
+    // Comprobamos el valor de la letra del DNI
+    let lista_letras = 'TRWAGMYFPDXBNJZSQVHLCKET';
+    let numero = dni.substr(0, dni.length - 1);
+    let letra_dni = dni.substr(dni.length - 1, 1);
+    if (letra_dni != lista_letras.charAt(numero % 23)) {
+        // Error: ¡DNI no válido!
+        console.log('Error: DNI no válido');
+        return false;
+    }
+
+    // ¡DNI Válido!
+    console.log('¡DNI válido!')
+    return true;
 }
 
 /**
