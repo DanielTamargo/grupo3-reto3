@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Administrador;
+use App\Models\Enums\Roles;
+use App\Models\JefeEquipo;
+use App\Models\Operador;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Tecnico;
@@ -31,7 +35,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::HOME; // <- No hay necesidad de cambiarlo, nos viene perfecto!
 
     /**
      * Create a new controller instance.
@@ -52,9 +56,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'telefono' => ['required', 'string', 'max:20'],
+            'dni' => ['required', 'string', 'max:9'],
+            'rol' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'], // <- ¡Se construirá solo con nombre y apellido!
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'jefe_codigo' => ['optional', 'string', 'confirmed'],
         ]);
     }
 
@@ -66,42 +75,51 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // Registramos dos entidades, el usuario y su entidad puesto relacionada
+
+        // Usuario
         $user = User::create([
-            'name' => $data['name'],
+            'nombre' => $data['nombre'],
+            'apellidos' => $data['apellidos'],
+            'telefono' => $data['telefono'],
+            'dni' => $data['dni'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($data['password']), // <- encripteision!
         ]);
 
+        // Entidad puesto
         // Dependiendo del rol crearemos un registro de una u otra entidad
-        $codigo = Str::random(10); //<- código random!
-        $entidad = null;
-        switch($data['rol_usuario']) {
-            case "operador": {
-
-                break;
-            }
-            case "tecnico": {
-                $entidad = Tecnico::create([
+        switch($data['rol']) {
+            case Roles::OPERADOR: {
+                Operador::create([
                     'user_id' => $user->id,
-                    'codigo' => $codigo
+                    'codigo' => 'op_' . str_pad($user->id, 5, "0", STR_PAD_LEFT)
                 ]);
                 break;
             }
-            case "jefeequipo": {
-
+            case Roles::TECNICO: {
+                Tecnico::create([
+                    'user_id' => $user->id,
+                    'codigo' => 'tec_' . str_pad($user->id, 5, "0", STR_PAD_LEFT),
+                    'jefe_codigo' => $data['jefe_codigo']
+                ]);
                 break;
             }
-            case "administrador": {
-
+            case Roles::JEFEEQUIPO: {
+                JefeEquipo::create([
+                    'user_id' => $user->id,
+                    'codigo' => 'jef_' . str_pad($user->id, 5, "0", STR_PAD_LEFT)
+                ]);
+                break;
+            }
+            case Roles::ADMINISTRADOR: {
+                Administrador::create([
+                    'user_id' => $user->id,
+                    'codigo' => 'adm_' . str_pad($user->id, 5, "0", STR_PAD_LEFT)
+                ]);
                 break;
             }
         }
-        dd($entidad);
-
-
-
-
-
 
         return $user;
     }
