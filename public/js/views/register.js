@@ -1,5 +1,8 @@
 // Script preparado para la vista registro
 
+// Variables globales
+var jefes = [];
+
 // Document Ready
 $(() => {
     // Generamos una contraseña aleatoria
@@ -84,6 +87,8 @@ function registroSubmit(evt) {
 function seleccionRol(evt) {
     let rol = evt.target.value;
 
+    // Si selecciona rol técnico, cargamos los jefes disponibles para que seleccione
+    //   si está registrando el técnico un jefe de equipo, solo podrá seleccionarse a sí mismo
     if (rol == "tecnico") {
         $.ajaxSetup({
             headers: {
@@ -95,12 +100,28 @@ function seleccionRol(evt) {
             type: "GET",
             url: "/api/v1/codigosJefes",
             success: function (data) {
-                console.log(data)
+                if (!data.ok) throw Error("Error en la petición");
+
+                let contenido = `
+                <label for="jefe_codigo" class="">Jefe asignado</label>
+                <select name="jefe_codigo" id="registro-jefe_codigo" class="form-select">`;
+
+                jefes = data.jefes;
+                for (let key in jefes) {
+                    contenido += `<option value="${key}">${jefes[key]["nombre"]} (${jefes[key]["codigo"]})</option>`;
+                }
+
+                contenido += "</select>";
+
+                $("#registro-jefe-asignado").html(contenido);
             },
             error: function (data) {
                 console.log(data);
+                alert("Error al recoger los códigos de jefes disponibles.\n" + data);
             }
         });
+    } else {
+        $("#registro-jefe-asignado").html("");
     }
 }
 

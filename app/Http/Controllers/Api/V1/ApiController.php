@@ -15,6 +15,7 @@ class ApiController extends Controller
         // Comprobamos que tiene permisos
         if ($user->rol != "administrador" && $user->rol != "jefeequipo") {
             return response()->json([
+                'ok' => false,
                 'message' => 'No dispones de los suficientes permisos para solicitar estos datos',
                 'rol' => $user->rol
             ]);
@@ -22,15 +23,29 @@ class ApiController extends Controller
 
         // Si es jefe de equipo, solo devolvemos su código (solo podrá seleccionarse a sí mismo)
         if ($user->rol == "jefeequipo") {
-            return response()->json(['jefes' => [$user->puesto->codigo => $user->nombre], 'message' => 'Petición válida', 'rol' => $user->rol], 200);
+            return response()->json([
+                'ok' => true,
+                'jefes' => [$user->puesto->codigo => $user->nombre . " " . $user->apellidos],
+                'message' => 'Petición válida', 'rol' => $user->rol,
+            ], 200);
         }
 
+        // Si es admin, recogemos todos los códigos y los devolvemos
         $codigos_jefes = [];
         $jefes = JefeEquipo::all();
         foreach ($jefes as $jefe) {
-            $codigos_jefes[$jefe->codigo] = $jefe->user->nombre;
+            $codigos_jefes[$jefe->codigo] = [
+                "nombre" => $jefe->user->nombre . " " . $jefe->user->apellidos,
+                "codigo" => $jefe->codigo,
+                "num_tecnicos" => $jefe->codigo,
+            ];
         }
 
-        return response()->json(['jefes' => $codigos_jefes, 'message' => 'Petición válida', 'rol' => $user->rol], 200);
+        return response()->json([
+            'ok' => true,
+            'jefes' => $codigos_jefes,
+            'message' => 'Petición válida',
+            'rol' => $user->rol,
+        ], 200);
     }
 }

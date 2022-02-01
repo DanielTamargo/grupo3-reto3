@@ -58,7 +58,7 @@
                         <p class="p-3 border border-1 rounded border-danger">¡Ojo! El jefe seleccionado ya tiene asignados 5 o más técnicos a su cargo</p>
                     </div>
                 </div>
-                <button type="submit" id="registro-submit" class="btn btn-primary">Registrar Empleado</button>
+                <button type="submit" id="registro-submit" class="btn btn-primary border border-secondary rounded">Registrar Empleado</button>
             </form>
         </div>
     </div>
