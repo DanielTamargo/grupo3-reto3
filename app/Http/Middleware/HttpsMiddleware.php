@@ -18,11 +18,11 @@ class HttpsMiddleware
     {
         // Fuente: https://programmingfields.com/redirect-http-to-https-using-middleware-in-laravel/#Create_Middleware_in_Laravel_8
         // Redirigimos solo en producción
-        if(env('APP_ENV') === "production") {
+        /*if(env('APP_ENV') === "production") {
             if (!$request->secure()) {
                 return redirect()->secure($request->path());
             }
-        }
+        }*/
         return $next($request);
     }
 }
