@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rat
 |
 */
 
+/*
+----------------------------------------------------------------------------------------------
+APIS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/api/v1/codigosJefes', [App\Http\Controllers\Api\V1\ApiController::class, 'codigosJefes']);
+
 // RUTAS CON PRUEBAS
 Route::get('/pruebas', function() {
     return view('pruebas.usuarios')
@@ -34,10 +41,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-Route::get('/api/codigosJefes', [App\Http\Controllers\HomeController::class, 'index'])
-    ->name('api.codigosJefes');
 
 Route::get('/login', function () {
     return view('auth.login');

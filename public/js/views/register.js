@@ -2,17 +2,6 @@
 
 // Document Ready
 $(() => {
-    /*$.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $.get("./api/codigosJefes", function(data, status){
-        console.log(data)
-    });*/
-
-
     // Generamos una contraseña aleatoria
     passwordAleatoria();
 
@@ -96,6 +85,22 @@ function seleccionRol(evt) {
     let rol = evt.target.value;
 
     if (rol == "tecnico") {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
+        $.ajax({
+            type: "GET",
+            url: "/api/v1/codigosJefes",
+            success: function (data) {
+                console.log(data)
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     }
 }
+
