@@ -7,7 +7,18 @@
 
             <h2 class="text-muted">Registrar nuevo empleado</h2>
             <hr>
-            <form id="registro-form" method="POST" action="{{ route('register') }}">
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form id="registro-form" method="POST" action="{{ route('register.store') }}">
                 @csrf
                 <div class="row mb-4">
                     <div class="mb-3 col-12 col-md-6 col-xl-4">
@@ -16,26 +27,31 @@
                     </div>
 
                     <div class="mb-3 col-12 col-md-6 col-xl-4">
-                        <label for="nombre" class="">Apellidos</label>
+                        <label for="apellidos" class="">Apellidos</label>
                         <input required type="text" name="apellidos" id="registro-apellidos" class="form-control" placeholder="">
                     </div>
 
                     <div class="mb-3 col-12 col-md-4 col-xl-4">
-                        <label for="nombre" class="">DNI</label>
+                        <label for="dni" class="">DNI</label>
                         <input required type="text" name="dni" id="registro-dni" class="form-control" placeholder="">
+                    </div>
+                    
+                    <div class="mb-3 col-12 col-md-4 col-xl-4">
+                        <label for="telefono" class="">Teléfono</label>
+                        <input required type="text" name="telefono" id="registro-telefono" class="form-control" placeholder="">
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-xl-6">
-                        <label for="nombre" class="">Email</label>
+                        <label for="email" class="">Email</label>
                         <div class="input-group">
                             <input required type="text" name="email" id="registro-email" class="form-control" placeholder="">
                             <span class="input-group-text" id="basic-addon2">@igobide.com</span>
                         </div>
                     </div>
 
-                    <div class="mb-3 col-12 col-md-4 col-xl-4">
+                    <div class="mb-3 col-12 col-md-3 col-xl-2">
                         <label for="password" class="">Contraseña</label>
-                        <input required type="text" name="password" id="registro-password" class="form-control" placeholder="" disabled>
+                        <input required type="text" name="password" id="registro-password" class="form-control" placeholder="">
                     </div>
 
                     <div class="mb-3 col-12 col-md-8 col-xl-6">

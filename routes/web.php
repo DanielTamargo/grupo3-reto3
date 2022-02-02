@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rat
 |
 */
 
+
+// Rutas Auth, las ponemos arriba para sobreescribir las que creamos conveniente
+Auth::routes();
+
 /*
 ----------------------------------------------------------------------------------------------
 APIS
@@ -34,21 +38,34 @@ Route::get('/pruebas', function() {
         ->with('mostrar_modelos', true);
 })->name('pruebas.usuarios');
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/*
+----------------------------------------------------------------------------------------------
+LOGIN / REGISTRAR NUEVO USUARIO
+----------------------------------------------------------------------------------------------
+*/
 
 Route::get('/login', function () {
     return view('auth.login');
 })->name("login");
-Route::get('/register', function() {
-    return view('auth.register');
-})->middleware('auth')
-  ->name("register");
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
+    ->middleware('auth')
+    ->name("register.create");
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'store'])
+    ->middleware('auth')
+    ->name('register.store');
+
+
+/*
+----------------------------------------------------------------------------------------------
+INICIO / HOME
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', function ($usuario_creado=false) {
+    return view('welcome')->with('usuario_creado', $usuario_creado);
+})->name('inicio');
+
 
 /*
 ----------------------------------------------------------------------------------------------
