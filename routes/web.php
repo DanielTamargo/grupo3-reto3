@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rato! >:[
 
@@ -14,7 +15,22 @@ use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rat
 |
 */
 
-// RUTAS CON PRUEBAS
+
+// Rutas Auth, las ponemos arriba para sobreescribir las que creamos conveniente
+Auth::routes();
+
+/*
+----------------------------------------------------------------------------------------------
+APIS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/api/v1/codigosJefes', [App\Http\Controllers\Api\V1\ApiController::class, 'codigosJefes']);
+
+/*
+----------------------------------------------------------------------------------------------
+RUTAS CON PRUEBAS
+----------------------------------------------------------------------------------------------
+*/
 Route::get('/pruebas', function() {
     return view('pruebas.usuarios')
         ->with('users', App\Models\User::all())
@@ -26,18 +42,46 @@ Route::get('/pruebas', function() {
         ->with('ascensores', App\Models\Ascensor::all())
         ->with('mostrar_modelos', true);
 })->name('pruebas.usuarios');
+Route::get('/pruebas/ficheros', function() {
+    return view('pruebas.ficheros');
+})->name('pruebas.ficheros');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*
+----------------------------------------------------------------------------------------------
+DESCARGAR FICHERO
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/descargar/manual/{nombre}', [\App\Http\Controllers\DownloadController::class, 'descargarManual'])
+    ->middleware('auth');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/*
+----------------------------------------------------------------------------------------------
+LOGIN / REGISTRAR NUEVO USUARIO
+----------------------------------------------------------------------------------------------
+*/
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth.login');
 })->name("login");
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
+    ->middleware('auth')
+    ->name("register.create");
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'store'])
+    ->middleware('auth')
+    ->name('register.store');
+
+
+/*
+----------------------------------------------------------------------------------------------
+INICIO / HOME
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', function (Request $request) {
+    return view('welcome')->with('usuario_creado', $request->usuario_creado);
+})->middleware('auth')
+  ->name('inicio');
+
 
 /*
 ----------------------------------------------------------------------------------------------
