@@ -3,14 +3,14 @@
 <div class="col-12 h-75 d-flex flex-column justify-content-center align-items-center">
     <div class="row">
         <div class="col-12">
-            <h2>Estadisticas</h2>
-            <h3>{{ $datos_Tarea[0]['ascensor_ref']}}</h3>
-            <h3>{{ $datos_Tecnico[0]['jefe_codigo']}}</h3>
+           <h2>Estadisticas</h2>
+            
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <form action="" method="get">
+        <form action="{{ url('estadisticas.create') }}" id="formu" method="POST">
+                @csrf
                 <select id="opcionesEstadisticas" class="col-12 mt-2 rounded-pill bg-dark text-center">
                         <option id="t1" value="default" disabled selected>Selecciona una opción</option>
                         <option id="t1" value="estadistica1">Cada t&eacute;cnico cuantos ascensores ha arreglado</option>
