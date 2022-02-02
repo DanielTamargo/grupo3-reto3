@@ -104,6 +104,21 @@ $theme-colors: (
 ) !default;
 // scss-docs-end theme-colors-map
 
+// colores custom de la aplicacion
+$custom-colors: (
+  "gris1": $gris1,
+  "gris2": $gris2,
+  "gris3": $gris3,
+  "morado1": $morado1,
+  "morado2": $morado2,
+  "morado3": $morado3,
+  "azul1": $azul1,
+  "azul2": $azul2,
+  "azul3": $azul3
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
 // scss-docs-start theme-colors-rgb
 $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value") !default;
 // scss-docs-end theme-colors-rgb
@@ -1306,7 +1321,7 @@ $accordion-button-color:                  $accordion-color !default;
 $accordion-button-bg:                     $accordion-bg !default;
 $accordion-transition:                    $btn-transition, border-radius .15s ease !default;
 $accordion-button-active-bg:              tint-color($component-active-bg, 90%) !default;
-$accordion-button-active-color:           shade-color($primary, 10%) !default;
+$accordion-button-active-color:           $morado2 !default;
 
 $accordion-button-focus-border-color:     $input-focus-border-color !default;
 $accordion-button-focus-box-shadow:       $btn-focus-box-shadow !default;

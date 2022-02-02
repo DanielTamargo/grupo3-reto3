@@ -5,41 +5,16 @@
 @endsection
 
 @section('maincontent')
-<!-- estilos necesarios -->
-<style>
-    #fixednav {
-        height: 70vh;
-        width: 17%;
-        position: fixed;
-        right: 0;
-        top: 19%;
-        z-index: 2;
-    }
-    #top-nav-circle {
-        height: 80px;
-        width: 34%;
-        position: fixed;
-        right: -17%;
-        top: 13%;
-    }
-    #bottom-nav-circle {
-        height: 80px;
-        width: 34%;
-        position: fixed;
-        right: -17%;
-        bottom: 5%;
-    }
-</style>
 <main class="col-10 g-0 p-2">
-    <div class="p-2 border border-3 border-light rounded-2 h-100">
+    <div class="p-2 border border-3 border-morado3 rounded-2 h-100">
         <!-- contenido aqui -->
         @yield('content')
     </div>
 </main>
 <div class="col-2">
     <div>
-        <div id="top-nav-circle" class="bg-success rounded-circle"></div>
-        <nav class="text-center bg-success d-flex flex-column justify-content-around" id="fixednav">
+        <div id="top-nav-circle" class="bg-azul2 rounded-circle"></div>
+        <nav class="text-center bg-azul2 d-flex flex-column justify-content-around" id="fixednav">
             <div>
                 <a href="{{ route('tecnico.create', ['cod' => $codUsr]) }}" class="btn btn-lg p-1 text-white border border-2 border-light">
                     <!-- Clipboard check -->
@@ -99,8 +74,8 @@
                 </a>
             </div>
         </nav>
+        <div id="bottom-nav-circle" class="bg-azul2 rounded-circle"></div>
     </div>
-    <div id="bottom-nav-circle" class="bg-success rounded-circle"></div>
 </div>
 @endsection
         

@@ -85,13 +85,19 @@ class TecnicoController extends Controller
         //
     }
 
+    //
+    // !! validaciones estan desactivadas hasta implementar el auth
+    //
+    //
+    //
+
     /* muestra la vista nuevaParte */
     public function nuevaParte($codigo ) {
 
-        $errorview = $this->validarTecnico($codigo);
-        if ($errorview != "") {
-            return view($errorview);
-        }
+        //$errorview = $this->validarTecnico($codigo);
+        //if ($errorview != "") {
+        //    return view($errorview);
+        //}
 
         return view('tecnicos.nuevaParte', ["codUsr" => $codigo]);
     }
@@ -114,30 +120,30 @@ class TecnicoController extends Controller
     /* muestra la vista historial */
     public function showHistorial($codigo ) {
 
-        $errorview = $this->validarTecnico($codigo);
-        if ($errorview != "") {
-            return view($errorview);
-        }
+        //$errorview = $this->validarTecnico($codigo);
+        //if ($errorview != "") {
+        //    return view($errorview);
+        //}
 
         return view('tecnicos.historial', ["codUsr" => $codigo]);
     }
     /* muestra la vista manual */
     public function showManual($codigo ) {
 
-        $errorview = $this->validarTecnico($codigo);
-        if ($errorview != "") {
-            return view($errorview);
-        }
+        //$errorview = $this->validarTecnico($codigo);
+        //if ($errorview != "") {
+        //    return view($errorview);
+        //}
 
         return view('tecnicos.manual', ["codUsr" => $codigo]);
     }
     /* muestra la vista piezas */
     public function piezas($codigo ) {
 
-        $errorview = $this->validarTecnico($codigo);
-        if ($errorview != "") {
-            return view($errorview);
-        }
+        //$errorview = $this->validarTecnico($codigo);
+        //if ($errorview != "") {
+        //    return view($errorview);
+        //}
 
         return view('tecnicos.piezas', ["codUsr" => $codigo]);
     }
