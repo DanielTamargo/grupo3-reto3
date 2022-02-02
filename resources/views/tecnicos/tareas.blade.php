@@ -34,7 +34,7 @@ Tareas
                         <p><b>Tipo: </b>{{ $tareas[$x]->tipo }}</p>
                         <p><b>Descripcion: </b><br>{{ $tareas[$x]->descripcion }}</p>
                         
-                        
+                        <a href="{{ route('tecnico.create', ['cod' => $codUsr, 'idtarea' => $tareas[$x]->id]) }}" class="btn btn-outline-light"></a>
                     </div>
                 </div>
             </div>

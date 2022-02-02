@@ -92,14 +92,14 @@ class TecnicoController extends Controller
     //
 
     /* muestra la vista nuevaParte */
-    public function nuevaParte($codigo ) {
+    public function nuevaParte($codigo, $idtarea) {
 
         //$errorview = $this->validarTecnico($codigo);
         //if ($errorview != "") {
         //    return view($errorview);
         //}
 
-        return view('tecnicos.nuevaParte', ["codUsr" => $codigo]);
+        return view('tecnicos.nuevaParte', ["codUsr" => $codigo,"idtarea" => $idtarea]);
     }
 
     /* muestra la vista tareas */
