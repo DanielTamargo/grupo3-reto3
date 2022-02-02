@@ -13,7 +13,7 @@
         <div class="row mt-5">
             <div class="col-12">
                 <form action="" method="post">
-
+                @csrf
                     <div class="row">
                         <div class="col-12">
                         <select id="listaTecnico" class="col-12 mt-2 rounded-pill bg-dark text-white text-center">

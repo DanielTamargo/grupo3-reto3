@@ -2,7 +2,7 @@
 @section('content')
 
 
-<div class="col-12 d-flex flex-column justify-content-center align-items-center">
+<div class="col-12 h-75 d-flex flex-column justify-content-center align-items-center">
 
     <div class="row">
         <div class="col-12">
@@ -13,6 +13,7 @@
     <div class="row">
         <div class="col-12">
             <form action="" method="post" autocomplete="off">
+            @csrf
                 <div class="row">
                         <div class="col-12">
                             <div class="row">
@@ -49,10 +50,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                            <div class="col-12 mt-2 d-flex justify-content-center">
-                                <a href="#" class="btn btn-outline-light text-decoration-none text-black">Aceptar</a>
+                                <div class="col-12 mt-2 d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-outline-light text-black">Aceptar</button>
+                                </div>
                             </div>
-                        </div>
                     </div>
             </form>
         </div>
