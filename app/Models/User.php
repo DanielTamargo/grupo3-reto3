@@ -52,10 +52,10 @@ class User extends Authenticatable
      */
     public function puesto() {
         // Dependiendo del rol que tenga el usuario, su entidad puesto será una u otra
-        if ($this->attributes['rol'] == "operador") return $this->hasOne(Operador::class);
-        if ($this->attributes['rol'] == "jefeequipo") return $this->hasOne(JefeEquipo::class);
-        if ($this->attributes['rol'] == "tecnico") return $this->hasOne(Tecnico::class);
-        if ($this->attributes['rol'] == "administrador") return $this->hasOne(Administrador::class);
+        if ($this->attributes['rol'] == "operador") return $this->hasOne(Operador::class, 'user_id', 'id');
+        if ($this->attributes['rol'] == "jefeequipo") return $this->hasOne(JefeEquipo::class, 'user_id', 'id');
+        if ($this->attributes['rol'] == "tecnico") return $this->hasOne(Tecnico::class, 'user_id', 'id');
+        if ($this->attributes['rol'] == "administrador") return $this->hasOne(Administrador::class, 'user_id', 'id');
 
 
         // Si no encuentra ninguno, devuelve un técnico (que no existirá y devolverá un objeto nulo o vacío)

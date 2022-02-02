@@ -8,9 +8,18 @@
   - [Documentación oficial BootStrap](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
   - [Instalación](#Bootstrap-y-Auth)
 
+## Documentación que resultó muy útil
+- [Laravel 8 Docs](https://laravel.com/docs/8.x/)
+  - [Primary Keys personalizadas (tipo string y que no se llamen id)](https://laravel.com/docs/8.x/eloquent#primary-keys)
+  - [Eloquent: Relaciones](https://laravel.com/docs/8.x/eloquent-relationships)
+- StackOverFlow
+  - [Laravel HTTPS en Producción](https://stackoverflow.com/questions/35827062/how-to-force-laravel-project-to-use-https-for-all-routes#:~:text=Here%20are%20several%20ways.%20Choose%20most%20convenient.)
+
 ## Metodologías y decisiones
 - [¿Por qué no hemos usado enums en las migraciones de Laravel?](http://komlenic.com/244/8-reasons-why-mysqls-enum-data-type-is-evil/)
- 
+
+-------
+
 # Instalaciones
 
 ## Bootstrap y Auth

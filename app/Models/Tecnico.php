@@ -9,11 +9,18 @@ class Tecnico extends Model
 {
     use HasFactory;
 
+    // No utilizamos un id autoincremental, por lo que personalizamos la clave primaria
+    protected $primaryKey = 'codigo';
+    protected $keyType = 'string';
+
+    // Incrementing false para que inserte bien la clave ya que es string, ojo ¡Tiene que ser public!
+    public $incrementing = false;
+
     /**
      * Devuelve el usuario relacionado
      */
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     /**
@@ -25,15 +32,16 @@ class Tecnico extends Model
 
     /**
      * Devuelve sus tareas asignadas
+     * extra: las tareas vendran ordenadas por prioridad
      */
     public function tareas() {
-        return $this->hasMany(Tarea::class);
+        return $this->hasMany(Tarea::class, 'tecnico_codigo', 'codigo')->orderBy('prioridad','desc');
     }
 
     /**
      * Devuelve sus partes realizados
      */
     public function partes() {
-        return $this->hasMany(Parte::class);
+        return $this->hasMany(Parte::class, 'tecnico_codigo', 'codigo');
     }
 }

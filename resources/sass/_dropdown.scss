@@ -79,6 +79,10 @@
 
   .dropdown-toggle {
     @include caret(up);
+    &:hover{
+      background-color:$white;
+
+    }
   }
 }
 
