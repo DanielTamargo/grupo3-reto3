@@ -9,6 +9,13 @@ class Tarea extends Model
 {
     use HasFactory;
 
+    // Para permitir guardar nuevos datos
+    protected $fillable = [
+        'fecha_creacion', 'fecha_finalizacion', 'descripcion',
+        'tipo', 'estado', 'prioridad', 'ascensor_ref', 'cliente_id', 
+        'operador_codigo', 'tecnico_codigo'
+    ];
+
     /**
      * Devuelve el ascensor del cual surgió la tarea
      */
