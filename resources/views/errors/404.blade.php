@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>Error404</title>
-</head>
-<body class="bg-dark d-flex justify-content-center aling-items-center">
-    <h2 class="text-white">Error 404</h2>
-</body>
-</html>
+@extends('layouts.app')
+@section('content')
+<div class="col-12 h-75 d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-3">
+            <img src="./img/ascensor_averiado.png" alt=""/>
+        </div>
+        <div class="col-9 text-center">
+            <h2>ERROR 404 NOT FOUND</h2>
+            <p>El servidor no encuentra la p&aacute;gina o recurso solicitado</p>
+        </div>
+    </div>
+</div>
+@endsection

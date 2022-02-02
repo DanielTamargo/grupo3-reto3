@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error 503</title>
-</head>
-<body>
-    <h2>503</h2>
-</body>
-</html>
+@extends('layouts.app')
+@section('content')
+<div class="col-12">
+    <div class="row">
+        <div class="col-3">
+            <img src="./img/ascensor_averiado.png" alt=""/>
+        </div>
+        <div class="col-9 text-center">
+            <h2>ERROR 503 Servuce UNAVAILABLE</h2>
+            <p>El servidor esta en mantenimiento</p>
+        </div>
+    </div>
+</div>
+@endcontent
