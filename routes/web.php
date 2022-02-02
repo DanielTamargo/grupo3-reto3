@@ -76,10 +76,11 @@ Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, '
 INICIO / HOME
 ----------------------------------------------------------------------------------------------
 */
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', function (Request $request) {
-    return view('welcome')->with('usuario_creado', $request->usuario_creado);
-})->middleware('auth')
+Route::get('/home', function() {
+    return redirect()->route('inicio');
+})->name('home');
+Route::get('/', [App\Http\Controllers\GeneralController::class, 'inicio'])
+  ->middleware('auth')
   ->name('inicio');
 
 
@@ -127,3 +128,36 @@ Route::get('/jefes/subirmanuales', [App\Http\Controllers\JefeEquipoController::c
 Route::get('/jefes/historiales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaHistorial'])->name('historial.create');
 Route::get('/estadisticas', function () {return view('estadisticas');})->name('estadisticas');
 
+/*
+----------------------------------------------------------------------------------------------
+EMPLEADOS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/empleados', [App\Http\Controllers\EmpleadoController::class, 'listarEmpleados'])
+    ->middleware('auth')
+    ->name('empleados.index');
+Route::get('/empleados/nuevo', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
+    ->middleware('auth')
+    ->name('empleados.new');
+Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.store');
+Route::get('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.show');
+Route::post('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.edit');
+Route::delete('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'eliminarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.delete');
+
+/*
+----------------------------------------------------------------------------------------------
+ADMINISTRADORES
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/administrador', function (Request $request) {
+    return view('welcome')->with('usuario_creado', $request->usuario_creado);
+})->middleware('auth')
+  ->name('administrador.home');
