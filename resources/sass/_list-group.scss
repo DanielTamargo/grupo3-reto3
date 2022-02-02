@@ -58,8 +58,10 @@
   position: relative;
   display: block;
   padding: $list-group-item-padding-y $list-group-item-padding-x;
+  // cambiado a blanco
   color: $list-group-color;
   text-decoration: if($link-decoration == none, null, none);
+  // cambiado a gris2
   background-color: $list-group-bg;
   border: $list-group-border-width solid $list-group-border-color;
 
@@ -93,6 +95,10 @@
       margin-top: -$list-group-border-width;
       border-top-width: $list-group-border-width;
     }
+  }
+  // color de enlaces
+  & > a {
+    color : $white;
   }
 }
 

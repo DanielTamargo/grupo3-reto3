@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rato! >:[
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,11 @@ Route::get('/pruebas', function() {
         ->with('users', App\Models\User::all())
         ->with('jefesequipos', App\Models\JefeEquipo::all())
         ->with('tecnicos', App\Models\Tecnico::all())
-        ->with('operadores', App\Models\Operador::all());
+        ->with('operadores', App\Models\Operador::all())
+        ->with('mostrar_usuarios', true)
+        ->with('modelos', App\Models\Modelo::all())
+        ->with('ascensores', App\Models\Ascensor::all())
+        ->with('mostrar_modelos', true);
 })->name('pruebas.usuarios');
 
 Route::get('/', function () {
@@ -33,24 +38,21 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/login', function () {
     return view('login');
 })->name("login");
-Route::get('/hometecnico', function() {
+
+/*
+----------------------------------------------------------------------------------------------
+TECNICOS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/tecnico', function() {
     return view('tecnicos.home');
 })->name("tecnico.home");
-Route::get('/createtecnico', function() {
-    return view('tecnicos.create');
-})->name("tecnico.create");
-Route::get('/showtecnico', function() {
-    return view('tecnicos.show');
-})->name("tecnico.show");
-Route::get('/historialtecnico', function() {
-    return view('tecnicos.historial');
-})->name("tecnico.historial");
-Route::get('/manualtecnico', function() {
-    return view('tecnicos.manual');
-})->name("tecnico.manual");
-Route::get('/piezastecnico', function() {
-    return view('tecnicos.piezas');
-})->name("tecnico.piezas");
+
+Route::get('/tecnico/nueva-parte', [App\Http\Controllers\TecnicoController::class, 'nuevaParte'])->name("tecnico.create");
+Route::get('/tecnico/tareas', [App\Http\Controllers\TecnicoController::class, 'showTareas'])->name("tecnico.show");
+Route::get('/tecnico/historial', [App\Http\Controllers\TecnicoController::class, 'showHistorial'])->name("tecnico.historial");
+Route::get('/tecnico/manuales', [App\Http\Controllers\TecnicoController::class, 'showManual'])->name("tecnico.manual");
+Route::get('/tecnico/piezas', [App\Http\Controllers\TecnicoController::class, 'piezas'])->name("tecnico.piezas");
 
 
 /*
