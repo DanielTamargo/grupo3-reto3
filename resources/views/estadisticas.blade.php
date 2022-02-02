@@ -4,6 +4,8 @@
     <div class="row">
         <div class="col-12">
             <h2>Estadisticas</h2>
+            <h3>{{ $datos_Tarea[0]['ascensor_ref']}}</h3>
+            <h3>{{ $datos_Tecnico[0]['jefe_codigo']}}</h3>
         </div>
     </div>
     <div class="row">
@@ -18,7 +20,7 @@
             </form>
         </div>
     </div>
-
+  
     <div class="row mt-5">
         <div class="col-12">
             <div id="container1" style="display: none;"></div>

@@ -125,5 +125,6 @@ Route::get('/jefes/borrarusuarios', [App\Http\Controllers\JefeEquipoController::
 Route::get('/jefes/modificarusuarios', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaModificarUsuarios'])->name('usuarios.modificar.create');
 Route::get('/jefes/subirmanuales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaSubirManuales'])->name('manuales.create');
 Route::get('/jefes/historiales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaHistorial'])->name('historial.create');
-Route::get('/estadisticas', function () {return view('estadisticas');})->name('estadisticas');
+Route::get('/estadisticas/mostrar', function () {return view('estadisticas');})->name('estadisticas');
+Route::get('/estadisticas', [App\Http\Controllers\Estadisticas::class,'mostrar'])->name('estadisticas.create');
 
