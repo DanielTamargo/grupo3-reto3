@@ -92,6 +92,6 @@ class RegisterController extends Controller
             }
         }
 
-        return redirect()->route('inicio')->with('usuario_creado', true); // TODO dani: comprobar que redirige a donde queremos
+        return redirect()->route('inicio', ['usuario_creado' => true]); // TODO dani: comprobar que redirige a donde queremos
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rato! >:[
 
@@ -25,7 +26,11 @@ APIS
 */
 Route::get('/api/v1/codigosJefes', [App\Http\Controllers\Api\V1\ApiController::class, 'codigosJefes']);
 
-// RUTAS CON PRUEBAS
+/*
+----------------------------------------------------------------------------------------------
+RUTAS CON PRUEBAS
+----------------------------------------------------------------------------------------------
+*/
 Route::get('/pruebas', function() {
     return view('pruebas.usuarios')
         ->with('users', App\Models\User::all())
@@ -37,7 +42,17 @@ Route::get('/pruebas', function() {
         ->with('ascensores', App\Models\Ascensor::all())
         ->with('mostrar_modelos', true);
 })->name('pruebas.usuarios');
+Route::get('/pruebas/ficheros', function() {
+    return view('pruebas.ficheros');
+})->name('pruebas.ficheros');
 
+/*
+----------------------------------------------------------------------------------------------
+DESCARGAR FICHERO
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/descargar/manual/{nombre}', [\App\Http\Controllers\DownloadController::class, 'descargarManual'])
+    ->middleware('auth');
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -62,9 +77,10 @@ INICIO / HOME
 ----------------------------------------------------------------------------------------------
 */
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', function ($usuario_creado=false) {
-    return view('welcome')->with('usuario_creado', $usuario_creado);
-})->name('inicio');
+Route::get('/', function (Request $request) {
+    return view('welcome')->with('usuario_creado', $request->usuario_creado);
+})->middleware('auth')
+  ->name('inicio');
 
 
 /*

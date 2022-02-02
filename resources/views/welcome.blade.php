@@ -21,21 +21,12 @@
         </style>
     </head>
     <body class="antialiased">
-        @if (isset($usuario_creado))
+        @if (isset($usuario_creado) && $usuario_creado)
             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script type="text/javascript">
                 Swal.fire({
                     text: 'El usuario se ha creado con éxito',
                     icon: 'success',
-                    timer: 2000
-                });
-            </script>
-        @else
-            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            <script type="text/javascript">
-                Swal.fire({
-                    text: 'NSDFs',
-                    icon: 'error',
                     timer: 2000
                 });
             </script>
