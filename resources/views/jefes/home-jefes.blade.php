@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="col-12 h-100 d-flex flex-column justify-content-center align-items-center ">
+<div class="col-12 h-75 d-flex flex-column justify-content-center align-items-center ">
 
 <div class="row ">
     <div class="col-12">

@@ -81,5 +81,11 @@
             @yield('content')
         </main>
     </div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <!-- Los script anteriores son para hacer las estadisitcas -->
+    <script src="./js/estadisticas.js"></script>
 </body>
 </html>
