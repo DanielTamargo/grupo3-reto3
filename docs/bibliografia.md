@@ -15,6 +15,7 @@
 - Seguridad
   - [Laravel 8 HTTPS en Producción (al cargar una ruta devuelve enlace HTTPS)](https://stackoverflow.com/questions/35827062/how-to-force-laravel-project-to-use-https-for-all-routes#:~:text=Here%20are%20several%20ways.%20Choose%20most%20convenient.)
   - [Laravel 8 redirigir HTTP a HTTPS en Producción (siempre que entra en HTTP redirige a HTTPS)](https://programmingfields.com/redirect-http-to-https-using-middleware-in-laravel/#Create_Middleware_in_Laravel_8)
+- [Notify (notificaciones sencillas y rápidas sobre inputs)](https://notifyjs.jpillora.com/) 
 
 ## Metodologías y decisiones
 - [¿Por qué no hemos usado enums en las migraciones de Laravel?](http://komlenic.com/244/8-reasons-why-mysqls-enum-data-type-is-evil/)
