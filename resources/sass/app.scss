@@ -3,9 +3,10 @@
 
 // Bootstrap
 @import 'bootstrap';
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:wght@100&family=Ubuntu&display=swap');
+
 main{
-    height:90vh;
+    min-height:90vh;
 }
 
 #listaTecnico{
@@ -21,4 +22,31 @@ main{
         border:$light;
         color:$white !important;
     }
+}
+
+#maincontainer {
+    min-height: 85vh;
+}
+// navegador tecnicos
+#fixednav {
+    height: 70vh;
+    width: 17%;
+    position: fixed;
+    right: 0;
+    top: 19%;
+    z-index: 2;
+}
+#top-nav-circle {
+    height: 80px;
+    width: 34%;
+    position: fixed;
+    right: -17%;
+    top: 13%;
+}
+#bottom-nav-circle {
+    height: 80px;
+    width: 34%;
+    position: fixed;
+    right: -17%;
+    bottom: 5%;
 }

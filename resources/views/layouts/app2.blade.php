@@ -10,15 +10,9 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- enlace a los estilos bootstrap -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:wght@500&family=Ubuntu&display=swap');
-        #maincontainer {
-            min-height: 85vh;
-        }
-    </style>
 </head>
-<body class="container-fluid min-vh-100 text-black bg-dark">
-    <header class="row bg-primary">
+<body class="container-fluid min-vh-100 text-black bg-gris3">
+    <header class="row bg-azul1">
         <div class="col-3 col-md-2">
             <img src="" alt="logo" class="img-fluid m-auto">
             
