@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rato! >:[
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,25 @@ DESCARGAR FICHERO
 */
 Route::get('/descargar/manual/{nombre}', [\App\Http\Controllers\DownloadController::class, 'descargarManual'])
     ->middleware('auth');
+
+/*
+----------------------------------------------------------------------------------------------
+EMAILS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/send/email/cliente', function () {
+
+    $detalles = [
+        'asunto' => 'test',
+        'rol_destinatario' => 'cliente',
+        'titulo' => 'Email de Igobide Ascensores',
+        'mensaje' => 'Testeando los emails!'
+    ];
+
+    Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+
+    dd("Email is Sent.");
+})->name('email.cliente');
 
 /*
 ----------------------------------------------------------------------------------------------
