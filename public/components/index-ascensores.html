@@ -93,6 +93,24 @@
         var ms_asincronia = 800;
         var obtenerDatosAsincrono;
 
+        class IndexAscensores extends HTMLElement {
+        constructor () {
+            super();
+                this.importDocument = document.currentScript.ownerDocument;
+            }
+
+            connectedCallback () {
+                let shadowRoot = this.attachShadow({mode: 'open'});
+                const t = this.importDocument.querySelector('#indexAscensores');
+                const instance = t.content.cloneNode(true);
+                shadowRoot.appendChild(instance);
+            }
+        }
+
+        window.customElements.define('index-ascensores', IndexAscensores);
+
+        obtenerDatos();
+
         // Listeneres modificaciones filtros
         $('#filtro-num_ref').on('keyup', evt => {
             filtro_numref = evt.target.value;
@@ -109,21 +127,5 @@
             obtenerDatosAsincrono = setTimeout(obtenerDatos, ms_asincronia);
             obtenerDatosAsincrono;
         });
-
-        class IndexAscensores extends HTMLElement {
-        constructor () {
-            super();
-                this.importDocument = document.currentScript.ownerDocument;
-            }
-
-            connectedCallback () {
-                let shadowRoot = this.attachShadow({mode: 'open'});
-                const t = this.importDocument.querySelector('#indexAscensores');
-                const instance = t.content.cloneNode(true);
-                shadowRoot.appendChild(instance);
-            }
-        }
-
-        window.customElements.define('index-ascensores', IndexAscensores);
     </script>
 </html>
