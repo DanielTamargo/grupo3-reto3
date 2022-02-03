@@ -32,6 +32,7 @@ class RegisterController extends Controller
      */
     protected function store(Request $request)
     {
+        $request["email"] .= "@igobide.com";
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
@@ -43,8 +44,6 @@ class RegisterController extends Controller
             'jefe_codigo' => 'string|max:255',
         ]);
         
-        $request->email .= "@igobide.com";
-
         // Registramos dos entidades, el usuario y su entidad puesto relacionada
 
         // Usuario

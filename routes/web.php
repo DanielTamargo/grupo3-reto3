@@ -107,7 +107,7 @@ OPERADORES
 */
 
 Route::get('/operador', function () {return view('operadores.home-operador');})->name('home.operador');
-Route::get('/operador/nueva-averia', [App\Http\Controllers\OperadorController::class, 'nuevaAveria'])->name('nuevaaveria.create');
+Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaAveria'])->name('nuevaaveria.create');
 Route::get('/operador/nuevo-parte', [App\Http\Controllers\OperadorController::class, 'crearParte'])->name('crearparte.create');
 Route::get('/operador/ultimas-revisiones', [App\Http\Controllers\OperadorController::class, 'mostrarUltimasRevisiones'])->name('ultimasrevisiones.show');
 Route::get('/operador/asignar-revisiones', [App\Http\Controllers\OperadorController::class, 'asignarRevisiones'])->name('asignarrevisiones.create');
@@ -148,7 +148,7 @@ Route::get('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoControl
 Route::post('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
     ->middleware('auth')
     ->name('empleados.edit');
-Route::delete('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'eliminarEmpleado'])
+Route::delete('/empleados/{puesto}/{codigo}', [App\Http\Controllers\GeneralController::class, 'eliminarEmpleado'])
     ->middleware('auth')
     ->name('empleados.delete');
 
