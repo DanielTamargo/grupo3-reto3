@@ -24,6 +24,7 @@ Auth::routes();
 APIS
 ----------------------------------------------------------------------------------------------
 */
+Route::get('/api/v1/ascensores', [App\Http\Controllers\Api\V1\ApiController::class, 'obtenerAscensores']);
 Route::get('/api/v1/codigosJefes', [App\Http\Controllers\Api\V1\ApiController::class, 'codigosJefes']);
 
 /*
@@ -149,7 +150,7 @@ Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::cla
 Route::post('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
     ->middleware('auth')
     ->name('empleados.edit');
-Route::delete('/empleados/{user_id}', [App\Http\Controllers\GeneralController::class, 'eliminarEmpleado'])
+Route::delete('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'eliminarEmpleado'])
     ->middleware('auth')
     ->name('empleados.delete');
 
@@ -162,3 +163,18 @@ Route::get('/administrador', function (Request $request) {
     return view('welcome')->with('usuario_creado', $request->usuario_creado);
 })->middleware('auth')
   ->name('administrador.home');
+
+/*
+----------------------------------------------------------------------------------------------
+GENERAL
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/ascensores', [App\Http\Controllers\GeneralController::class, 'indexAscensores'])
+    ->middleware('auth')
+    ->name('ascensores.index');
+Route::get('/modelos', [App\Http\Controllers\GeneralController::class, 'indexModelos'])
+    ->middleware('auth')
+    ->name('modelos.index');
+Route::get('/modelos/{id}', [App\Http\Controllers\GeneralController::class, 'showModelo'])
+    ->middleware('auth')
+    ->name('modelos.show');

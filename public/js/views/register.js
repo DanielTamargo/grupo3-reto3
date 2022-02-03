@@ -146,10 +146,8 @@ function seleccionRol(evt) {
                 seleccionJefe();
             },
             error: function (data) {
-                // TODO dani: no me convence, ¿pasar a alerta?
                 errores = [ "Error al recoger los datos de los jefes disponibles. No se podrá vincular correctamente." ];
                 printearErrores();
-                //alert("Error al recoger los códigos de jefes disponibles.\n" + data);
             }
         });
     } else {

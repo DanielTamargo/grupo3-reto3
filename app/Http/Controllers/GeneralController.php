@@ -25,4 +25,11 @@ class GeneralController extends Controller
         if ($user->rol == "jefeequipo") return redirect()->route('home.jefe', ['usuario_creado' => $request->usuario_creado]);
         if ($user->rol == "administrador") return redirect()->route('administrador.home', ['usuario_creado' => $request->usuario_creado]);
     }
+
+    /**
+     * Carga la vista de listado de ascensores con todos los ascensores
+     */
+    public function indexAscensores() {
+        return view('ascensores.index')->with('ascensores', \App\Models\Ascensor::all())->with('seleccionar_ascensor', false);
+    }
 }

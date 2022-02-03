@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
-    public function ascensores() {
+    public function obtenerAscensores() {
         $user = Auth::user();
 
         // Comprobamos que es un usuario registrado
@@ -19,11 +19,18 @@ class ApiController extends Controller
                 'rol' =>  'invitado'
             ]);
         }
+
+        // Obtenemos los filtros
+        $filtro_numref = $_GET["filtro_numref"];
+        $filtro_ubicacion = $_GET["filtro_ubicacion"];
         
-        $ascensores = \App\Models\Ascensor::all();
+        $ascensores = \App\Models\Ascensor::where('num_ref', 'like', "%$filtro_numref%")->where('ubicacion', 'like', "%$filtro_ubicacion%")->get();
+        $modelos = \App\Models\Modelo::all();
+
         return response()->json([
             'ok' => true,
             'ascensores' => $ascensores,
+            'modelos' => $modelos,
             'message' => 'Petición válida',
             'rol' => $user->rol,
         ], 200);
