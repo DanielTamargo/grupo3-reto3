@@ -21,6 +21,25 @@
         </style>
     </head>
     <body class="antialiased">
+        @if (isset($usuario_creado))
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script type="text/javascript">
+                Swal.fire({
+                    text: 'El usuario se ha creado con éxito',
+                    icon: 'success',
+                    timer: 2000
+                });
+            </script>
+        @else
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script type="text/javascript">
+                Swal.fire({
+                    text: 'NSDFs',
+                    icon: 'error',
+                    timer: 2000
+                });
+            </script>
+        @endif
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">

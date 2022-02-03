@@ -10,9 +10,6 @@ $(() => {
     // Generamos una contraseña aleatoria
     passwordAleatoria();
 
-    // Listener submit
-    $("#registro-submit").on('click', registroSubmit);
-
     // Listener input dni
     $("#registro-dni").on('change', comprobarDNI);
 
@@ -24,7 +21,7 @@ $(() => {
  * Genera un string aleatorio y lo devuelve
  * @param {int} length define la longitud del string aleatorio
  */
-function cadenaAleatoria(length=8) {
+function cadenaAleatoria(length=10) {
     let cadena = '';
     let caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_?!';
     let longitudCaracteres = caracteres.length;
@@ -38,7 +35,7 @@ function cadenaAleatoria(length=8) {
  * Obtiene un string aleatorio y lo pone en el input como password aleatoria
  * @param {int} length define la longitud de la contraseña
  */
-function passwordAleatoria(length=8) {
+function passwordAleatoria(length=10) {
     let password = cadenaAleatoria(length);
     $("#registro-password").val(password);
 }
@@ -94,13 +91,6 @@ function comprobarDNI() {
         input_dni.addClass("border-danger");
         input_dni.notify("DNI no válido.");
     }
-}
-
-/**
- * Submit del formulario registro
- */
-function registroSubmit(evt) {
-    //evt.preventDefault();
 }
 
 /**

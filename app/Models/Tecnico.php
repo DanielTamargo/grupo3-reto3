@@ -16,6 +16,9 @@ class Tecnico extends Model
     // Incrementing false para que inserte bien la clave ya que es string, ojo ¡Tiene que ser public!
     public $incrementing = false;
 
+   // Para permitir guardar nuevos datos
+   protected $fillable = ['user_id', 'codigo', 'jefe_codigo'];
+
     /**
      * Devuelve el usuario relacionado
      */
