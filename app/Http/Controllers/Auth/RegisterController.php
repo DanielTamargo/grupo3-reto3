@@ -23,7 +23,7 @@ class RegisterController extends Controller
      * Muestra la vista para crear un nuevo usuario empleado
      */
     protected function create() {
-        return view('auth.register');
+        return view('empleados.register');
     }
 
 

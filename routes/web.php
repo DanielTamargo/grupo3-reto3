@@ -140,16 +140,16 @@ Route::get('/empleados', [App\Http\Controllers\EmpleadoController::class, 'lista
 Route::get('/empleados/nuevo', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
     ->middleware('auth')
     ->name('empleados.new');
-Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
+/*Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
     ->middleware('auth')
-    ->name('empleados.store');
-Route::get('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
+    ->name('empleados.store');*/ //<- implementado con auth
+Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
     ->middleware('auth')
     ->name('empleados.show');
-Route::post('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
+Route::post('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
     ->middleware('auth')
     ->name('empleados.edit');
-Route::delete('/empleados/{puesto}/{codigo}', [App\Http\Controllers\GeneralController::class, 'eliminarEmpleado'])
+Route::delete('/empleados/{user_id}', [App\Http\Controllers\GeneralController::class, 'eliminarEmpleado'])
     ->middleware('auth')
     ->name('empleados.delete');
 
