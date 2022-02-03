@@ -25,6 +25,7 @@ APIS
 ----------------------------------------------------------------------------------------------
 */
 Route::get('/api/v1/codigosJefes', [App\Http\Controllers\Api\V1\ApiController::class, 'codigosJefes']);
+Route::get('/api/v1/estadisticas', [App\Http\Controllers\Api\V1\ApiController::class, 'obtenerEstadisticas']);
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -127,7 +128,7 @@ Route::get('/jefes/borrarusuarios', [App\Http\Controllers\JefeEquipoController::
 Route::get('/jefes/modificarusuarios', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaModificarUsuarios'])->name('usuarios.modificar.create');
 Route::get('/jefes/subirmanuales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaSubirManuales'])->name('manuales.create');
 Route::get('/jefes/historiales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaHistorial'])->name('historial.create');
-Route::post('/estadisticas', [App\Http\Controllers\Estadisticas::class, 'mostrar'])->name('estadisticas.create');
+Route::get('/estadisticas', [App\Http\Controllers\Estadisticas::class, 'mostrar'])->name('estadisticas.create');
 Route::get('/estadisticas/mostrar', function () {return view('estadisticas');})->name('estadisticas');
 
 

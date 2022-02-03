@@ -9,8 +9,9 @@ use App\Models\Tarea;
 
 class Estadisticas extends Controller
 {
-    public function mostrar(Request $request){
-        
-        return 'hola';
+    public function mostrar(Request $request) {
+        // TODO validar que el usuario tiene permisos (admin y jefeequipo)
+
+        return view('estadisticas');
     }
 }

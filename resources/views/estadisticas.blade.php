@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-        <form action="{{ url('estadisticas.create') }}" id="formu" method="POST">
+        <form action="{{ url('estadisticas.create') }}" id="formu" method="get">
                 @csrf
                 <select id="opcionesEstadisticas" class="col-12 mt-2 rounded-pill bg-dark text-center">
                         <option id="t1" value="default" disabled selected>Selecciona una opción</option>

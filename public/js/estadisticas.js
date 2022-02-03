@@ -1,14 +1,49 @@
+
+
+var datos_tareas ;
+var datos_tecnicos ;
+var ascensorTecnicos;
 $(document).ready(function(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        }
+    });
     $.ajax({
-        url: 'estadisticas.create',
-        method: 'POST',
-        data:$('#formu').serialize()
-    }).done(function(res){
-        alert(res)
-    })
+        type: "GET",
+        url: "/api/v1/estadisticas",
+        success: function(json){
+            console.log(json);
+            datos_tareas = json['datos_tarea'];
+            datos_tecnicos = json['datos_tecnico'];
+            ascensorTecncios();
+        }
+           
+    });
 })
 
+function ascensorTecncios(){
+ 
+    var tareas =datos_tareas.filter(
+        function(element){
+            if(element.tipo == 'averia'){
+                return element
+            }
+        }
+    );
+    var tecnicosAverias = [];
+    for(let x =0;x<datos_tecnicos.length;x++){
+        let cantidadAverias =0;
+        for(let y=0; y<tareas.length;y++){
+            if(datos_tecnicos[x]['codigo'] == tareas[y]['tecnico_codigo']){
+                cantidadAverias++;
+            }
 
+        }
+        
+       tecnicosAverias.push({codigo:datos_tecnicos[x]['codigo'],cantidadAverias:cantidadAverias});
+    }
+}
 
 
 Highcharts.chart('container1', {
