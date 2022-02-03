@@ -14,44 +14,33 @@ Tareas
 
         posible que las tareas tengan un codigo de color dependiendo de 
         su prioridad / que aparezcan primero-->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                    esto es una tarea
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                <div class="accordion-body">
-                    <p><b>direccion:</b> direccion</p>
-                    <p><b>datos:</b> aqui informacion</p>
+        @if ($tareas != null)
+            @for ($x = 0; $x < count($tareas); $x++)
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-heading{{ $x }}">
+                    <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ $x }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse{{ $x }}">
+                    <span class="me-4 bg-info rounded-pill">
+                            prioridad: {{ $tareas[$x]->prioridad }}
+                    </span>
+
+                    id: {{ $tareas[$x]->id }}
+                    </button>
+                </h2>
+                <div id="panelsStayOpen-collapse{{ $x }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ $x }}">
+                    <div class="accordion-body">
+                    {{ $tareas[$x]->anotacion }}
+                        <p><b>Fecha reportado: </b>{{ $tareas[$x]->fecha_creacion }}</p>
+                        <p><b>REF: </b>{{ $tareas[$x]->ascensor_ref }}</p>
+                        <p><b>Tipo: </b>{{ $tareas[$x]->tipo }}</p>
+                        <p><b>Descripcion: </b><br>{{ $tareas[$x]->descripcion }}</p>
+                        
+                        
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                esto es una tarea
-            </button>
-            </h2>
-            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                <div class="accordion-body">
-                    <p><b>direccion:</b> direccion</p>
-                    <p><b>datos:</b> aqui informacion</p>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                esto es una tarea
-            </button>
-            </h2>
-            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                <div class="accordion-body">
-                    <p><b>direccion:</b> direccion</p>
-                    <p><b>datos:</b> aqui informacion</p>
-                </div>
-            </div>
-        </div>
+            @endfor
+        @else
+        <p>de momento no hay averias</p>
+        @endif
     </div>
 @endsection

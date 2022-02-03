@@ -35,9 +35,10 @@ class Tecnico extends Model
 
     /**
      * Devuelve sus tareas asignadas
+     * extra: las tareas vendran ordenadas por prioridad
      */
     public function tareas() {
-        return $this->hasMany(Tarea::class, 'tecnico_codigo', 'codigo');
+        return $this->hasMany(Tarea::class, 'tecnico_codigo', 'codigo')->orderBy('prioridad','desc');
     }
 
     /**
