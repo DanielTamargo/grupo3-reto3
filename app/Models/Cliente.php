@@ -9,6 +9,11 @@ class Cliente extends Model
 {
     use HasFactory;
 
+    // Para permitir guardar nuevos datos
+    protected $fillable = [
+        'nombre', 'email'
+    ];
+
     /**
      * Devuelve sus tareas asociadas
      */

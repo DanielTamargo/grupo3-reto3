@@ -16,6 +16,12 @@ class Ascensor extends Model
     protected $primaryKey = 'num_ref';
     protected $keyType = 'string';
 
+    // Para permitir guardar nuevos datos
+    protected $fillable = [
+        'num_ref', 'ubicacion', 'modelo_id',
+        'num_plantas', 'fecha_instalacion', 'fecha_ultima_revision', 
+    ];
+
     // Incrementing false para que inserte bien la clave ya que es string, ojo ¡Tiene que ser public!
     public $incrementing = false;
     /**

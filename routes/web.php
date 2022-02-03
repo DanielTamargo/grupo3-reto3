@@ -76,10 +76,11 @@ Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, '
 INICIO / HOME
 ----------------------------------------------------------------------------------------------
 */
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', function (Request $request) {
-    return view('welcome')->with('usuario_creado', $request->usuario_creado);
-})->middleware('auth')
+Route::get('/home', function() {
+    return redirect()->route('inicio');
+})->name('home');
+Route::get('/', [App\Http\Controllers\GeneralController::class, 'inicio'])
+  ->middleware('auth')
   ->name('inicio');
 
 
@@ -107,7 +108,7 @@ OPERADORES
 */
 
 Route::get('/operador', function () {return view('operadores.home-operador');})->name('home.operador');
-Route::get('/operador/nueva-averia', [App\Http\Controllers\OperadorController::class, 'nuevaAveria'])->name('nuevaaveria.create');
+Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaAveria'])->name('nuevaaveria.create');
 Route::get('/operador/nuevo-parte', [App\Http\Controllers\OperadorController::class, 'crearParte'])->name('crearparte.create');
 Route::get('/operador/ultimas-revisiones', [App\Http\Controllers\OperadorController::class, 'mostrarUltimasRevisiones'])->name('ultimasrevisiones.show');
 Route::get('/operador/asignar-revisiones', [App\Http\Controllers\OperadorController::class, 'asignarRevisiones'])->name('asignarrevisiones.create');
@@ -130,3 +131,36 @@ Route::post('/estadisticas', [App\Http\Controllers\Estadisticas::class, 'mostrar
 Route::get('/estadisticas/mostrar', function () {return view('estadisticas');})->name('estadisticas');
 
 
+/*
+----------------------------------------------------------------------------------------------
+EMPLEADOS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/empleados', [App\Http\Controllers\EmpleadoController::class, 'listarEmpleados'])
+    ->middleware('auth')
+    ->name('empleados.index');
+Route::get('/empleados/nuevo', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
+    ->middleware('auth')
+    ->name('empleados.new');
+Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.store');
+Route::get('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.show');
+Route::post('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.edit');
+Route::delete('/empleados/{puesto}/{codigo}', [App\Http\Controllers\GeneralController::class, 'eliminarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.delete');
+
+/*
+----------------------------------------------------------------------------------------------
+ADMINISTRADORES
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/administrador', function (Request $request) {
+    return view('welcome')->with('usuario_creado', $request->usuario_creado);
+})->middleware('auth')
+  ->name('administrador.home');
