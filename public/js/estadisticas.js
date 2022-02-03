@@ -1,3 +1,16 @@
+$(document).ready(function(){
+    $.ajax({
+        url: 'estadisticas.create',
+        method: 'POST',
+        data:$('#formu').serialize()
+    }).done(function(res){
+        alert(res)
+    })
+})
+
+
+
+
 Highcharts.chart('container1', {
     chart: {
         backgroundColor: 'transparent',
