@@ -3,106 +3,94 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Administrador;
+use App\Models\Enums\Roles;
+use App\Models\JefeEquipo;
+use App\Models\Operador;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Tecnico;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
-    use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
-     *
-     * @var string
+     * Muestra la vista para crear un nuevo usuario empleado
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
+    protected function create() {
+        return view('empleados.register');
     }
 
+
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * Crea una instancia de user y su respectiva entidad empleo, dependiendo del rol será un empleo u otro
      */
-    protected function validator(array $data)
+    protected function store(Request $request)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        $request["email"] .= "@igobide.com";
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellidos' => 'required|string|max:255',
+            'dni' => 'required|string|max:12|unique:users',
+            'telefono' => 'required|string|max:20',
+            'email' => 'required|string|max:255|unique:users', 
+            'password' => 'required|string|min:8',
+            'rol' => 'required|string|max:255',
+            'jefe_codigo' => 'string|max:255',
         ]);
-    }
+        
+        // Registramos dos entidades, el usuario y su entidad puesto relacionada
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    protected function create(array $data)
-    {
+        // Usuario
         $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'nombre' => $request->nombre,
+            'apellidos' => $request->apellidos,
+            'telefono' => $request->telefono,
+            'dni' => $request->dni,
+            'email' => $request->email,
+            'rol' => $request->rol,
+            'password' => Hash::make($request->password), // <- ¡encripteision!
         ]);
 
+        // Entidad puesto
         // Dependiendo del rol crearemos un registro de una u otra entidad
-        $codigo = Str::random(10); //<- código random!
-        $entidad = null;
-        switch($data['rol_usuario']) {
+        switch($request->rol) {
             case "operador": {
-
+                Operador::create([
+                    'user_id' => $user->id,
+                    'codigo' => 'op_' . str_pad($user->id, 5, "0", STR_PAD_LEFT)
+                ]);
                 break;
             }
             case "tecnico": {
-                $entidad = Tecnico::create([
+                Tecnico::create([
                     'user_id' => $user->id,
-                    'codigo' => $codigo
+                    'codigo' => 'tec_' . str_pad($user->id, 5, "0", STR_PAD_LEFT),
+                    'jefe_codigo' => $request->jefe_codigo
                 ]);
                 break;
             }
             case "jefeequipo": {
-
+                JefeEquipo::create([
+                    'user_id' => $user->id,
+                    'codigo' => 'jef_' . str_pad($user->id, 5, "0", STR_PAD_LEFT)
+                ]);
                 break;
             }
             case "administrador": {
-
+                Administrador::create([
+                    'user_id' => $user->id,
+                    'codigo' => 'adm_' . str_pad($user->id, 5, "0", STR_PAD_LEFT)
+                ]);
                 break;
             }
         }
-        dd($entidad);
 
-
-
-
-
-
-        return $user;
+        return redirect()->route('inicio', ['usuario_creado' => true]); // TODO dani: comprobar que redirige a donde queremos
     }
 }

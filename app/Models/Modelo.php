@@ -9,6 +9,13 @@ class Modelo extends Model
 {
     use HasFactory;
 
+    // Para permitir guardar nuevos datos
+    protected $fillable = [
+        'nombre', 'num_puertas', 'peso_max',
+        'num_personas', 'llave', 'prioridad', 
+        'tipoaccionamiento', 'manual', 
+    ];
+
     /**
      * Devuelve los ascensores que se basan en dicho modelo
      */

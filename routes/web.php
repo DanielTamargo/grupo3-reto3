@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rato! >:[
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +16,22 @@ use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rat
 |
 */
 
-// RUTAS CON PRUEBAS
+
+// Rutas Auth, las ponemos arriba para sobreescribir las que creamos conveniente
+Auth::routes();
+
+/*
+----------------------------------------------------------------------------------------------
+APIS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/api/v1/codigosJefes', [App\Http\Controllers\Api\V1\ApiController::class, 'codigosJefes']);
+
+/*
+----------------------------------------------------------------------------------------------
+RUTAS CON PRUEBAS
+----------------------------------------------------------------------------------------------
+*/
 Route::get('/pruebas', function() {
     return view('pruebas.usuarios')
         ->with('users', App\Models\User::all())
@@ -26,18 +43,66 @@ Route::get('/pruebas', function() {
         ->with('ascensores', App\Models\Ascensor::all())
         ->with('mostrar_modelos', true);
 })->name('pruebas.usuarios');
+Route::get('/pruebas/ficheros', function() {
+    return view('pruebas.ficheros');
+})->name('pruebas.ficheros');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*
+----------------------------------------------------------------------------------------------
+DESCARGAR FICHERO
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/descargar/manual/{nombre}', [\App\Http\Controllers\DownloadController::class, 'descargarManual'])
+    ->middleware('auth');
 
-Auth::routes();
+/*
+----------------------------------------------------------------------------------------------
+EMAILS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/send/email/cliente', function () {
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    $detalles = [
+        'asunto' => 'test',
+        'rol_destinatario' => 'cliente',
+        'titulo' => 'Email de Igobide Ascensores',
+        'mensaje' => 'Testeando los emails!'
+    ];
+
+    Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+
+    dd("Email is Sent.");
+})->name('email.cliente');
+
+/*
+----------------------------------------------------------------------------------------------
+LOGIN / REGISTRAR NUEVO USUARIO
+----------------------------------------------------------------------------------------------
+*/
 
 Route::get('/login', function () {
-    return view('login');
+    return view('auth.login');
 })->name("login");
+Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
+    ->middleware('auth')
+    ->name("register.create");
+Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'store'])
+    ->middleware('auth')
+    ->name('register.store');
+
+
+/*
+----------------------------------------------------------------------------------------------
+INICIO / HOME
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/home', function() {
+    return redirect()->route('inicio');
+})->name('home');
+Route::get('/', [App\Http\Controllers\GeneralController::class, 'inicio'])
+  ->middleware('auth')
+  ->name('inicio');
+
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -64,7 +129,7 @@ OPERADORES
 */
 
 Route::get('/operador', function () {return view('operadores.home-operador');})->name('home.operador');
-Route::get('/operador/nueva-averia', [App\Http\Controllers\OperadorController::class, 'nuevaAveria'])->name('nuevaaveria.create');
+Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaAveria'])->name('nuevaaveria.create');
 Route::get('/operador/nuevo-parte', [App\Http\Controllers\OperadorController::class, 'crearParte'])->name('crearparte.create');
 Route::get('/operador/ultimas-revisiones', [App\Http\Controllers\OperadorController::class, 'mostrarUltimasRevisiones'])->name('ultimasrevisiones.show');
 Route::get('/operador/asignar-revisiones', [App\Http\Controllers\OperadorController::class, 'asignarRevisiones'])->name('asignarrevisiones.create');
@@ -83,4 +148,38 @@ Route::get('/jefes/borrarusuarios', [App\Http\Controllers\JefeEquipoController::
 Route::get('/jefes/modificarusuarios', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaModificarUsuarios'])->name('usuarios.modificar.create');
 Route::get('/jefes/subirmanuales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaSubirManuales'])->name('manuales.create');
 Route::get('/jefes/historiales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaHistorial'])->name('historial.create');
+Route::get('/estadisticas', function () {return view('estadisticas');})->name('estadisticas');
 
+/*
+----------------------------------------------------------------------------------------------
+EMPLEADOS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/empleados', [App\Http\Controllers\EmpleadoController::class, 'listarEmpleados'])
+    ->middleware('auth')
+    ->name('empleados.index');
+Route::get('/empleados/nuevo', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
+    ->middleware('auth')
+    ->name('empleados.new');
+/*Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.store');*/ //<- implementado con auth
+Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.show');
+Route::post('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.edit');
+Route::delete('/empleados/{user_id}', [App\Http\Controllers\GeneralController::class, 'eliminarEmpleado'])
+    ->middleware('auth')
+    ->name('empleados.delete');
+
+/*
+----------------------------------------------------------------------------------------------
+ADMINISTRADORES
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/administrador', function (Request $request) {
+    return view('welcome')->with('usuario_creado', $request->usuario_creado);
+})->middleware('auth')
+  ->name('administrador.home');
