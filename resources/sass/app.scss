@@ -50,3 +50,23 @@ main{
     right: -17%;
     bottom: 5%;
 }
+
+
+/** EMPLEADOS **/
+a.empleados {
+    min-width: 20px;
+    min-height: 20px;
+
+    svg {
+        fill: $azul1;
+    }
+
+    &:hover {
+        svg {
+            fill: $gris1;
+        }
+    }
+}
+table.empleados {
+    background-color: white;
+}

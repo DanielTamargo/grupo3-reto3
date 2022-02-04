@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rato! >:[
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,25 @@ Route::get('/descargar/manual/{nombre}', [\App\Http\Controllers\DownloadControll
 
 /*
 ----------------------------------------------------------------------------------------------
+EMAILS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/send/email/cliente', function () {
+
+    $detalles = [
+        'asunto' => 'test',
+        'rol_destinatario' => 'cliente',
+        'titulo' => 'Email de Igobide Ascensores',
+        'mensaje' => 'Testeando los emails!'
+    ];
+
+    Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+
+    dd("Email is Sent.");
+})->name('email.cliente');
+
+/*
+----------------------------------------------------------------------------------------------
 LOGIN / REGISTRAR NUEVO USUARIO
 ----------------------------------------------------------------------------------------------
 */
@@ -95,12 +115,13 @@ Route::get('/tecnico', function() {
     return view('tecnicos.home');
 })->name("tecnico.home");
 
-Route::get('/tecnico/{cod}/nueva-parte', [App\Http\Controllers\TecnicoController::class, 'nuevaParte'])->name("tecnico.create");
-Route::get('/tecnico/{cod}/tareas', [App\Http\Controllers\TecnicoController::class, 'showTareas'])->name("tecnico.show");
-Route::get('/tecnico/{cod}/historial', [App\Http\Controllers\TecnicoController::class, 'showHistorial'])->name("tecnico.historial");
-Route::get('/tecnico/{cod}/manuales', [App\Http\Controllers\TecnicoController::class, 'showManual'])->name("tecnico.manual");
-Route::get('/tecnico/{cod}/piezas', [App\Http\Controllers\TecnicoController::class, 'piezas'])->name("tecnico.piezas");
+Route::get('/tecnico/nueva-parte', [App\Http\Controllers\TecnicoController::class, 'nuevaParte'])->name("tecnico.create");
+Route::get('/tecnico/tareas', [App\Http\Controllers\TecnicoController::class, 'showTareas'])->name("tecnico.show");
+Route::get('/tecnico/historial', [App\Http\Controllers\TecnicoController::class, 'showHistorial'])->name("tecnico.historial");
+Route::get('/tecnico/manuales', [App\Http\Controllers\TecnicoController::class, 'showManual'])->name("tecnico.manual");
+Route::get('/tecnico/piezas', [App\Http\Controllers\TecnicoController::class, 'piezas'])->name("tecnico.piezas");
 
+Route::post('tecnico/partes', [App\Http\Controllers\ParteController::class, 'store'])->name('partes.store');
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -143,16 +164,16 @@ Route::get('/empleados', [App\Http\Controllers\EmpleadoController::class, 'lista
 Route::get('/empleados/nuevo', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
     ->middleware('auth')
     ->name('empleados.new');
-Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
+/*Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
     ->middleware('auth')
-    ->name('empleados.store');
-Route::get('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
+    ->name('empleados.store');*/ //<- implementado con auth
+Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
     ->middleware('auth')
     ->name('empleados.show');
-Route::post('/empleados/{puesto}/{codigo}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
+Route::post('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
     ->middleware('auth')
     ->name('empleados.edit');
-Route::delete('/empleados/{puesto}/{codigo}', [App\Http\Controllers\GeneralController::class, 'eliminarEmpleado'])
+Route::delete('/empleados/{user_id}', [App\Http\Controllers\GeneralController::class, 'eliminarEmpleado'])
     ->middleware('auth')
     ->name('empleados.delete');
 

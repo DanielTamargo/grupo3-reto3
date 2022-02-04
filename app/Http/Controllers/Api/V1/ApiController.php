@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
+
     public function ascensores() {
         $user = Auth::user();
 

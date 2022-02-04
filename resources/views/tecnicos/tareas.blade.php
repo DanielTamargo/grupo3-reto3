@@ -28,13 +28,12 @@ Tareas
                 </h2>
                 <div id="panelsStayOpen-collapse{{ $x }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ $x }}">
                     <div class="accordion-body">
-                    {{ $tareas[$x]->anotacion }}
                         <p><b>Fecha reportado: </b>{{ $tareas[$x]->fecha_creacion }}</p>
                         <p><b>REF: </b>{{ $tareas[$x]->ascensor_ref }}</p>
                         <p><b>Tipo: </b>{{ $tareas[$x]->tipo }}</p>
                         <p><b>Descripcion: </b><br>{{ $tareas[$x]->descripcion }}</p>
                         
-                        
+                        <a href="{{ route('tecnico.create', ['idtarea' => $tareas[$x]->id]) }}" class="btn btn-outline-light"></a>
                     </div>
                 </div>
             </div>
