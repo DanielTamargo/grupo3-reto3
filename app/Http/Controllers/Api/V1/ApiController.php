@@ -86,20 +86,20 @@ class ApiController extends Controller
         $datos_tecnicos = Tecnico::all();
         $datos_tareas = Tarea::all();
 
-        $datos_tecnico_estadisticas = [];
-        $datos_tarea_estadisticas = [];
+        $datos_tecnicos_estadisticas = [];
+        $datos_tareas_estadisticas = [];
 
         foreach ($datos_tecnicos as $datos_tecnico){
-            array_push($datos_tecnico_estadisticas,['codigo'=>$datos_tecnico['codigo'],'jefe_codigo'=>$datos_tecnico['jefe_codigo']]);
+            array_push($datos_tecnicos_estadisticas,['codigo'=>$datos_tecnico['codigo'],'jefe_codigo'=>$datos_tecnico['jefe_codigo']]);
         }   
         foreach ($datos_tareas as $datos_tarea){
-            array_push($datos_tarea_estadisticas,['tipo'=>$datos_tarea['tipo'],'estado'=>$datos_tarea['estado'],'ascensor_ref'=>$datos_tarea['ascensor_ref'],'tecnico_codigo'=>$datos_tarea['tecnico_codigo'],'fecha_fin'=>$datos_tarea['fecha_finalizacion']]);
+            array_push($datos_tareas_estadisticas,['tipo'=>$datos_tarea['tipo'],'estado'=>$datos_tarea['estado'],'ascensor_ref'=>$datos_tarea['ascensor_ref'],'tecnico_codigo'=>$datos_tarea['tecnico_codigo'],'fecha_fin'=>$datos_tarea['fecha_finalizacion']]);
         }   
         $user = Auth::user();
         return response()->json([
             'ok' => true,
-            'datos_tecnico' => $datos_tecnico_estadisticas,
-            'datos_tarea' => $datos_tarea_estadisticas,
+            'datos_tecnico' => $datos_tecnicos_estadisticas,
+            'datos_tarea' => $datos_tareas_estadisticas,
             'message'=> 'Petición valida',
             'rol' => $user->rol,
             'cod_jefe'=>$user->puesto->codigo

@@ -86,8 +86,8 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <!-- Los script anteriores son para hacer las estadisitcas -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="./js/estadisticas.js"></script>
+    <script src="{{ asset('js/lib/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('js/estadisticas.js') }}"></script>
     
 </body>
 </html>

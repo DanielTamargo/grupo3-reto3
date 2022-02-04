@@ -3,6 +3,8 @@ var datos_tecnicos ;
 var rol;
 var id;
 var tecnicosAverias = [];
+var averiasUnAno = [];
+var top5_averias = [];
 var tareas ;
 $(document).ready(function(){
     $.ajaxSetup({
@@ -20,65 +22,13 @@ $(document).ready(function(){
             id = json['cod_jefe'];
             rol = json['rol'];
             ftareas();
-            // ascensorTecncios();
+            ascensorTecncios();
             ascensoresArregladosUnAnno();
             estadistica1Mostrar();
-            const chart = Highcharts.chart('container2', {
-                title: {
-                    text: 'Chart.update'
-                },
-                chart: {
-                    backgroundColor: 'transparent',
-                },
-                subtitle: {
-                    text: 'Plain'
-                },
-                xAxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                },
-                series: [{
-                    type: 'column',
-                    colorByPoint: true,
-                    data: tecnicosAverias,
-                    showInLegend: false
-                }]
-            });
-            
-            document.getElementById('plain').addEventListener('click', () => {
-                chart.update({
-                    chart: {
-                        inverted: false,
-                        polar: false
-                    },
-                    subtitle: {
-                        text: 'Plain'
-                    }
-                });
-            });
-            
-            document.getElementById('inverted').addEventListener('click', () => {
-                chart.update({
-                    chart: {
-                        inverted: true,
-                        polar: false
-                    },
-                    subtitle: {
-                        text: 'Inverted'
-                    }
-                });
-            });
-            
-            document.getElementById('polar').addEventListener('click', () => {
-                chart.update({
-                    chart: {
-                        inverted: false,
-                        polar: true
-                    },
-                    subtitle: {
-                        text: 'Polar'
-                    }
-                });
-            });
+            estadistica2Mostrar();
+            top5();
+            estadistica3Mostrar();
+
         }
            
     });
@@ -151,85 +101,134 @@ function ascensoresArregladosUnAnno(){
     let fecha = new Date();
     let annoActual = fecha.getFullYear();
     let mes_num = [01,02,03,04,05,06,07,08,09,10,11,12];
-   
 
     if(rol == 'administrador'){
-        let cantidadAverias =0;
         for(let j=0;j<mes_num.length ;j++){
+            let cantidadAverias =0;
             for(let y=0; y<tareas.length ;y++){
-                if(tareas[y]['fecha_fin'] != null && Number(tareas[y]['fecha_fin'].substring(0,4)) == annoActual && mes_num[j] == tareas[y]['fecha_fin'].substring(5,7)){
+                if(tareas[y]['fecha_fin'] != null && Number(tareas[y]['fecha_fin'].substring(0,4)) == annoActual -1 && mes_num[j] == tareas[y]['fecha_fin'].substring(5,7) ){
                     cantidadAverias++
+                   
                 }
             }
-            
-            tecnicosAverias.push(cantidadAverias);
+            averiasUnAno.push(cantidadAverias);
         }
+        
         
         
         
     }
-    // else{
-    //     for(let x =0;x<datos_tecnicos.length;x++){
-    //         let cantidadAverias =0;
-    //         for(let y=0; y<tareas.length && tareas[y]['fecha_fin'].substring(0,4) == annoActual && datos_tecnicos[x]['jefe_codigo'] == id;y++){
-    //             cantidadAverias++;
-    //         }
-    //         for(z=0;z<meses.length;z++){
-    //             tecnicosAverias.push({name:meses[z],y:cantidadAverias,drilldown:meses[z]});
-    //         }
-    //     }
-    // }
-    console.log(tecnicosAverias);
+    else{
+        for(let x =0;x<datos_tecnicos.length;x++){
+            for(let y =0;y<mes_num.length;y++){
+                let cantidadAverias =0;
+                for(let z=0;z<tareas.length;z++){
+                    if(tareas[y]['fecha_fin'] != null && Number(tareas[y]['fecha_fin'].substring(0,4)) == annoActual -1 && mes_num[j] == tareas[y]['fecha_fin'].substring(5,7) && datos_tecnicos['jefe_codigo'] == id){
+                        cantidadAverias++;
+                    }
+                }
+                averiasUnAno.push(cantidadAverias);
+            }
+        }
+    }
 }
 
-    
+function estadistica2Mostrar(){
+    const chart = Highcharts.chart('container2', {
+        title: {
+            text: 'Averias de ascensores en el último año'
+        },
+        chart: {
+            backgroundColor: 'transparent',
+        },
+        subtitle: {
+            text: 'Plain'
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        series: [{
+            type: 'column',
+            colorByPoint: true,
+            data: averiasUnAno,
+            showInLegend: false
+        }]
+    });
+}
+
+function top5(){
+    let averiasAscensores= [];
+    let idAscensores= [];
+    for(let y =0;y<tareas.length;y++){
+        for(var x =0;x<idAscensores.length && idAscensores[x] != tareas[y]['ascensor_ref'];x++){}
+        if(x == idAscensores.length){
+            idAscensores.push(tareas[y]['ascensor_ref'])
+        }
+    }
+   
+    for(let j =0;j<idAscensores.length;j++){
+        let averias =0;
+        for(let z=0;z< tareas.length;z++){
+            if(tareas[z]['ascensor_ref'] == idAscensores[j]){
+                averias ++;
+            }
+        }
+        averiasAscensores.push({ascensor_ref:idAscensores[j],cantidad_averias:averias});
+    }
+    for(let i=0;i<averiasAscensores.length;i++){
+        if(averiasAscensores[i]['cantidad_averias']>=5){
+            top5_averias.push({name:averiasAscensores[i]['ascensor_ref'],y:averiasAscensores[i]['cantidad_averias']});
+        }
+    }
+   
+   
+}
+
+function estadistica3Mostrar(){
     Highcharts.chart('container3', {
-    chart: {
-        backgroundColor: 'transparent',
-        plotBackgroundColor: null,
-        plotBorderWidth: 0,
-        plotShadow: false
-    },
-    title: {
-        text: 'Cada ascensor cuantas veces ha sido arreglado en el último mes',
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            dataLabels: {
-                enabled: true,
-                distance: -50,
-                style: {
-                    fontWeight: 'bold',
-                    color: 'white'
-                }
-            },
-            startAngle: -90,
-            endAngle: 90,
-            center: ['50%', '75%'],
-            size: '110%'
-        }
-    },
-    series: [{
-        type: 'pie',
-        name: 'Averías',
-        innerSize: '50%',
-        data: [
-            ['Ascensor 1', 58.9],
-            ['Ascensor 2', 13.29],
-            ['Ascensor 3', 13],
-            ['Ascensor 4', 3.78],
-            ['Ascensor 5', 3.42]
-        ]
-    }]
-});
+        chart: {
+            backgroundColor: 'transparent',
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,
+            plotShadow: false
+        },
+        title: {
+            text: 'Top 5 de ascensores averiados',
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white'
+                    }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%'],
+                size: '110%'
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Averías',
+            innerSize: '50%',
+            data: top5_averias
+        }]
+    });
+}
+    
+   
 
 
     var select = document.getElementById('opcionesEstadisticas');
