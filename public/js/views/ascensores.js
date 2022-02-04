@@ -62,8 +62,6 @@ function obtenerDatos() {
 // ESTA FUNCIÓN SÓLO FUNCIONARÁ EN LA VENTANA NUEVA TAREA
 function seleccionarAscensor(elm) {
     let ascensor_num_ref = elm.id;
-
-    // TODO dani: poner en el input
     $('#ascensor_num_ref').val(ascensor_num_ref);
 } 
 

@@ -5,29 +5,35 @@
  */
 function actualizarProgressBars(prioridad: number): void {
     switch (prioridad) {
-        case 2: 
-            document.getElementById('prioridad-pb-2').classList.remove('d-none');
-            document.getElementById('prioridad-pb-3').classList.add('d-none');
-            document.getElementById('prioridad-pb-4').classList.add('d-none');
-            document.getElementById('prioridad-pb-5').classList.add('d-none');
+        case 1:
+            document.getElementById('prioridad-pb-2').style.display = "none";
+            document.getElementById('prioridad-pb-3').style.display = "none";
+            document.getElementById('prioridad-pb-4').style.display = "none";
+            document.getElementById('prioridad-pb-5').style.display = "none";
             break;
-        case 3: 
-            document.getElementById('prioridad-pb-2').classList.remove('d-none');
-            document.getElementById('prioridad-pb-3').classList.add('d-none');
-            document.getElementById('prioridad-pb-4').classList.add('d-none');
-            document.getElementById('prioridad-pb-5').classList.add('d-none');
+        case 2:
+            document.getElementById('prioridad-pb-2').style.display = "block";
+            document.getElementById('prioridad-pb-3').style.display = "none";
+            document.getElementById('prioridad-pb-4').style.display = "none";
+            document.getElementById('prioridad-pb-5').style.display = "none";
             break;
-        case 4: 
-            document.getElementById('prioridad-pb-2').classList.remove('d-none');
-            document.getElementById('prioridad-pb-3').classList.remove('d-none');
-            document.getElementById('prioridad-pb-4').classList.remove('d-none');
-            document.getElementById('prioridad-pb-5').classList.add('d-none');
+        case 3:
+            document.getElementById('prioridad-pb-2').style.display = "block";
+            document.getElementById('prioridad-pb-3').style.display = "block";
+            document.getElementById('prioridad-pb-4').style.display = "none";
+            document.getElementById('prioridad-pb-5').style.display = "none";
             break;
-        case 5: 
-            document.getElementById('prioridad-pb-2').classList.remove('d-none');
-            document.getElementById('prioridad-pb-3').classList.remove('d-none');
-            document.getElementById('prioridad-pb-4').classList.remove('d-none');
-            document.getElementById('prioridad-pb-5').classList.remove('d-none');
+        case 4:
+            document.getElementById('prioridad-pb-2').style.display = "block";
+            document.getElementById('prioridad-pb-3').style.display = "block";
+            document.getElementById('prioridad-pb-4').style.display = "block";
+            document.getElementById('prioridad-pb-5').style.display = "none";
+            break;
+        case 5:
+            document.getElementById('prioridad-pb-2').style.display = "block";
+            document.getElementById('prioridad-pb-3').style.display = "block";
+            document.getElementById('prioridad-pb-4').style.display = "block";
+            document.getElementById('prioridad-pb-5').style.display = "block";
             break;
     }
 }
@@ -35,6 +41,7 @@ function actualizarProgressBars(prioridad: number): void {
 function actualizarRange(evt: any): void {
     let p_prioridad: HTMLInputElement = <HTMLInputElement> document.getElementById('prioridad');
     p_prioridad.value = evt.target.value;
+    actualizarProgressBars(Number(evt.target.value));
 }
 
 function controlarPrioridad(evt: any): void {
@@ -43,10 +50,11 @@ function controlarPrioridad(evt: any): void {
 
     let p_prioridad_range: HTMLInputElement = <HTMLInputElement> document.getElementById('prioridad-range');
     p_prioridad_range.value = evt.target.value;
+
+    actualizarProgressBars(Number(evt.target.value));
 }
 
 function controlarIntro(evt: any): void {
-    console.log(evt)
     if (evt.keyCode == 13) // <- ENTER (para evitar que presione enter y envie el formulario a medias)
         evt.preventDefault();
     controlarPrioridad(evt);
@@ -56,3 +64,6 @@ function controlarIntro(evt: any): void {
 document.getElementById('prioridad-range').addEventListener('change', actualizarRange);
 document.getElementById('prioridad').addEventListener('change', controlarPrioridad);
 document.getElementById('prioridad').addEventListener('keypress', controlarIntro);
+
+// Inicializamos las progress bars
+actualizarProgressBars(1);

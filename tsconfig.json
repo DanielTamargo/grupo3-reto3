@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
-      "removeComments": true,
-      "preserveConstEnums": true,
-      "sourceMap": true
+        "module": "es2022",
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true
     },
-    "include": ["public/**/*.ts"],
+    "include": ["public/**/*.ts", "public/js/lib/**/*.js"],
 }

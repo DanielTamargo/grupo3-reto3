@@ -77,10 +77,36 @@ class IndexAscensores extends HTMLElement {
     }
  
     templateCss() {
-        // TODO dani:
         return `
             <style>
-
+                .ascensor {
+                    background-color: #2f2f2f;
+                }
+                .ascensor-2 {
+                    background-color: #2f2f2f;
+                    font-size: 14px;
+                }
+                .ascensor-3 {
+                    background-color: #2f2f2f;
+                    text-align: center;
+                }
+                .ascensor-4 {
+                    text-align: center;
+                    background-color: #2f2f2f;
+                    color: white;
+                }
+                .ascensor-5 {
+                    background-color: #fffff;
+                    color: black;
+                }
+                .ascensor-6 {
+                    background-color: #2f2f2f;
+                    color: white;
+                }
+                .ascensor-7 {
+                    background-color: #2f2f2f;
+                    color: green;
+                }
             </style>
         `;
     }

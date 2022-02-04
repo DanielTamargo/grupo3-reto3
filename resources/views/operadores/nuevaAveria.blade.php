@@ -143,10 +143,10 @@
                         </div>
                         <div class="progress">
                             <div id="prioridad-pb-1" class="progress-bar" role="progressbar" style="width: 20%; background-color: rgb(59, 180, 59)" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                            <div id="prioridad-pb-2" class="progress-bar d-none" role="progressbar" style="width: 20%; background-color: rgb(80, 80, 206)" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                            <div id="prioridad-pb-3" class="progress-bar d-none" role="progressbar" style="width: 20%; background-color: yellow" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                            <div id="prioridad-pb-4" class="progress-bar d-none" role="progressbar" style="width: 20%; background-color: rgb(236, 171, 49)" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                            <div id="prioridad-pb-5" class="progress-bar d-none" role="progressbar" style="width: 20%; background-color: darkred" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div id="prioridad-pb-2" class="progress-bar" role="progressbar" style="width: 20%; background-color: rgb(80, 80, 206)" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div id="prioridad-pb-3" class="progress-bar" role="progressbar" style="width: 20%; background-color: yellow" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div id="prioridad-pb-4" class="progress-bar" role="progressbar" style="width: 20%; background-color: rgb(236, 171, 49)" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div id="prioridad-pb-5" class="progress-bar" role="progressbar" style="width: 20%; background-color: darkred" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>
