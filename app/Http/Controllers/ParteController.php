@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Parte;
+use App\Models\Tarea;
+use App\Models\Tecnico;
 use Illuminate\Http\Request;
 
 class ParteController extends Controller
@@ -24,7 +26,7 @@ class ParteController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +37,25 @@ class ParteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $parte = new Parte();
+        // falta como manejar excepciones
+        if (Tecnico::find($request->tecnico) == null){
+            return "no eres un tecnico";
+        };
+
+        if (Tarea::find($request->idtarea) == null) {
+            return "no hay tarea";
+        }
+
+
+        $parte->tecnico_codigo = $request->tecnico;
+        $parte->tarea_id = $request->idtarea;
+        $parte->tarea_estado = $request->estado;
+        $parte->tarea_tipo = $request->tipo;
+        $parte->anotacion = $request->anotacion;
+
+        $parte->save();
+        return redirect("/tecnico/".$request->tecnico."/nueva-parte");
     }
 
     /**

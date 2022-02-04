@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
+
     public function ascensores() {
         $user = Auth::user();
 
@@ -78,6 +79,5 @@ class ApiController extends Controller
             'rol' => $user->rol,
         ], 200);
     }
-
 
 }
