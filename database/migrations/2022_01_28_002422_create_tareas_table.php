@@ -18,7 +18,7 @@ class CreateTareasTable extends Migration
             $table->id();
             $table->timestamp('fecha_creacion')->useCurrent();
             $table->timestamp('fecha_finalizacion')->nullable()->default(null);
-            $table->string('descripcion');
+            $table->string('descripcion')->default('');
             $table->string('tipo')->default('incidencia');
             $table->string('estado')->default('sintratar');
             $table->integer('prioridad')->default(0); // 0 = baja, 5 = urgencia (por ejemplo (?))

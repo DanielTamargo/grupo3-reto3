@@ -20,9 +20,12 @@
 - Seguridad
   - [Laravel 8 HTTPS en Producción (al cargar una ruta devuelve enlace HTTPS)](https://stackoverflow.com/questions/35827062/how-to-force-laravel-project-to-use-https-for-all-routes#:~:text=Here%20are%20several%20ways.%20Choose%20most%20convenient.)
   - [Laravel 8 redirigir HTTP a HTTPS en Producción (siempre que entra en HTTP redirige a HTTPS) (en Heroku produce bucles infinitos, no se ha implementado)](https://programmingfields.com/redirect-http-to-https-using-middleware-in-laravel/#Create_Middleware_in_Laravel_8)
+- Web Components en ficheros JS
+  - [Crear Web Components en puro JS](https://developers.google.com/web/fundamentals/web-components/customelements)
 
 ## Metodologías y decisiones
 - [¿Por qué no hemos usado enums en las migraciones de Laravel?](http://komlenic.com/244/8-reasons-why-mysqls-enum-data-type-is-evil/)
+- [Metodología de trabajo Git: Git Flow](https://www.atlassian.com/es/git/tutorials/comparing-workflows/gitflow-workflow)
 
 -------
 

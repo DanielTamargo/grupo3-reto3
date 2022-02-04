@@ -129,7 +129,7 @@ OPERADORES
 */
 
 Route::get('/operador', function () {return view('operadores.home-operador');})->name('home.operador');
-Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaAveria'])->name('nuevaaveria.create');
+Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaTarea'])->name('nuevatarea.create');
 Route::get('/operador/nuevo-parte', [App\Http\Controllers\OperadorController::class, 'crearParte'])->name('crearparte.create');
 Route::get('/operador/ultimas-revisiones', [App\Http\Controllers\OperadorController::class, 'mostrarUltimasRevisiones'])->name('ultimasrevisiones.show');
 Route::get('/operador/asignar-revisiones', [App\Http\Controllers\OperadorController::class, 'asignarRevisiones'])->name('asignarrevisiones.create');

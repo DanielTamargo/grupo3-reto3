@@ -94,4 +94,5 @@ class IndexAscensores extends HTMLElement {
     }
  
 }
+
 export default IndexAscensores;

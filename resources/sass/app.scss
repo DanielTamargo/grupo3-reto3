@@ -70,3 +70,21 @@ a.empleados {
 table.empleados {
     background-color: white;
 }
+
+
+/**
+QUITAR FLECHAS SUBIR BAJAR EN INPUT NUMBER EN NUEVA TAREA
+**/
+/* Chrome, Safari, Edge, Opera */
+.nt {
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+}

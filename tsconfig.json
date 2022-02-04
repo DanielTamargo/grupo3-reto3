@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "sourceMap": true
+    },
+    "include": ["public/**/*.ts"],
+}

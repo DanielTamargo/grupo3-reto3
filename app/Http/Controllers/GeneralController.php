@@ -30,6 +30,6 @@ class GeneralController extends Controller
      * Carga la vista de listado de ascensores con todos los ascensores
      */
     public function indexAscensores() {
-        return view('ascensores.index')->with('ascensores', \App\Models\Ascensor::all())->with('seleccionar_ascensor', false);
+        return view('ascensores.index')->with('ascensores', \App\Models\Ascensor::all());
     }
 }

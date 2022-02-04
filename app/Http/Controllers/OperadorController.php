@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Operador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OperadorController extends Controller
 {
@@ -27,8 +28,15 @@ class OperadorController extends Controller
         //
     }
 
-    public function nuevaAveria(){
-        return view('operadores.nuevaAveria');
+    public function nuevaTarea() {
+        $user = Auth::user();
+        if (!$user) return view('errors.404');
+
+        if ($user->rol == "administrador") 
+            return view('operadores.nuevaAveria')->with('seleccionar_ascensor', true)->with('operadores', \App\Models\Operador::all());
+
+        
+        return view('operadores.nuevaAveria')->with('seleccionar_ascensor', true);
     }
     public function crearParte(){
         return view('operadores.nuevoParte');
