@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\TareaController as ControllersTareaController;
+use App\Models\Parte;
+use App\Models\Tarea;
 use App\Models\Tecnico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TecnicoController extends Controller
 {
@@ -92,60 +95,62 @@ class TecnicoController extends Controller
     //
 
     /* muestra la vista nuevaParte */
-    public function nuevaParte($codigo, $idtarea) {
+    public function nuevaParte($idtarea) {
 
-        //$errorview = $this->validarTecnico($codigo);
+        //$errorview = $this->validarTecnico(Auth::id());
         //if ($errorview != "") {
         //    return view($errorview);
         //}
 
-        return view('tecnicos.nuevaParte', ["codUsr" => $codigo,"idtarea" => $idtarea]);
+        return view('tecnicos.nuevaParte', ["idtarea" => $idtarea]);
     }
 
     /* muestra la vista tareas */
-    public function showTareas($codigo ) {
+    public function showTareas() {
         
-        //$errorview = $this->validarTecnico($codigo);
+        //$errorview = $this->validarTecnico(Auth::id());
         //if ($errorview != "") {
         //    return view($errorview);
         // }
 
-        $tec = Tecnico::find($codigo);
-        
-        $tareas = $tec->tareas;
-        //return $tareas[0];
-        return view('tecnicos.tareas' , ["codUsr" => $codigo, "tareas" => $tareas]);
+        $tareas = Tarea::where('tecnico_codigo',Auth::user()->codigo);//->orderBy('prioridad','desc');
+
+        return view('tecnicos.tareas' , ["tareas" => $tareas]);
     }
 
     /* muestra la vista historial */
-    public function showHistorial($codigo ) {
+    public function showHistorial() {
 
-        //$errorview = $this->validarTecnico($codigo);
+        //$errorview = $this->validarTecnico(Auth::id());
         //if ($errorview != "") {
         //    return view($errorview);
         //}
+        $tec = Tecnico::find(Auth::id());
+        $tareas = $tec->tareas;
 
-        return view('tecnicos.historial', ["codUsr" => $codigo]);
+        
+
+        return view('tecnicos.historial', ["tareas" => $tareas]);
     }
     /* muestra la vista manual */
-    public function showManual($codigo ) {
+    public function showManual() {
 
-        //$errorview = $this->validarTecnico($codigo);
+        //$errorview = $this->validarTecnico(Auth::id());
         //if ($errorview != "") {
         //    return view($errorview);
         //}
 
-        return view('tecnicos.manual', ["codUsr" => $codigo]);
+        return view('tecnicos.manual');
     }
     /* muestra la vista piezas */
-    public function piezas($codigo ) {
+    public function piezas() {
 
-        //$errorview = $this->validarTecnico($codigo);
+        //$errorview = $this->validarTecnico(Auth::id());
         //if ($errorview != "") {
         //    return view($errorview);
         //}
 
-        return view('tecnicos.piezas', ["codUsr" => $codigo]);
+        return view('tecnicos.piezas');
     }
 
     /* funcion para validar que el identificador que pasa la ruta viene de un tecnico o un usuario con permiso

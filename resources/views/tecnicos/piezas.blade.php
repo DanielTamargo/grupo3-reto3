@@ -4,7 +4,7 @@
 @extends('layouts.tecnico')
 
 @section('title')
-manuales
+Pedir piezas
 @endsection
 
 @section('content')
