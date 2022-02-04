@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Modelo;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ModeloController extends Controller
@@ -33,9 +34,26 @@ class ModeloController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $manual_pdf = $request->get('manual');
+        dd($request);
+        $extension = pathinfo($manual_pdf, PATHINFO_EXTENSION);
+        
+        if($extension != 'pdf') {
+            // Volvemos a la vista notificando el error
+            return back()->with('error','El documento tiene que ser tipo PDF');
+        }
+        else{
+            // Guardamos el manual
+
+
+            // Modificamos el modelo con el nuevo nombre del manual
+            $modelo = Modelo::find($id);
+
+            // Volvemos a la vista
+            return back()->with('exito','Documento subido correctamente');
+        }
     }
 
     /**
@@ -44,9 +62,10 @@ class ModeloController extends Controller
      * @param  \App\Models\Modelo  $modelo
      * @return \Illuminate\Http\Response
      */
-    public function show(Modelo $modelo)
+    public function show($id)
     {
-        //
+        $modelo = Modelo::find($id);
+        return view('modelos.show')->with('modelo',$modelo);
     }
 
     /**

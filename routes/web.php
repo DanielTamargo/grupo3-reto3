@@ -186,3 +186,16 @@ Route::get('/administrador', function (Request $request) {
     return view('welcome')->with('usuario_creado', $request->usuario_creado);
 })->middleware('auth')
   ->name('administrador.home');
+
+  /*
+----------------------------------------------------------------------------------------------
+MODELOS
+----------------------------------------------------------------------------------------------
+*/
+Route::get('/modelos/{id}', [App\Http\Controllers\ModeloController::class, 'show'])
+    ->middleware('auth')
+    ->name('modelos.show');
+Route::post('/modelos/{id}/actualizar', [App\Http\Controllers\ModeloController::class, 'store'])
+    ->middleware('auth')
+    ->name('modelos.store');
+  
