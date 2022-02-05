@@ -29,46 +29,34 @@ Historial
     
 
     <div class="accordion">
-        <!-- despues blade generara los item de esta lista-->
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                    esto es una tarea
-                </button>
-            </h2>
-            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                <div class="accordion-body">
-                    <p><b>direccion:</b> direccion</p>
-                    <p><b>datos:</b> aqui informacion</p>
+        <!-- blade generara los item de esta lista-->
+        @if ($tareas != null)
+            @for ($x = 0; $x < count($tareas); $x++)
+        
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-heading{{ $x }}">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ $x }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse{{ $x }}">
+                        id: {{ $tareas[$x]->id }}
+                        </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapse{{ $x }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ $x }}">
+                        <div class="accordion-body">
+                            <p><b>Fecha reportado: </b>{{ $tareas[$x]->fecha_creacion }}</p>
+                            <p><b>REF: </b>{{ $tareas[$x]->ascensor_ref }}</p>
+                            <p><b>Tipo: </b>{{ $tareas[$x]->tipo }}</p>
+                            <p><b>Descripcion: </b><br>{{ $tareas[$x]->descripcion }}</p>
+                            <hr>
+                            <p><b>Estado: </b>{{ $tareas[$x]->estado }}</p>
+                            <p><b>Cliente: </b>{{ $tareas[$x]->cliente_id }}</p>
+                            <p><b>Operador: </b>{{ $tareas[$x]->operador_codigo }}</p>
+                            <p><b>Tecnico: </b>{{ $tareas[$x]->tecnico_codigo }}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                esto es una tarea
-            </button>
-            </h2>
-            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                <div class="accordion-body">
-                    <p><b>direccion:</b> direccion</p>
-                    <p><b>datos:</b> aqui informacion</p>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                esto es una tarea
-            </button>
-            </h2>
-            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                <div class="accordion-body">
-                    <p><b>direccion:</b> direccion</p>
-                    <p><b>datos:</b> aqui informacion</p>
-                </div>
-            </div>
-        </div>
+            @endfor
+        @else
+        <p>el historial esta vacio</p>
+        @endif
     </div>
     
 @endsection

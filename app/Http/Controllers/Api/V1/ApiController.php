@@ -23,7 +23,7 @@ class ApiController extends Controller
         // Obtenemos los filtros
         $filtro_numref = $_GET["filtro_numref"];
         $filtro_ubicacion = $_GET["filtro_ubicacion"];
-        
+
         $ascensores = \App\Models\Ascensor::where('num_ref', 'like', "%$filtro_numref%")->where('ubicacion', 'like', "%$filtro_ubicacion%")->get();
         $modelos = \App\Models\Modelo::all();
 
@@ -85,6 +85,5 @@ class ApiController extends Controller
             'rol' => $user->rol,
         ], 200);
     }
-
 
 }
