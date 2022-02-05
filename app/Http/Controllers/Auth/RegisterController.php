@@ -33,7 +33,9 @@ class RegisterController extends Controller
     protected function store(Request $request)
     {
         $request["email"] .= "@igobide.com";
-        $request->validate([
+
+
+        $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
             'dni' => 'required|string|max:12|unique:users',
@@ -43,6 +45,12 @@ class RegisterController extends Controller
             'rol' => 'required|string|max:255',
             'jefe_codigo' => 'string|max:255',
         ]);
+
+        if ($validator->fails()) {
+            return back()
+                    ->withErrors($validator)
+                    ->withInput();
+        }
         
         // Registramos dos entidades, el usuario y su entidad puesto relacionada
 
