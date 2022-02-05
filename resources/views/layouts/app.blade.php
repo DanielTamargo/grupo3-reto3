@@ -7,7 +7,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @php
+        $titulo = config('app.name', 'Igobide');
+    @endphp
+    <title>@yield('title', $titulo)</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

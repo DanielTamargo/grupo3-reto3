@@ -181,7 +181,7 @@ ADMINISTRADORES
 ----------------------------------------------------------------------------------------------
 */
 Route::get('/administrador', function (Request $request) {
-    return view('welcome')->with('usuario_creado', $request->usuario_creado);
+    return view('administradores.home')->with('usuario_creado', $request->usuario_creado);
 })->middleware('auth')
   ->name('administrador.home');
 
