@@ -61,6 +61,45 @@ class DatabaseSeeder extends Seeder
             'user_id' => $dani->id
         ]);
         $dani->save();
+
+        $alaitz = \App\Models\User::create([
+            'nombre' => 'Alaitz',
+            'apellidos' => 'Candela Murelaga',
+            'email' => 'alaitz.candela@igobide.com',
+            'email_verified_at' => now(),
+            'telefono' => '693248546',
+            'rol' => Roles::ADMINISTRADOR, // administrador, tecnico, operador, jefeequipo
+            'dni' => '81939760Y',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => 'abcdefghij',
+        ]);
+        $alaitz->save();
+
+        $alaitz = \App\Models\Administrador::create([
+            'codigo' => "adm_" . str_pad($alaitz->id, 5, "0", STR_PAD_LEFT),
+            'user_id' => $alaitz->id
+        ]);
+        $alaitz->save();
+
+        $txaber = \App\Models\User::create([
+            'nombre' => 'Txaber',
+            'apellidos' => 'Gardeazabal Larrory',
+            'email' => 'txaber.gardeazabal@igobide.com',
+            'email_verified_at' => now(),
+            'telefono' => '678436952',
+            'rol' => Roles::ADMINISTRADOR, // administrador, tecnico, operador, jefeequipo
+            'dni' => '36512592T',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => 'abcdefghij',
+        ]);
+        $txaber->save();
+
+        $txaber = \App\Models\Administrador::create([
+            'codigo' => "adm_" . str_pad($txaber->id, 5, "0", STR_PAD_LEFT),
+            'user_id' => $txaber->id
+        ]);
+        $txaber->save();
+
         $this->command->comment("Datos fijos (administradores) creados correctamente");
 
         // -------------------------------------------------------------------------------------
