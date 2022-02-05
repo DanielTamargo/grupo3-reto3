@@ -8,7 +8,8 @@
             <h3 class="text-muted">Lista de técnicos a tu cargo</h3>
         @endif
         <a href="{{ route('empleados.new') }}" class="btn btn-outline-success my-3">Nuevo empleado</a>
-        <a href="{{ route('empleados.new') }}" class="btn btn-outline-light my-3">Exportar a Excel</a>
+        <a href="{{ route('empleados.export.excel') }}" class="btn btn-outline-light my-3">Exportar a Excel</a>
+        <a href="{{ route('empleados.export.csv') }}" class="btn btn-outline-light my-3">Exportar a CSV</a>
         <table class="border table table-hover rounded empleados">
             <thead>
                 <tr class="table-primary">

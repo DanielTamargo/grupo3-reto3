@@ -165,15 +165,21 @@ Route::get('/empleados/nuevo', [App\Http\Controllers\Auth\RegisterController::cl
 /*Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
     ->middleware('auth')
     ->name('empleados.store');*/ //<- implementado con auth
-Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
-    ->middleware('auth')
-    ->name('empleados.show');
+// Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
+//     ->middleware('auth')
+//     ->name('empleados.show');
 Route::post('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
     ->middleware('auth')
     ->name('empleados.edit');
 Route::delete('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'eliminarEmpleado'])
     ->middleware('auth')
     ->name('empleados.delete');
+Route::get('/empleados/export/excel', [App\Http\Controllers\EmpleadoController::class, 'exportarExcel'])
+    ->middleware('auth')
+    ->name('empleados.export.excel');
+Route::get('/empleados/export/csv', [App\Http\Controllers\EmpleadoController::class, 'exportarCSV'])
+    ->middleware('auth')
+    ->name('empleados.export.csv');
 
 /*
 ----------------------------------------------------------------------------------------------
