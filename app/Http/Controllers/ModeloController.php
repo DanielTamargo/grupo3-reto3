@@ -36,10 +36,26 @@ class ModeloController extends Controller
      */
     public function store(Request $request, $id)
     {
-        $manual_pdf = $request->get('manual');
-        
-        $extension = pathinfo($manual_pdf, PATHINFO_EXTENSION);
-        return $manual_pdf;
+        //Comprobamos que el cliente nos ha subido un archivo
+        if($request->hasFile('manual')){
+            //cogemos el archivo y comprobamos si es un PDF 
+            $archivo = $request->file('manual');
+           
+            if($archivo->guessExtension() == 'pdf'){
+                //Guardamos el archivo
+                $manual = $archivo->getClientOriginalName();
+                $archivo2 = public_path('modelos/'.$manual);
+                copy($archivo,$archivo2);
+                
+                //Subimos los cambios a la base de datos
+                $modelo = Modelo::find($id);
+                $modelo->manual= $manual;
+                $modelo->save();
+                
+            }
+           
+            
+        }
     }
 
     /**
