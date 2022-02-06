@@ -24,7 +24,7 @@
                 <p  id="num_persona" aria-disabled="true"  class="form-control bg-dark rounded-pill text-black">{{ $modelo->num_personas}}</p>
                 <p id="llave" aria-disabled="true" class="form-control bg-dark rounded-pill text-black">{{ $modelo->llave}}</p>
                 <p id="tipo_accionamiento" aria-disabled="true" class="form-control bg-dark rounded-pill text-black">{{ $modelo->tipoaccionamiento}}</p>
-                <form action="{{ route('modelos.store', $modelo->id)}}" method="post">
+                <form action="{{ route('modelos.store', $modelo->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="manual" id="manual" class="mt-2 form-control bg-dark rounded-pill text-black"/>
                     <div class="row">

@@ -37,23 +37,9 @@ class ModeloController extends Controller
     public function store(Request $request, $id)
     {
         $manual_pdf = $request->get('manual');
-        dd($request);
-        $extension = pathinfo($manual_pdf, PATHINFO_EXTENSION);
         
-        if($extension != 'pdf') {
-            // Volvemos a la vista notificando el error
-            return back()->with('error','El documento tiene que ser tipo PDF');
-        }
-        else{
-            // Guardamos el manual
-
-
-            // Modificamos el modelo con el nuevo nombre del manual
-            $modelo = Modelo::find($id);
-
-            // Volvemos a la vista
-            return back()->with('exito','Documento subido correctamente');
-        }
+        $extension = pathinfo($manual_pdf, PATHINFO_EXTENSION);
+        return $manual_pdf;
     }
 
     /**
