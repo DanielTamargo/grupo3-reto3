@@ -8,6 +8,56 @@ use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
+    /**
+     * API cuya respuesta devuelve una lista de los técnicos disponibles con datos adicionales como
+     * nombre del jefe de equipo asignado, número de tareas pendientes y número de averías pendientes
+     *
+     * Login necesario: sí
+     * Rol necesario: administrador u operador
+     */
+    public function obtenerTecnicosDisponibles() {
+        $user = Auth::user();
+
+        // Comprobamos que es un usuario registrado y que dispone de los privilegios necesarios
+        if (!$user || ($user->rol != "operador" && $user->rol != "administrador")) {
+            return response()->json([
+                'ok' => false,
+                'message' => 'No dispones de los suficientes permisos para solicitar estos datos',
+                'rol' =>  'invitado'
+            ]);
+        }
+
+        $tecnicos = \App\Models\Tecnico::all();
+        $tecnicos_respuesta = [];
+
+        // Parseamos cada técnico para completar la información que necesita la respuesta
+        foreach($tecnicos as $tecnico) {
+            $tecnico["num_tareas_pdtes"] = count(\App\Models\Tarea::where('tecnico_codigo', $tecnico->codigo)
+                                                            ->whereIn('estado', ['sintratar', 'retrasado', 'materialrequerido'])->get());
+            $tecnico["num_urgencias_pdtes"] = count(\App\Models\Tarea::where('tecnico_codigo', $tecnico->codigo)
+                                                            ->whereIn('estado', ['sintratar', 'retrasado', 'materialrequerido'])
+                                                            ->where('prioridad', '>=', 5)->get());
+            $tecnico["jefe_nombre"] = $tecnico->jefe->user->nombre . " " . $tecnico->jefe->user->apellidos;
+            $tecnico["nombre"] = $tecnico->user->nombre . " " . $tecnico->user->apellidos;
+            array_push($tecnicos_respuesta, $tecnico);
+        }
+
+
+        return response()->json([
+            'ok' => true,
+            'tecnicos' => $tecnicos_respuesta,
+            'message' => 'Petición válida',
+            'rol' => $user->rol,
+        ], 200);
+
+    }
+
+    /**
+     * API cuya respuesta devuelve una lista de ascensores instalados y los modelos para sonsacar
+     * datos en base a la relación
+     *
+     * Login necesario: sí
+     */
     public function obtenerAscensores() {
         $user = Auth::user();
 
@@ -37,6 +87,12 @@ class ApiController extends Controller
 
     }
 
+    /**
+     * API cuya respuesta un array asociativo con los datos de los jefes, nombre, código y número de técnicos
+     *
+     * Login necesario: sí
+     * Rol necesario: administrador o jefeequipo
+     */
     public function codigosJefes() {
         $user = Auth::user();
 

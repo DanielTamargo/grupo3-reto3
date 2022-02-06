@@ -27,6 +27,7 @@ APIS
 */
 Route::get('/api/v1/ascensores', [App\Http\Controllers\Api\V1\ApiController::class, 'obtenerAscensores']);
 Route::get('/api/v1/codigosJefes', [App\Http\Controllers\Api\V1\ApiController::class, 'codigosJefes']);
+Route::get('/api/v1/tecnicos-disponibles', [App\Http\Controllers\Api\V1\ApiController::class, 'obtenerTecnicosDisponibles']);
 
 /*
 ----------------------------------------------------------------------------------------------

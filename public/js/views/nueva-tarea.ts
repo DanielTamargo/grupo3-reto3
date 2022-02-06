@@ -10,30 +10,35 @@ function actualizarProgressBars(prioridad: number): void {
             document.getElementById('prioridad-pb-3').style.display = "none";
             document.getElementById('prioridad-pb-4').style.display = "none";
             document.getElementById('prioridad-pb-5').style.display = "none";
+            document.getElementById('prioridad-texto').innerHTML = "Prioridad de la tarea - Baja";
             break;
         case 2:
             document.getElementById('prioridad-pb-2').style.display = "block";
             document.getElementById('prioridad-pb-3').style.display = "none";
             document.getElementById('prioridad-pb-4').style.display = "none";
             document.getElementById('prioridad-pb-5').style.display = "none";
+            document.getElementById('prioridad-texto').innerHTML = "Prioridad de la tarea - Leve";
             break;
         case 3:
             document.getElementById('prioridad-pb-2').style.display = "block";
             document.getElementById('prioridad-pb-3').style.display = "block";
             document.getElementById('prioridad-pb-4').style.display = "none";
             document.getElementById('prioridad-pb-5').style.display = "none";
+            document.getElementById('prioridad-texto').innerHTML = "Prioridad de la tarea - Moderada";
             break;
         case 4:
             document.getElementById('prioridad-pb-2').style.display = "block";
             document.getElementById('prioridad-pb-3').style.display = "block";
             document.getElementById('prioridad-pb-4').style.display = "block";
             document.getElementById('prioridad-pb-5').style.display = "none";
+            document.getElementById('prioridad-texto').innerHTML = "Prioridad de la tarea - Grave";
             break;
         case 5:
             document.getElementById('prioridad-pb-2').style.display = "block";
             document.getElementById('prioridad-pb-3').style.display = "block";
             document.getElementById('prioridad-pb-4').style.display = "block";
             document.getElementById('prioridad-pb-5').style.display = "block";
+            document.getElementById('prioridad-texto').innerHTML = "Prioridad de la tarea - Urgencia";
             break;
     }
 }
@@ -60,7 +65,7 @@ function controlarIntro(evt: any): void {
     controlarPrioridad(evt);
 }
 
-// Listener
+// Listeners
 document.getElementById('prioridad-range').addEventListener('change', actualizarRange);
 document.getElementById('prioridad').addEventListener('change', controlarPrioridad);
 document.getElementById('prioridad').addEventListener('keypress', controlarIntro);

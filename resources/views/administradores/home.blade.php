@@ -60,6 +60,16 @@ Igobide | Administrador
                     rol="administrador"
                     id_p="5"
                     ruta="{{ route('modelos.index') }}"></boton-panel>
+                    <boton-panel
+                    texto="Crear una nueva tarea"
+                    rol="administrador"
+                    id_p="6"
+                    ruta="{{ route('nuevatarea.create') }}"></boton-panel>
+                    <boton-panel
+                    texto="Ver listado de tareas general"
+                    rol="administrador"
+                    id_p="6"
+                    ruta=""></boton-panel>
                 </div>
             </div>
         </div>

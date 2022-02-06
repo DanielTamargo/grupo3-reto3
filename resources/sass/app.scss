@@ -12,7 +12,7 @@ main{
 #listaTecnico{
     cursor:pointer;
     border:1px solid white;
-   
+
 }
 
 .btn-outline-light{
@@ -71,6 +71,11 @@ table.empleados {
     background-color: white;
 }
 
+div#modal-ascensores, div#modal-tecnicos {
+    padding: 0;
+}
+
+
 
 /**
 QUITAR FLECHAS SUBIR BAJAR EN INPUT NUMBER EN NUEVA TAREA
@@ -82,7 +87,7 @@ QUITAR FLECHAS SUBIR BAJAR EN INPUT NUMBER EN NUEVA TAREA
       -webkit-appearance: none;
       margin: 0;
     }
-    
+
     /* Firefox */
     input[type=number] {
       -moz-appearance: textfield;
