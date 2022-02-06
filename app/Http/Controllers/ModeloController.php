@@ -51,10 +51,14 @@ class ModeloController extends Controller
                 $modelo = Modelo::find($id);
                 $modelo->manual= $manual;
                 $modelo->save();
-                
+                return back()->with('exito','Documento subido correctamente');
             }
-           
-            
+            else{
+                return back()->with('error','El documento tiene que ser PDF');
+            }      
+        }
+        else{
+            return back()->with('error','Tienes que añadir un manual');
         }
     }
 
