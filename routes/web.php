@@ -82,8 +82,10 @@ LOGIN / REGISTRAR NUEVO USUARIO
 */
 
 Route::get('/login', function () {
-    return view('auth.login');
+    return view('login');
 })->name("login");
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])
+    ->name("login");
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
     ->middleware('auth')
     ->name("register.create");
