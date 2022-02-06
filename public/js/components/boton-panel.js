@@ -20,8 +20,8 @@ class BotonPanel extends HTMLElement {
         const attributesMapping = [
             'rol',
             'texto',
-            'index_tab',
             'ruta',
+            'id_p',
         ];
         attributesMapping.forEach(key => {
             if (!this.attributes[key]) {
@@ -48,7 +48,7 @@ class BotonPanel extends HTMLElement {
         <div id="boton-panel" class="boton-panel" onclick="this.getRootNode().host.redirigirARuta()">
             <div class="button">
                 <div class="button__content">
-                    <p class="button__text">${this.attributes.texto.value}</p>
+                    <p id="paraph-${this.attributes.id_p.value}" class="button__text">${this.attributes.texto.value}</p>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@ class BotonPanel extends HTMLElement {
     // Método que aplica estilos al elemento
     templateCss() {
         return `
-            <style>
+            <style scoped>
                 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap");
                 *,
                 *::before,

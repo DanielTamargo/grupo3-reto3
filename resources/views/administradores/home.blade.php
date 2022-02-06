@@ -38,27 +38,27 @@ Igobide | Administrador
                     <boton-panel
                     texto="Ver lista de empleados"
                     rol="administrador"
-                    index_tab="1"
+                    id_p="1"
                     ruta="{{ route('empleados.index') }}"></boton-panel>
                     <boton-panel
                     texto="Registrar un nuevo empleado"
                     rol="administrador"
-                    index_tab="2"
+                    id_p="2"
                     ruta="{{ route('empleados.new') }}"></boton-panel>
                     <boton-panel
                     texto="Consultar estadísticas"
                     rol="administrador"
-                    index_tab="3"
+                    id_p="3"
                     ruta="{{ route('empleados.new') }}"></boton-panel>
                     <boton-panel
                     texto="Ver ascensores instalados"
                     rol="administrador"
-                    index_tab="4"
+                    id_p="4"
                     ruta="{{ route('ascensores.index') }}"></boton-panel>
                     <boton-panel
                     texto="Ver modelos registrados"
                     rol="administrador"
-                    index_tab="5"
+                    id_p="5"
                     ruta="{{ route('modelos.index') }}"></boton-panel>
                 </div>
             </div>
