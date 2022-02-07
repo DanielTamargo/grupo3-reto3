@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Tecnico;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -32,9 +33,13 @@ class RegisterController extends Controller
      */
     protected function store(Request $request)
     {
+        // Comprobamos permisos
+        $user = Auth::user();
+        if (!$user || $user->rol != "administrador" && $user->rol != "operador") return view('errors.403');
+
+        // Validamos los datos
+        $old_email = $request->email;
         $request["email"] .= "@igobide.com";
-
-
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
@@ -47,6 +52,7 @@ class RegisterController extends Controller
         ]);
 
         if ($validator->fails()) {
+            $request["email"] = $old_email;
             return back()
                     ->withErrors($validator)
                     ->withInput();
