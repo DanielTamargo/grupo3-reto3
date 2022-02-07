@@ -21,19 +21,19 @@ Igobide | Administrador
     @endif
 
     {{-- Contenido --}}
-    <div class="h-100">
-        <div class="container">
+    <div class="col-12 h-75 d-flex flex-column justify-content-center align-items-center">
+        <div class="container ">
 
             <div class="row user-select-none">
                 <div class="col-12 d-flex justify-content-center">
                     <h2>¡Bienvenido/a {{ Auth::user()->nombre }}!</h2>
                 </div>
-                <div class="col-12 d-flex justify-content-center">
+                <div class="col-12 d-flex justify-content-center align-items-center">
                     <p>¿Qué quieres hacer?</p>
                 </div>
             </div>
 
-            <div class="row d-flex justify-content-center">
+            <div class="row d-flex justify-content-center align-items-center">
                 <div class="col-12 mb-3 d-flex justify-content-center flex-wrap">
                     <boton-panel
                     texto="Ver lista de empleados"
@@ -49,7 +49,7 @@ Igobide | Administrador
                     texto="Consultar estadísticas"
                     rol="administrador"
                     id_p="3"
-                    ruta="{{ route('empleados.new') }}"></boton-panel>
+                    ruta="{{ route('estadisticas.create') }}"></boton-panel>
                     <boton-panel
                     texto="Ver ascensores instalados"
                     rol="administrador"

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container px-4">
         @if (Auth::user()->rol == "administrador")
-            <h3 class="text-muted">Lista de usuarios registrados</h3>
+            <h3 class="text-black">Lista de usuarios registrados</h3>
         @else
             <h3 class="text-muted">Lista de técnicos a tu cargo</h3>
         @endif

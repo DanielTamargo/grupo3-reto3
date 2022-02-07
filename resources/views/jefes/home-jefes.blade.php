@@ -4,7 +4,7 @@
 
 <div class="row ">
     <div class="col-12">
-        <h2>Bienvenido! </h2> <!--cuando tengamos las vistas relacionadas poner el nombre de usuario!-->
+        <h2>Bienvenido/a {{Auth::user()->nombre}}! </h2>
     </div>
 </div>
 
@@ -15,19 +15,40 @@
 </div>
 
 <div class="row">
-    <div class="col-12">
-        <form action="" method="get">
-            <div class="row d-flex flex-column flex-md-row flex-wrap justify-content-center align-items-center">
-                <a href=" {{ route('estadisticas.show') }} " class="col-md-3 m-1 btn btn-outline-light text-decoration-none text-black">Ver estad&iacute;sticas</a>
-                <a href=" {{ route('usuarios.create') }} " class="col-md-3 m-1 btn btn-outline-light text-decoration-none text-black">Alta de usuarios</a>
-                <a href=" {{ route('usuarios.borrar.create') }} " class="col-md-3 m-1 btn btn-outline-light text-decoration-none text-black">Baja de usuarios</a>
-                <a href=" {{ route('usuarios.modificar.create') }} " class="col-md-3 m-1 btn btn-outline-light text-decoration-none text-black">Modificar usuarios</a>
-                <a href=" {{ route('manuales.create') }} " class="col-md-3 m-1 btn btn-outline-light text-decoration-none text-black">Subir manuales</a>
-                <a href=" {{ route('historial.create') }} " class="col-md-3 m-1 btn btn-outline-light text-decoration-none text-black">Ver el historial</a>
-            </div>
-        </form>
-    </div>
+    
+        
+        <div class="col-12 mb-3 d-flex justify-content-center flex-wrap">
+                    <boton-panel
+                    texto="Ver estadísticas"
+                    rol="jefeequipo"
+                    id_p="1"
+                    ruta="{{ route('estadisticas.create') }}"></boton-panel>
+                    <boton-panel
+                    texto="Alta Usuarios"
+                    rol="jefeequipo"
+                    id_p="2"
+                    ruta="{{ route('empleados.new') }}"></boton-panel>
+                    <boton-panel
+                    texto="Ver lista de usuarios"
+                    rol="jefeequipo"
+                    id_p="3"
+                    ruta="{{ route('empleados.index') }}"></boton-panel>
+                    <boton-panel
+                    texto="Ver Manuales"
+                    rol="jefeequipo"
+                    id_p="5"
+                    ruta="{{ route('modelos.index') }}"></boton-panel>
+                    <boton-panel
+                    texto="Ver Historial"
+                    rol="jefeequipo"
+                    id_p="6"
+                    ruta="{{ route('') }}"></boton-panel>
+                   
+                </div>
+   
 </div>
 
 </div>
+{{-- Script web components --}}
+    <script type="module" src="{{ asset('js/components/importar-boton-panel.js')}}" defer></script>
 @endsection

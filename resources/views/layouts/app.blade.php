@@ -21,9 +21,17 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @if (isset($home))
+    <style>
+        body{
+            background:linear-gradient(360deg,rgba(165, 94, 234,0.5),rgba(116, 185, 255,0.7));
+        }
+    </style>
+    @endif
 </head>
-<body class="bg-dark text-black" >
-    <div id="app" class="container-fluid" style="height: 100vh;">
+<body class="bg-dark text-black" style="height: 100vh;" >
+    <div id="app" class="container-fluid h-100" >
         <div class="row">
         <nav class="col-12 navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container">
@@ -103,7 +111,7 @@
             </div>
         </nav>
         </div>
-        <main class="py-4 row">
+        <main class="py-4 row h-75">
             @yield('content')
         </main>
     </div>
