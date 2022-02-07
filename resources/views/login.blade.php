@@ -66,6 +66,10 @@
             display: block;
             margin: 0 auto;
         }
+        .login_form > .lf_input_submit:hover {
+            background-color: rgba(164, 94, 234, 0.411);
+            color: white !important;
+        }
         .login_form > .lf_input {
             text-align: center;
             border-radius: 2px;
@@ -82,7 +86,7 @@
         }
         .login_form > .lf_input_submit:active {
             background-color: rgb(165, 94, 234);
-            color: #fff;
+            color: white !important;
             margin: 0 auto;
         }
         .login_form > .lf_input:not(:placeholder-shown) {

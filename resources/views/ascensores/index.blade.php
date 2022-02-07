@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Igobide | Ascensores
+@endsection
+
 @section('content')
     <div class="container px-4">
         <input type="hidden" id="seleccionar-ascensor" value="{{ isset($seleccionar_ascensor) && $seleccionar_ascensor ? 'true' : 'false' }}">

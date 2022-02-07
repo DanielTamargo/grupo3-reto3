@@ -1,5 +1,7 @@
 # Documentación
 
+- [Documentación oficial](https://docs.google.com/document/d/15u0PaB_mEqGvk5ZPORyIXmBB0YKbojBCD4IFSglbZDw/edit?usp=sharing)
+- [Guía de estilos](https://drive.google.com/file/d/1v7vTEXKilpHgWdseXUB9QLZJ-KFQpqs0/view?usp=sharing)
 - [Bibliografía](/docs/bibliografia.md)
 
 # Set up
