@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Modelo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ModeloController extends Controller
 {
@@ -36,6 +37,10 @@ class ModeloController extends Controller
      */
     public function store(Request $request, $id)
     {
+        // Contemplamos permisos
+        $user = Auth::user();
+        if (!$user || ($user->rol != "administrador" && $user->rol != "jefeequipo")) return back();
+
         //Comprobamos que el cliente nos ha subido un archivo
         if($request->hasFile('manual')){
             //cogemos el archivo y comprobamos si es un PDF 

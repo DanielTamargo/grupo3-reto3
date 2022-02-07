@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Response;
 
@@ -14,6 +15,11 @@ class DownloadController extends Controller
      * Descarga el fichero en cuestión.
      */
     public function descargarManual(Request $request) {
+        // Contemplamos permisos
+        $user = Auth::user();
+        if (!$user) return back();
+
+        // Descargamos ficheros
         $ruta_fichero = public_path('modelos/' . $request->manual_nombre);
         $existe = File::exists($ruta_fichero);
 
