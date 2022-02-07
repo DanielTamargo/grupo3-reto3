@@ -15,7 +15,6 @@ class GeneralController extends Controller
     public function inicio(Request $request)
     {
         $user = Auth::user();
-
         // Comprobamos que está loggeado (Con el middleware ya debería estar contemplado)
         if (!$user) return redirect()->route('login');
 

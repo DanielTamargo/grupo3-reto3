@@ -12214,6 +12214,7 @@ main {
 
 .btn-outline-light {
   border-color: #a55eea;
+  color: #a55eea;
 }
 .btn-outline-light:hover {
   background-color: #a55eea;
@@ -12264,4 +12265,24 @@ a.empleados:hover svg {
 
 table.empleados {
   background-color: white;
+}
+
+div#modal-ascensores, div#modal-tecnicos {
+  padding: 0;
+}
+
+/**
+QUITAR FLECHAS SUBIR BAJAR EN INPUT NUMBER EN NUEVA TAREA
+**/
+/* Chrome, Safari, Edge, Opera */
+.nt {
+  /* Firefox */
+}
+.nt input::-webkit-outer-spin-button,
+.nt input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.nt input[type=number] {
+  -moz-appearance: textfield;
 }

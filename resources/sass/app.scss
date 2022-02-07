@@ -17,6 +17,7 @@ main{
 
 .btn-outline-light{
     border-color:$light;
+    color:$light;
     &:hover{
         background-color: $light;
         border:$light;

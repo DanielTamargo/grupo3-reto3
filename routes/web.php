@@ -134,7 +134,7 @@ OPERADORES
 ----------------------------------------------------------------------------------------------
 */
 
-Route::get('/operador', function () {return view('operadores.home-operador');})->name('home.operador');
+Route::get('/operador', function () {return view('operadores.home-operador')->with('home',true);})->name('home.operador');
 Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaTarea'])->name('nuevatarea.create');
 Route::get('/operador/nuevo-parte', [App\Http\Controllers\OperadorController::class, 'crearParte'])->name('crearparte.create');
 Route::get('/operador/ultimas-revisiones', [App\Http\Controllers\OperadorController::class, 'mostrarUltimasRevisiones'])->name('ultimasrevisiones.show');
@@ -146,7 +146,7 @@ JEFES DE EQUIPO
 ----------------------------------------------------------------------------------------------
 */
 
-Route::get('/jefes', function () {return view('jefes.home-jefes');})->name('home.jefe');
+Route::get('/jefes', function () {return view('jefes.home-jefes')->with('home',true);})->name('home.jefe');
 Route::get('/jefes/estadisticas', [App\Http\Controllers\JefeEquipoController::class, 'estadisticasShow'])->name('estadisticas.show');
 Route::get('/jefes/nuevosusuarios', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaNuevosUsuarios'])->name('usuarios.create');
 Route::get('/jefes/borrarusuarios', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaBorrarUsuarios'])->name('usuarios.borrar.create');
@@ -194,7 +194,7 @@ ADMINISTRADORES
 ----------------------------------------------------------------------------------------------
 */
 Route::get('/administrador', function (Request $request) {
-    return view('administradores.home')->with('usuario_creado', $request->usuario_creado);
+    return view('administradores.home')->with('home',true)->with('usuario_creado', $request->usuario_creado);
 })->middleware('auth')
   ->name('administrador.home');
 
