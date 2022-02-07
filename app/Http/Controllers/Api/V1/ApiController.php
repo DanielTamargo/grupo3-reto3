@@ -198,6 +198,14 @@ class ApiController extends Controller
             'cod_jefe'=>$user->puesto->codigo
         ], 200);
     }
-
+    public function obtenerTareas(){
+        if(Auth::user()->rol !='tecnico'){
+            $tareas = Tarea::all();
+            return response()->json([
+                'ok' => true,
+                'tareas' => $tareas,
+            ], 200);
+        }
+    }
 
 }

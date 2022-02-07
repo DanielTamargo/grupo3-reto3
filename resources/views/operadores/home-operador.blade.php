@@ -20,7 +20,7 @@
                     texto="Ver historial de tareas"
                     rol="operador"
                     id_p="3"
-                    ruta="#"></boton-panel>
+                    ruta="{{route('tareas.index')}}"></boton-panel>
                     <boton-panel
                     texto="Ver ascensores instalados"
                     rol="operador"

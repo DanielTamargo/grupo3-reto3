@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Operador;
+use App\Models\Tarea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,7 +48,19 @@ class OperadorController extends Controller
     public function asignarRevisiones(){
         return view('operadores.nuevaRevision');
     }
+    public function listarTareas(){
+        //cogemos todas las tareas y comprobamos sus credenciales
+        $tareas = Tarea::all();
 
+        if(Auth::user()->rol != 'tecnico'){
+            //si es administrador le paso las 10 primeras tareas
+            $tareas = $tareas->where('id','>',0)->where('id','<',11);
+        }
+        else{
+            return view('inicio');
+        }
+        return view('operadores.lista-tarea')->with('tareas',$tareas);
+    }
     /**
      * Store a newly created resource in storage.
      *

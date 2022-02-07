@@ -69,7 +69,7 @@ Igobide | Administrador
                     texto="Ver listado de tareas general"
                     rol="administrador"
                     id_p="6"
-                    ruta=""></boton-panel>
+                    ruta="{{route('tareas.index')}}"></boton-panel>
                 </div>
             </div>
         </div>
