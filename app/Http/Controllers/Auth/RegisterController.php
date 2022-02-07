@@ -40,7 +40,7 @@ class RegisterController extends Controller
             'apellidos' => 'required|string|max:255',
             'dni' => 'required|string|max:12|unique:users',
             'telefono' => 'required|string|max:20',
-            'email' => 'required|string|max:255|unique:users', 
+            'email' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:8',
             'rol' => 'required|string|max:255',
             'jefe_codigo' => 'string|max:255',
@@ -51,7 +51,7 @@ class RegisterController extends Controller
                     ->withErrors($validator)
                     ->withInput();
         }
-        
+
         // Registramos dos entidades, el usuario y su entidad puesto relacionada
 
         // Usuario
@@ -99,6 +99,6 @@ class RegisterController extends Controller
             }
         }
 
-        return redirect()->route('inicio', ['usuario_creado' => true]); // TODO dani: comprobar que redirige a donde queremos
+        return redirect()->route('inicio', ['usuario_creado' => true]);
     }
 }

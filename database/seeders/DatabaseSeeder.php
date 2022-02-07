@@ -291,8 +291,5 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         $this->command->comment("Tareas (+clientes) pendientes creadas con éxito");
-
-        // TODO dani (opcional): Datos fijos para finalizar: un jefe de equipo, un tecnico y unas cuantas tareas para el técnico
-
     }
 }

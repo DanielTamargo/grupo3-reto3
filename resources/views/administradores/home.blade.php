@@ -12,10 +12,20 @@ Igobide | Administrador
     @if (isset($usuario_creado) && $usuario_creado)
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
-        Swal.fire({
-            text: 'El usuario se ha creado con éxito',
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast'
+            },
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true
+        });
+        Toast.fire({
             icon: 'success',
-            timer: 2000
+            title: 'Usuario se ha creado con éxito'
         });
     </script>
     @endif
@@ -55,11 +65,6 @@ Igobide | Administrador
                     rol="administrador"
                     id_p="4"
                     ruta="{{ route('ascensores.index') }}"></boton-panel>
-                    <boton-panel
-                    texto="Ver modelos registrados"
-                    rol="administrador"
-                    id_p="5"
-                    ruta="{{ route('modelos.index') }}"></boton-panel>
                     <boton-panel
                     texto="Crear una nueva tarea"
                     rol="administrador"
