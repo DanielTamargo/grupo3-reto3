@@ -14,8 +14,10 @@
 <body class="container-fluid min-vh-100 text-black bg-gris3">
     <header class="row bg-azul1">
         <div class="col-3 col-md-2">
-            <img src="" alt="logo" class="img-fluid m-auto">
-            
+            <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="./img/logoIgobideGrande_negro.png" alt="logo_grande" class="img-fluid w-50 d-none d-md-block"/>
+                    <img src="./img/logo_peque.png" alt="logo" class="img-fluid w-50 d-md-none d-block"/>
+            </a>
         </div>
         <div class="col">
             <p class="display-5 mt-3">Ascensores igobide</p>

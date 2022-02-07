@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\TareaController as ControllersTareaController;
-use App\Models\Parte;
 use App\Models\Tarea;
-use App\Models\Tecnico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class TecnicoController extends Controller
 {
@@ -88,67 +84,88 @@ class TecnicoController extends Controller
         //
     }
 
-    //
-    // !! validaciones estan desactivadas hasta implementar el auth
-    //
-    //
-    //
-
     /* muestra la vista nuevaParte */
     public function nuevaParte($idtarea) {
 
-        //$errorview = $this->validarTecnico(Auth::id());
-        //if ($errorview != "") {
-        //    return view($errorview);
-        //}
+        $errorview = $this->validarTecnico(Auth::user());
+        if ($errorview != "") {
+            return view($errorview);
+        }
 
-        return view('tecnicos.nuevaParte', ["idtarea" => $idtarea]);
+        $tarea = Tarea::find($idtarea);
+
+        return view('tecnicos.nuevaParte', ["tarea" => $tarea]);
     }
 
     /* muestra la vista tareas */
     public function showTareas() {
         
-        //$errorview = $this->validarTecnico(Auth::id());
-        //if ($errorview != "") {
-        //    return view($errorview);
-        // }
+        $errorview = $this->validarTecnico(Auth::user());
+        if ($errorview != "") {
+            return view($errorview);
+         }
 
-        $tareas = Tarea::where('tecnico_codigo',Auth::user()->codigo);//->orderBy('prioridad','desc');
-
+        $tareas = Tarea::where('tecnico_codigo',Auth::user()->puesto->codigo)->where('estado', "!=",'finalizado')->orderBy('prioridad','desc')->get();//;
+        
         return view('tecnicos.tareas' , ["tareas" => $tareas]);
     }
 
     /* muestra la vista historial */
-    public function showHistorial() {
+    public function showHistorialDefault() {
 
-        //$errorview = $this->validarTecnico(Auth::id());
-        //if ($errorview != "") {
-        //    return view($errorview);
-        //}
-        $tec = Tecnico::find(Auth::id());
-        $tareas = $tec->tareas;
-
-        
+        $errorview = $this->validarTecnico(Auth::user());
+        if ($errorview != "") {
+            return view($errorview);
+        }
+        $tareas = Tarea::where('tecnico_codigo',Auth::user()->puesto->codigo)->where('estado', "!=",'sintratar')->get();
 
         return view('tecnicos.historial', ["tareas" => $tareas]);
     }
+
+    /* 
+    * funcion que se encarga de hacer busquedas en historial
+    * muestra la vista historial 
+    */
+    public function showHistorial(Request $request) {
+
+        $errorview = $this->validarTecnico(Auth::user());
+        if ($errorview != "") {
+            return view($errorview);
+        }
+
+        if ($request->boolean('idOpt')) {
+            // comprueba que la tarea es del tecnico correspondiente
+            $tareas = Tarea::where('tecnico_codigo',Auth::user()->puesto->codigo)->where('estado', "!=",'sintratar')->where('id',$request->fecha)->get();
+        }
+        else {
+            // valor entre fechas
+            $dia = date("Y-m-d",strtotime($request->fecha));
+            $diasiguiente = date("Y-m-d",strtotime($request->fecha) + (24 * 60 * 60));
+
+            $tareas = Tarea::where('tecnico_codigo',Auth::user()->puesto->codigo)->where('estado', "!=",'sintratar')->where('fecha_finalizacion','>',$dia)->where('fecha_finalizacion','<',$diasiguiente)->get();
+        }
+
+        
+        return view('tecnicos.historial',["tareas" => $tareas]);
+    }
+
     /* muestra la vista manual */
     public function showManual() {
 
-        //$errorview = $this->validarTecnico(Auth::id());
-        //if ($errorview != "") {
-        //    return view($errorview);
-        //}
+        $errorview = $this->validarTecnico(Auth::user());
+        if ($errorview != "") {
+            return view($errorview);
+        }
 
         return view('tecnicos.manual');
     }
     /* muestra la vista piezas */
     public function piezas() {
 
-        //$errorview = $this->validarTecnico(Auth::id());
-        //if ($errorview != "") {
-        //    return view($errorview);
-        //}
+        $errorview = $this->validarTecnico(Auth::user());
+        if ($errorview != "") {
+            return view($errorview);
+        }
 
         return view('tecnicos.piezas');
     }
@@ -157,22 +174,16 @@ class TecnicoController extends Controller
         @param  int $codigo  codigo del usuario/tecnico
         @return string  el nombre de la vista de error al que redireccionar la peticion, en caso de validar devuelve un string vacio
     */
-    private function validarTecnico($codigo) {
+    private function validarTecnico($user) {
         // VALIDACIONES
         // El middleware auth contemplará que el usuario deba estar loggeado
 
         // Validar que el usuario esté autenticado código se reciba correctamente
-        if (!$codigo) return 'errors.403';
-
-        // Validar que el técnico exista (devuelve null si no existe)
-        $tecnico = \App\Models\Tecnico::find($codigo);
-        if ($tecnico == null) return 'errors.404';
+        if (!$user) return 'errors.403';
 
         // Validar que el usuario tiene permisos para ver la página
         // Si el usuario es el propio técnico, o un administrador, o su jefe de equipo, podrá ver la página
-        $user = Auth::user();
-        if ($user->puesto->codigo != $codigo && $user->rol != "administrador" 
-                && ($user->puesto != "jefeequipo" && $user->puesto->codigo != $tecnico->jefe_codigo)) {
+        if ($user->rol != "administrador" && $user->rol != "jefeequipo" && $user->rol != "tecnico") {
             return 'errors.403';
         }
         return "";

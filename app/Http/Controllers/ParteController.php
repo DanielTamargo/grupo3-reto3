@@ -6,6 +6,7 @@ use App\Models\Parte;
 use App\Models\Tarea;
 use App\Models\Tecnico;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ParteController extends Controller
 {
@@ -39,23 +40,23 @@ class ParteController extends Controller
     {
         $parte = new Parte();
         // falta como manejar excepciones
-        if (Tecnico::find($request->tecnico) == null){
-            return "no eres un tecnico";
-        };
-
-        if (Tarea::find($request->idtarea) == null) {
-            return "no hay tarea";
-        }
+        
 
 
-        $parte->tecnico_codigo = $request->tecnico;
+        $parte->tecnico_codigo = Auth::user()->puesto->codigo;
         $parte->tarea_id = $request->idtarea;
         $parte->tarea_estado = $request->estado;
         $parte->tarea_tipo = $request->tipo;
         $parte->anotacion = $request->anotacion;
 
         $parte->save();
-        return redirect("/tecnico/".$request->tecnico."/nueva-parte");
+
+        $tarea = Tarea::find($request->idtarea);
+        $tarea->estado = $request->estado;
+        $tarea->tipo = $request->tipo;
+        $tarea->save();
+
+        return redirect("/tecnico/tareas");
     }
 
     /**
