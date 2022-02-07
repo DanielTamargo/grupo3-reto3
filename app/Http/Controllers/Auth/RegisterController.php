@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -104,6 +104,18 @@ class RegisterController extends Controller
                 break;
             }
         }
+
+        // Enviamos email al empleado con la URL al login y sus credenciales
+        $detalles = [
+            'asunto' => 'Usuario Registrado',
+            'rol_destinatario' => 'nuevo-empleado',
+            'nombre' => $request->nombre,
+            'usuario' => $old_email,
+            'password' => $request->password
+        ];
+
+        // Siempre se envían a esta cuenta puesto que es un proyecto piloto
+        Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
 
         return redirect()->route('inicio', ['usuario_creado' => true]);
     }

@@ -32,13 +32,6 @@ class GmailManager extends Mailable
      */
     public function build()
     {
-        // Utilizaremos una plantilla u otra dependiendo del destinatario
-        if ($this->detalles["rol_destinatario"] == "cliente") {
-            return $this->subject($this->detalles["asunto"])
-                        ->view('emails.cliente');
-        } else {
-            return $this->subject($this->detalles["asunto"])
-                        ->view('emails.tecnico');
-        }
+        return $this->subject($this->detalles["asunto"])->view('emails.' . $this->detalles["rol_destinatario"]);
     }
 }

@@ -64,19 +64,7 @@ Route::get('/descargar/manual/{manual_nombre}', [\App\Http\Controllers\DownloadC
 EMAILS
 ----------------------------------------------------------------------------------------------
 */
-Route::get('/send/email/cliente', function () {
-
-    $detalles = [
-        'asunto' => 'test',
-        'rol_destinatario' => 'cliente',
-        'titulo' => 'Email de Igobide Ascensores',
-        'mensaje' => 'Testeando los emails!'
-    ];
-
-    Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
-
-    dd("Email is Sent.");
-})->name('email.cliente');
+Route::get('/send/email/cliente', [App\Http\Controllers\EmailController::class, 'notificarCliente'])->name('email.cliente');
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -141,6 +129,7 @@ OPERADORES
 
 Route::get('/operador', function () {return view('operadores.home-operador')->with('home',true);})->name('home.operador');
 Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaTarea'])->name('nuevatarea.create');
+Route::post('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'crearTarea'])->name('tarea.store');
 Route::get('/operador/nuevo-parte', [App\Http\Controllers\OperadorController::class, 'crearParte'])->name('crearparte.create');
 Route::get('/operador/ultimas-revisiones', [App\Http\Controllers\OperadorController::class, 'mostrarUltimasRevisiones'])->name('ultimasrevisiones.show');
 Route::get('/operador/asignar-revisiones', [App\Http\Controllers\OperadorController::class, 'asignarRevisiones'])->name('asignarrevisiones.create');
@@ -211,6 +200,8 @@ GENERAL
 Route::get('/ascensores', [App\Http\Controllers\GeneralController::class, 'indexAscensores'])
     ->middleware('auth')
     ->name('ascensores.index');
+Route::get('/tarea-creada', [App\Http\Controllers\GeneralController::class, 'indexAscensores'])
+    ->middleware('auth'); // TODO dani: eliminar
 
 
   /*
@@ -227,4 +218,4 @@ Route::get('/modelos/{id}', [App\Http\Controllers\ModeloController::class, 'show
 Route::post('/modelos/{id}/actualizar', [App\Http\Controllers\ModeloController::class, 'store'])
     ->middleware('auth')
     ->name('modelos.store');
-  
+
