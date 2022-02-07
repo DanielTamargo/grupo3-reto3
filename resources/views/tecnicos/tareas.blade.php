@@ -14,7 +14,7 @@ Tareas
 
         posible que las tareas tengan un codigo de color dependiendo de 
         su prioridad / que aparezcan primero-->
-        @if ($tareas != null)
+        @if (!empty($tareas))
             @for ($x = 0; $x < count($tareas); $x++)
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-heading{{ $x }}">
@@ -33,7 +33,7 @@ Tareas
                         <p><b>Tipo: </b>{{ $tareas[$x]->tipo }}</p>
                         <p><b>Descripcion: </b><br>{{ $tareas[$x]->descripcion }}</p>
                         
-                        <a href="{{ route('tecnico.create', ['idtarea' => $tareas[$x]->id]) }}" class="btn btn-outline-light"></a>
+                        <a href="{{ route('tecnico.create', ['idtarea' => $tareas[$x]->id]) }}" class="btn btn-outline-light">Crear parte</a>
                     </div>
                 </div>
             </div>
