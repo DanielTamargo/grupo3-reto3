@@ -5,22 +5,22 @@
 
             <div class="row ">
                 <div class="col-12">
-                    <h2>Bienvenido!{{Auth::user()->nombre}}</h2> 
+                    <h2>¡Bienvenido/a {{Auth::user()->nombre}}!</h2> 
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-12 mb-3 d-flex justify-content-center flex-wrap">
                     <boton-panel
-                    texto="Nueva Averia"
+                    texto="Registrar nueva tarea"
                     rol="operador"
                     id_p="1"
                     ruta="{{ route('nuevatarea.create') }}"></boton-panel>
                     <boton-panel
-                    texto="Ver últimas revisiones"
+                    texto="Ver historial de tareas"
                     rol="operador"
                     id_p="3"
-                    ruta="{{ route('#') }}"></boton-panel>
+                    ruta="#"></boton-panel>
                     <boton-panel
                     texto="Ver ascensores instalados"
                     rol="operador"

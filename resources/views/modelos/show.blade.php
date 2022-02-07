@@ -35,17 +35,19 @@
                 <p id="tipo_accionamiento" aria-disabled="true" class="user-select-none form-control no-edit bg-dark rounded-pill text-black">
                     <a class="link-success" href="{{ route('descargar.manual.modelo', ['manual_nombre' => $modelo->manual ]) }}">Descargar manual PDF</a>
                 </p>
-                <form action="{{ route('modelos.store', $modelo->id)}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <label class="user-select-none mt-2" for="file">Reemplazar manual</label> 
-                    <input type="hidden" name="modelo_id" value="{{ $modelo->id }}">
-                    <input type="file" name="manual" id="manual" class="mt-2 form-control bg-dark rounded-pill text-black" />
-                    <div class="row">
-                        <div class="col-12 d-flex justify-content-center"> 
-                            <button type="submit" class=" mt-2 btn btn-outline-light text-black">Actualizar</button>
+                @if(Auth::user()->rol == "jefeequipo" || Auth::user()->rol == "administrador")
+                    <form action="{{ route('modelos.store', $modelo->id)}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <label class="user-select-none mt-2" for="file">Reemplazar manual</label> 
+                        <input type="hidden" name="modelo_id" value="{{ $modelo->id }}">
+                        <input type="file" name="manual" id="manual" class="mt-2 form-control bg-dark rounded-pill text-black" />
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center"> 
+                                <button type="submit" class=" mt-2 btn btn-outline-light text-black">Actualizar</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

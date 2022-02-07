@@ -58,7 +58,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             // Y redirigimos
-            return redirect()->intended('dashboard');
+            return redirect()->intended('/home');
         }
 
         // Si no ha habido éxito en el inicio de sesión, volvemos con los errores

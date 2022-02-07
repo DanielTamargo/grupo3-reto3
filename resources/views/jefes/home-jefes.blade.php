@@ -4,7 +4,7 @@
 
 <div class="row ">
     <div class="col-12">
-        <h2>Bienvenido/a {{Auth::user()->nombre}}! </h2>
+        <h2>¡Bienvenido/a {{Auth::user()->nombre}}! </h2>
     </div>
 </div>
 
@@ -24,7 +24,7 @@
                     id_p="1"
                     ruta="{{ route('estadisticas.create') }}"></boton-panel>
                     <boton-panel
-                    texto="Alta Usuarios"
+                    texto="Alta usuarios"
                     rol="jefeequipo"
                     id_p="2"
                     ruta="{{ route('empleados.new') }}"></boton-panel>
@@ -34,15 +34,15 @@
                     id_p="3"
                     ruta="{{ route('empleados.index') }}"></boton-panel>
                     <boton-panel
-                    texto="Ver Manuales"
+                    texto="Ver ascensores"
                     rol="jefeequipo"
                     id_p="5"
-                    ruta="{{ route('modelos.index') }}"></boton-panel>
+                    ruta="{{ route('ascensores.index') }}"></boton-panel>
                     <boton-panel
-                    texto="Ver Historial"
+                    texto="Ver historial tareas"
                     rol="jefeequipo"
                     id_p="6"
-                    ruta="{{ route('') }}"></boton-panel>
+                    ruta="#"></boton-panel>
                    
                 </div>
    

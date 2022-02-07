@@ -50,20 +50,21 @@
                     @else
                         @if(Auth::user()->rol == 'administrador')
                         <div class="navegador d-flex">
-                            <a href="#" class="nav-link mx-1" >Alta Usuarios</a>
-                            <a class="mx-1 nav-link"  href="#">Baja Usuarios</a>
-                            <a class="mx-1 nav-link"  href="#">Modificar Usuarios</a>
-                            <a class="mx-1 nav-link"  href="#">Estadisticas</a>
+                            <a class="nav-link mx-1" href="{{ route('empleados.index') }}">Empleados</a>
+                            <a class="mx-1 nav-link" href="{{ route('ascensores.index') }}">Ascensores</a>
+                            <a class="mx-1 nav-link" href="#">Tareas</a>
                         </div>
                         @elseif(Auth::user()->rol == 'operador')
                         <div class="navegador d-flex">
-                            <a href="#" class="mx-1 nav-link" >Alta Usuarios</a>
-                            <a class="mx-1 nav-link"  href="#">Baja Usuarios</a>
-                            <a class="mx-1 nav-link"  href="#">Modificar Usuarios</a>
-                            <a class="mx-1 nav-link"  href="#">Crear Partes</a>
-                            <a class="mx-1 nav-link"  href="#">Nueva Averia</a>
-                            <a class="mx-1 nav-link"  href="#">Historial Revisiones</a>
-                            <a class="mx-1 nav-link"  href="#">Nueva Revisi&oacute;n</a>
+                            <a class="mx-1 nav-link"  href="{{route('nuevatarea.create')}}">Nueva tarea</a>
+                            <a class="mx-1 nav-link"  href="#">Tareas</a>
+                            <a class="mx-1 nav-link"  href="{{route('ascensores.index')}}">Ascensores</a>
+                        </div>
+                        @elseif(Auth::user()->rol == 'jefeequipo')
+                        <div class="navegador d-flex">
+                            <a class="mx-1 nav-link"  href="{{route('estadisticas.create')}}">Estadisticas</a>
+                            <a class="mx-1 nav-link"  href="{{route('empleados.index')}}">Usuarios</a>
+                            <a class="mx-1 nav-link"  href="{{route('ascensores.index')}}">Ascensores</a>
                         </div>
                         @endif
                     @endguest

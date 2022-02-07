@@ -27,11 +27,11 @@ Igobide | Nueva tarea
                         <div class="row my-3">
                             <div class="col-4">
                                 <p class="mb-1">Número de referencia</p>
-                                <input class="form-control" id="filtro-num_ref" type="text" placeholder="Código referencia">
+                                <input class="form-control" style="background-color: white" id="filtro-num_ref" type="text" placeholder="Código referencia">
                             </div>
                             <div class="col-8">
                                 <p class="mb-1">Ubicación</p>
-                                <input class="form-control" id="filtro-ubicacion" type="text" placeholder="Dirección">
+                                <input class="form-control" style="background-color: white" id="filtro-ubicacion" type="text" placeholder="Dirección">
                             </div>
                         </div>
                         <table class="border table table-hover rounded empleados">
@@ -195,7 +195,7 @@ Igobide | Nueva tarea
 
                 <div class="row">
                     <div class="col-12 d-flex mt-2 justify-content-center bg-dark ">
-                        <button type="submit" class="btn btn-outline-light"><a href="#" class="text-decoration-none">Crear Tarea</a></button>
+                        <button type="submit" class="btn btn-outline-light mt-2 mb-5">Crear Tarea</button>
                     </div>
                 </div>
 

@@ -131,10 +131,10 @@ function seleccionRol(evt): void {
             url: "/api/v1/codigosJefes",
             success: function (data) {
                 if (!data.ok) throw Error("Error en la petición");
-
+                
                 let contenido: string = `
                 <label for="jefe_codigo" class="">Jefe asignado</label>
-                <select name="jefe_codigo" id="registro-jefe_codigo" class="form-select">`;
+                <select name="jefe_codigo" id="registro-jefe_codigo" class="form-select bg-dark">`;
 
                 jefes = data.jefes;
                 for (let key in jefes) {

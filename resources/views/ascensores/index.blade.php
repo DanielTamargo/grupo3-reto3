@@ -21,11 +21,11 @@ Igobide | Ascensores
             <div class="row my-3">
                 <div class="col-4">
                     <p class="mb-1">Número de referencia</p>
-                    <input class="form-control" id="filtro-num_ref" type="text" placeholder="Código referencia">
+                    <input class="form-control bg-dark" id="filtro-num_ref" type="text" placeholder="Código referencia">
                 </div>
                 <div class="col-8">
                     <p class="mb-1">Ubicación</p>
-                    <input class="form-control" id="filtro-ubicacion" type="text" placeholder="Dirección">
+                    <input class="form-control bg-dark" id="filtro-ubicacion" type="text" placeholder="Dirección">
                 </div>
             </div>      
             <table class="border table table-hover rounded empleados">

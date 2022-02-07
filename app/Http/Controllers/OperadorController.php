@@ -33,10 +33,10 @@ class OperadorController extends Controller
         if (!$user) return view('errors.404');
 
         if ($user->rol == "administrador") 
-            return view('operadores.nuevaAveria')->with('seleccionar_ascensor', true)->with('operadores', \App\Models\Operador::all());
+            return view('operadores.nuevaTarea')->with('seleccionar_ascensor', true)->with('operadores', \App\Models\Operador::all());
 
         
-        return view('operadores.nuevaAveria')->with('seleccionar_ascensor', true);
+        return view('operadores.nuevaTarea')->with('seleccionar_ascensor', true);
     }
     public function crearParte(){
         return view('operadores.nuevoParte');

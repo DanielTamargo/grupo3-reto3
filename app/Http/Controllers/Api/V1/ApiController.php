@@ -121,7 +121,11 @@ class ApiController extends Controller
         if ($user->rol == "jefeequipo") {
             return response()->json([
                 'ok' => true,
-                'jefes' => [$user->puesto->codigo => $user->nombre . " " . $user->apellidos],
+                'jefes' => [$user->puesto->codigo => [
+                    'codigo' => $user->puesto->codigo,
+                    'nombre' => $user->nombre . " " . $user->apellidos,
+                    'num_tecnicos' => count($user->puesto->tecnicos)
+                ]],
                 'message' => 'Petición válida', 'rol' => $user->rol,
             ], 200);
         }
@@ -145,7 +149,33 @@ class ApiController extends Controller
         ], 200);
     }
 
-    public function obtenerEstadisticas(){
+    /**
+     * API cuya respuesta un array asociativo con los datos de los jefes, nombre, código y número de técnicos
+     *
+     * Login necesario: sí
+     * Rol necesario: administrador o jefeequipo
+     */
+    public function obtenerEstadisticas() {
+        $user = Auth::user();
+
+        // Comprobamos que es un usuario registrado
+        if (!$user) {
+            return response()->json([
+                'ok' => false,
+                'message' => 'No dispones de los suficientes permisos para solicitar estos datos',
+                'rol' =>  'invitado'
+            ]);
+        }
+
+        // Comprobamos que tiene permisos
+        if ($user->rol != "administrador" && $user->rol != "jefeequipo") {
+            return response()->json([
+                'ok' => false,
+                'message' => 'No dispones de los suficientes permisos para solicitar estos datos',
+                'rol' => $user->rol
+            ]);
+        }
+
         $datos_tecnicos = Tecnico::all();
         $datos_tareas = Tarea::all();
 

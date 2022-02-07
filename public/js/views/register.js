@@ -76,7 +76,7 @@ function seleccionRol(evt) {
             success: function (data) {
                 if (!data.ok)
                     throw Error("Error en la petición");
-                var contenido = "\n                <label for=\"jefe_codigo\" class=\"\">Jefe asignado</label>\n                <select name=\"jefe_codigo\" id=\"registro-jefe_codigo\" class=\"form-select\">";
+                var contenido = "\n                <label for=\"jefe_codigo\" class=\"\">Jefe asignado</label>\n                <select name=\"jefe_codigo\" id=\"registro-jefe_codigo\" class=\"form-select  bg-dark\">";
                 jefes = data.jefes;
                 for (var key in jefes) {
                     contenido += "<option value=\"".concat(key, "\">").concat(jefes[key]["nombre"], " (").concat(jefes[key]["codigo"], ")</option>");

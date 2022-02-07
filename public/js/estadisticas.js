@@ -107,8 +107,7 @@ function ascensoresArregladosUnAnno(){
             let cantidadAverias =0;
             for(let y=0; y<tareas.length ;y++){
                 if(tareas[y]['fecha_fin'] != null && Number(tareas[y]['fecha_fin'].substring(0,4)) == annoActual -1 && mes_num[j] == tareas[y]['fecha_fin'].substring(5,7) ){
-                    cantidadAverias++
-                   
+                    cantidadAverias++;
                 }
             }
             averiasUnAno.push(cantidadAverias);
@@ -119,17 +118,21 @@ function ascensoresArregladosUnAnno(){
         
     }
     else{
-        for(let x =0;x<datos_tecnicos.length;x++){
-            for(let y =0;y<mes_num.length;y++){
-                let cantidadAverias =0;
-                for(let z=0;z<tareas.length;z++){
-                    if(tareas[y]['fecha_fin'] != null && Number(tareas[y]['fecha_fin'].substring(0,4)) == annoActual -1 && mes_num[j] == tareas[y]['fecha_fin'].substring(5,7) && datos_tecnicos['jefe_codigo'] == id){
+
+        for(let y =0;y<mes_num.length;y++){
+            let cantidadAverias =0;
+            for(let z=0;z<tareas.length;z++){
+                let tecnico = datos_tecnicos.find(tc => tc.codigo == tareas[z].tecnico_codigo);
+                if (tecnico.jefe_codigo == id) {
+                    if (tareas[y]['fecha_fin'] != null && Number(tareas[y]['fecha_fin'].substring(0,4)) == annoActual -1 && mes_num[z] == tareas[y]['fecha_fin'].substring(5,7)){
                         cantidadAverias++;
                     }
                 }
-                averiasUnAno.push(cantidadAverias);
             }
+            averiasUnAno.push(cantidadAverias);
         }
+        console.log(averiasUnAno)
+
     }
 }
 
@@ -175,10 +178,11 @@ function top5(){
         }
         averiasAscensores.push({ascensor_ref:idAscensores[j],cantidad_averias:averias});
     }
-    for(let i=0;i<averiasAscensores.length;i++){
+    for(let i=0;i<averiasAscensores.length && top5_averias.length<5;i++){
         if(averiasAscensores[i]['cantidad_averias']>=5){
             top5_averias.push({name:averiasAscensores[i]['ascensor_ref'],y:averiasAscensores[i]['cantidad_averias']});
         }
+       
     }
    
    

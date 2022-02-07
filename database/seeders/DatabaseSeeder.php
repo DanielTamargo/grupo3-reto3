@@ -160,11 +160,11 @@ class DatabaseSeeder extends Seeder
         array_push($modelos, \App\Models\Modelo::create(['nombre' => 'ELEV2DS', 'num_puertas' => 1, 'peso_max' => 460, 'num_personas' => 4,
         'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'manual_1.pdf']));
         array_push($modelos,\App\Models\Modelo::create(['nombre' => 'ASCOP2DZ', 'num_puertas' => 1, 'peso_max' => 340, 'num_personas' => 3,
-        'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'manual_1.pdf']));
+        'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'manual_2.pdf']));
         array_push($modelos, \App\Models\Modelo::create(['nombre' => 'LBST2DP', 'num_puertas' => 2, 'peso_max' => 420, 'num_personas' => 4,
         'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'manual_1.pdf']));
         array_push($modelos, \App\Models\Modelo::create(['nombre' => 'ATD2500', 'num_puertas' => 1, 'peso_max' => 460, 'num_personas' => 4,
-        'llave' => true, 'tipoaccionamiento' => TiposAccionamientos::ELECTRICO, 'manual' => 'manual_1.pdf']));
+        'llave' => true, 'tipoaccionamiento' => TiposAccionamientos::ELECTRICO, 'manual' => 'manual_2.pdf']));
         array_push($modelos, \App\Models\Modelo::create(['nombre' => 'CGT1240', 'num_puertas' => 2, 'peso_max' => 1400, 'num_personas' => 12,
         'llave' => true, 'tipoaccionamiento' => TiposAccionamientos::ELECTRICO, 'manual' => 'manual_1.pdf']));
         $this->command->comment("Modelos creados con éxito");

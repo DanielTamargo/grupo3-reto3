@@ -32,5 +32,9 @@ where estado = 'sintratar';
 
 -- COUNTS
 select count(*) from clientes;
-select count(*) from tareas;
+select count(*) from tareas where tipo = 'averia';
 select count(*) from partes;
+select count(*) from ascensores;
+
+select * from users where id in (select user_id from tecnicos);
+select jefe_codigo, count(*) as num_emp from tecnicos group by jefe_codigo;
