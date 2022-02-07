@@ -157,15 +157,15 @@ class DatabaseSeeder extends Seeder
         // MODELOS
         $this->command->line("Creando Modelos");
         $modelos = [];
-        array_push($modelos, \App\Models\Modelo::create(['nombre' => 'Modelo 1', 'num_puertas' => 1, 'peso_max' => 460, 'num_personas' => 4,
+        array_push($modelos, \App\Models\Modelo::create(['nombre' => 'ELEV2DS', 'num_puertas' => 1, 'peso_max' => 460, 'num_personas' => 4,
         'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'manual_1.pdf']));
-        array_push($modelos,\App\Models\Modelo::create(['nombre' => 'Modelo 2', 'num_puertas' => 1, 'peso_max' => 340, 'num_personas' => 3,
+        array_push($modelos,\App\Models\Modelo::create(['nombre' => 'ASCOP2DZ', 'num_puertas' => 1, 'peso_max' => 340, 'num_personas' => 3,
         'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'manual_1.pdf']));
-        array_push($modelos, \App\Models\Modelo::create(['nombre' => 'Modelo 3', 'num_puertas' => 2, 'peso_max' => 420, 'num_personas' => 4,
+        array_push($modelos, \App\Models\Modelo::create(['nombre' => 'LBST2DP', 'num_puertas' => 2, 'peso_max' => 420, 'num_personas' => 4,
         'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'manual_1.pdf']));
-        array_push($modelos, \App\Models\Modelo::create(['nombre' => 'Modelo 4', 'num_puertas' => 1, 'peso_max' => 460, 'num_personas' => 4,
+        array_push($modelos, \App\Models\Modelo::create(['nombre' => 'ATD2500', 'num_puertas' => 1, 'peso_max' => 460, 'num_personas' => 4,
         'llave' => true, 'tipoaccionamiento' => TiposAccionamientos::ELECTRICO, 'manual' => 'manual_1.pdf']));
-        array_push($modelos, \App\Models\Modelo::create(['nombre' => 'Modelo 5', 'num_puertas' => 2, 'peso_max' => 1400, 'num_personas' => 12,
+        array_push($modelos, \App\Models\Modelo::create(['nombre' => 'CGT1240', 'num_puertas' => 2, 'peso_max' => 1400, 'num_personas' => 12,
         'llave' => true, 'tipoaccionamiento' => TiposAccionamientos::ELECTRICO, 'manual' => 'manual_1.pdf']));
         $this->command->comment("Modelos creados con éxito");
 
