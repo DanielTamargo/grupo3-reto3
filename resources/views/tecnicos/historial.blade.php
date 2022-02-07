@@ -1,5 +1,6 @@
 <?php /*
     vista del historial de tareas que ha realizado el tecnico
+    incluye poder buscar tareas por fecha y id
 */?>
 @extends('layouts.tecnico')
 

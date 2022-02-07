@@ -14,7 +14,7 @@ Tareas
 
         posible que las tareas tengan un codigo de color dependiendo de 
         su prioridad / que aparezcan primero-->
-        @if (!empty($tareas))
+        @if (count($tareas) != 0)
             @for ($x = 0; $x < count($tareas); $x++)
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-heading{{ $x }}">

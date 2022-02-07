@@ -111,6 +111,10 @@ TECNICOS
 */
 // que datos usara el home?
 Route::get('/tecnico', function() {
+    // validacion
+    if (!Auth::user()) {
+        return view('errors.403');
+    }
     return view('tecnicos.home', ['usuario' => Auth::user()->nombre]);
 })->name("tecnico.home");
 
