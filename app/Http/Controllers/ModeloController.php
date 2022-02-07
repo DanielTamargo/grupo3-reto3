@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Modelo;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ModeloController extends Controller
@@ -33,9 +34,32 @@ class ModeloController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        //Comprobamos que el cliente nos ha subido un archivo
+        if($request->hasFile('manual')){
+            //cogemos el archivo y comprobamos si es un PDF 
+            $archivo = $request->file('manual');
+           
+            if($archivo->guessExtension() == 'pdf'){
+                //Guardamos el archivo
+                $manual = $archivo->getClientOriginalName();
+                $archivo2 = public_path('modelos/'.$manual);
+                copy($archivo,$archivo2);
+                
+                //Subimos los cambios a la base de datos
+                $modelo = Modelo::find($id);
+                $modelo->manual= $manual;
+                $modelo->save();
+                return back()->with('exito','Documento subido correctamente');
+            }
+            else{
+                return back()->with('error','El documento tiene que ser PDF');
+            }      
+        }
+        else{
+            return back()->with('error','Tienes que añadir un manual');
+        }
     }
 
     /**
@@ -44,9 +68,10 @@ class ModeloController extends Controller
      * @param  \App\Models\Modelo  $modelo
      * @return \Illuminate\Http\Response
      */
-    public function show(Modelo $modelo)
+    public function show($id)
     {
-        //
+        $modelo = Modelo::find($id);
+        return view('modelos.show')->with('modelo',$modelo);
     }
 
     /**

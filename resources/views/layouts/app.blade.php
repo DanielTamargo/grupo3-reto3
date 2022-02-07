@@ -28,8 +28,8 @@
         <nav class="col-12 navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="./img/logoIgobideGrande_negro.png" alt="" class="img-fluid w-50 d-none d-md-block"/>
-                    <img src="./img/logo_peque.png" alt="" class="img-fluid w-50 d-md-none d-block"/>
+                    <img src="{{ asset('/img/logoIgobideGrande_negro.png') }}" alt="" class="img-fluid w-50 d-none d-md-block"/>
+                    <img src="{{ asset('/img/logo_peque.png') }}" alt="" class="img-fluid w-50 d-md-none d-block"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -38,7 +38,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                    @guest
+                    @else
+                        @if(Auth::user()->rol == 'administrador')
+                        <div class="navegador d-flex">
+                            <a href="#" class="nav-link mx-1" >Alta Usuarios</a>
+                            <a class="mx-1 nav-link"  href="#">Baja Usuarios</a>
+                            <a class="mx-1 nav-link"  href="#">Modificar Usuarios</a>
+                            <a class="mx-1 nav-link"  href="#">Estadisticas</a>
+                        </div>
+                        @elseif(Auth::user()->rol == 'operador')
+                        <div class="navegador d-flex">
+                            <a href="#" class="mx-1 nav-link" >Alta Usuarios</a>
+                            <a class="mx-1 nav-link"  href="#">Baja Usuarios</a>
+                            <a class="mx-1 nav-link"  href="#">Modificar Usuarios</a>
+                            <a class="mx-1 nav-link"  href="#">Crear Partes</a>
+                            <a class="mx-1 nav-link"  href="#">Nueva Averia</a>
+                            <a class="mx-1 nav-link"  href="#">Historial Revisiones</a>
+                            <a class="mx-1 nav-link"  href="#">Nueva Revisi&oacute;n</a>
+                        </div>
+                        @endif
+                    @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -59,10 +79,11 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->nombre }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item"  href="#">Editar Perfil</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -74,6 +95,8 @@
                                     </form>
                                 </div>
                             </li>
+                      
+                          
                         @endguest
                     </ul>
                 </div>
