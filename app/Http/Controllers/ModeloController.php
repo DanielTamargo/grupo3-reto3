@@ -48,15 +48,15 @@ class ModeloController extends Controller
            
             if($archivo->guessExtension() == 'pdf'){
                 //Guardamos el archivo
-                $manual = $archivo->getClientOriginalName();
-                $ruta = public_path('modelos/' . $request->modelo_id . "-" . time() . "-" . $manual);
+                $manual = $request->modelo_id . "-" . time() . "-" . $archivo->getClientOriginalName();
+                $ruta = public_path('modelos/' . $manual);
                 copy($archivo, $ruta);
                 
                 //Subimos los cambios a la base de datos
                 $modelo = Modelo::find($id);
                 $modelo->manual= $manual;
                 $modelo->save();
-                return back()->with('exito','Documento subido correctamente');
+                return redirect('/modelos/' . $request->modelo_id)->with('exito','Documento subido correctamente');
             }
             else{
                 return back()->with('error','El documento tiene que ser PDF');

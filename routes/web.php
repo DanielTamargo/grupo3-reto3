@@ -206,17 +206,16 @@ GENERAL
 Route::get('/ascensores', [App\Http\Controllers\GeneralController::class, 'indexAscensores'])
     ->middleware('auth')
     ->name('ascensores.index');
-Route::get('/modelos', [App\Http\Controllers\GeneralController::class, 'indexModelos'])
-    ->middleware('auth')
-    ->name('modelos.index');
-Route::get('/modelos/{id}', [App\Http\Controllers\GeneralController::class, 'showModelo'])
-    ->middleware('auth')
-    ->name('modelos.show');
+
+
   /*
 ----------------------------------------------------------------------------------------------
 MODELOS
 ----------------------------------------------------------------------------------------------
 */
+Route::get('/modelos', [App\Http\Controllers\GeneralController::class, 'indexModelos'])
+    ->middleware('auth')
+    ->name('modelos.index');
 Route::get('/modelos/{id}', [App\Http\Controllers\ModeloController::class, 'show'])
     ->middleware('auth')
     ->name('modelos.show');
