@@ -55,8 +55,9 @@ Route::get('/pruebas/ficheros', function() {
 DESCARGAR FICHERO
 ----------------------------------------------------------------------------------------------
 */
-Route::get('/descargar/manual/{nombre}', [\App\Http\Controllers\DownloadController::class, 'descargarManual'])
-    ->middleware('auth');
+Route::get('/descargar/manual/{manual_nombre}', [\App\Http\Controllers\DownloadController::class, 'descargarManual'])
+    ->middleware('auth')
+    ->name('descargar.manual.modelo');
 
 /*
 ----------------------------------------------------------------------------------------------

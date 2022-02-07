@@ -32,10 +32,13 @@
                 <p  id="num_persona" aria-disabled="true"  class="user-select-none form-control no-edit bg-dark rounded-pill text-black">Número máximo de personas: {{ $modelo->num_personas}}</p>
                 <p id="llave" aria-disabled="true" class="user-select-none form-control no-edit bg-dark rounded-pill text-black">Llave necesaria: {{ $modelo->llave ? 'Sí' : 'No'}}</p>
                 <p id="tipo_accionamiento" aria-disabled="true" class="user-select-none form-control no-edit bg-dark rounded-pill text-black">Tipo accionamiento: {{ Str::ucfirst($modelo->tipoaccionamiento)}}</p>
-                <p id="tipo_accionamiento" aria-disabled="true" class="user-select-none form-control no-edit bg-dark rounded-pill text-black"><a class="link-success" href="#">Descargar manual PDF</a></p>
+                <p id="tipo_accionamiento" aria-disabled="true" class="user-select-none form-control no-edit bg-dark rounded-pill text-black">
+                    <a class="link-success" href="{{ route('descargar.manual.modelo', ['manual_nombre' => $modelo->manual ]) }}">Descargar manual PDF</a>
+                </p>
                 <form action="{{ route('modelos.store', $modelo->id)}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <label class="user-select-none mt-2" for="file">Reemplazar manual</label> 
+                    <input type="hidden" name="modelo_id" value="{{ $modelo->id }}">
                     <input type="file" name="manual" id="manual" class="mt-2 form-control bg-dark rounded-pill text-black" />
                     <div class="row">
                         <div class="col-12 d-flex justify-content-center"> 

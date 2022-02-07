@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Response;
 
 class DownloadController extends Controller
@@ -13,8 +14,15 @@ class DownloadController extends Controller
      * Descarga el fichero en cuestión.
      */
     public function descargarManual(Request $request) {
-        $filepath = public_path('manuales/' . $request->nombre);
-        return Response::download($filepath); 
+        $ruta_fichero = public_path('modelos/' . $request->manual_nombre);
+        $existe = File::exists($ruta_fichero);
+
+        if (!$existe) {
+            return back()->with('error','Imposible descargar el PDF :(');
+        }
+        
+        
+        return Response::download($ruta_fichero); 
     }
 
 }
