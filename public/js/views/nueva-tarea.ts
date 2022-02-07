@@ -71,4 +71,5 @@ document.getElementById('prioridad').addEventListener('change', controlarPriorid
 document.getElementById('prioridad').addEventListener('keypress', controlarIntro);
 
 // Inicializamos las progress bars
-actualizarProgressBars(1);
+let prioridad: HTMLInputElement = <HTMLInputElement> document.getElementById('prioridad');
+actualizarProgressBars(Number(prioridad.value));

@@ -18,7 +18,28 @@
             });
             Toast.fire({
                 icon: 'success',
-                title: 'Usuario se ha creado con éxito'
+                title: 'Usuario creado con éxito'
+            });
+        </script>
+        @endif
+
+        @if (isset($tarea_creada) && $tarea_creada)
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="text/javascript">
+            const Toast2 = Swal.mixin({
+                toast: true,
+                position: 'top-right',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast'
+                },
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true
+            });
+            Toast2.fire({
+                icon: 'success',
+                title: 'Tarea creada con éxito'
             });
         </script>
         @endif

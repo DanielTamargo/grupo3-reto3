@@ -12,7 +12,7 @@
     <h1 class="titulo">Ascensores Igobide</h1>
     <p>Estimado/a {{ Str::ucfirst($detalles['nombre']) }}, <br>
         Le comunicamos que ya hemos tramitado el registro de la incidencia. <br>
-        Se ha asignado a uno de nuestros técnicos disponbles y lo resolverá lo antes posible.
+        Se ha asignado a uno de nuestros técnicos disponibles y lo resolverá lo antes posible.
     <p>Si tiene alguna duda o indicación adicional no dude en volver a contactarnos llamando de nuevo o respondiendo a este correo.</p>
     <p>Un saludo, <br>
         Ascensores Igobide</p>
