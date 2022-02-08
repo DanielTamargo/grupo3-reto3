@@ -1,5 +1,15 @@
 var todas_tareas = [];
+var tbody = document.getElementsByTagName('tbody')[0];
+var filtro_numref = "";
+var filtro_estado = "";
+var filtro_tipo = "";
+var pagina = 1;
 $(document).ready(function(){
+    obtenerDatos();
+});
+
+
+function obtenerDatos(){
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -8,201 +18,161 @@ $(document).ready(function(){
     $.ajax({
         type:'GET',
         url:"/api/v1/tareas",
+        data:{
+            'filtro_numref': filtro_numref,
+            'filtro_estado': filtro_estado,
+            'filtro_tipo': filtro_tipo
+        },
         success: function(json){
             console.log(json);
             //cogo todas las tareas e inicializo las primeras 10
             todas_tareas = json['tareas'];
-            primerasDiez();
+            
+            mostrarTareas(null);
         }
     })
 }
-)
 
-function primerasDiez(){
-    //cogo el tbody
-    let tbody = document.getElementsByTagName('tbody')[0];
+function mostrarTareas(suma){
+    //creo las variables para coger el primer y último id
+  let id_1 = ""
+  let id_2 =""
 
-    for(let x=0;x<10;x++){
-         //creo los elementos necesarios para crear la tabla
+  switch(suma){
+      //dependiendo si quiere mostrar mas tareas, las tareas anteriores o es la primera vez que entra haremos diferentes cosas
 
-            let p = document.createElement('p');
+      case null:
+        //si es la primera vez que entra los identificadores serán 1 y 10
 
-            let td_id = document.createElement('td');
-            let td_fecha_i = document.createElement('td');
-            let td_fecha_f = document.createElement('td');
-            let td_tipo = document.createElement('td');
-            let td_estado = document.createElement('td');
-            let td_desc = document.createElement('td');
-            let tr = document.createElement('tr');
+       pagina = 1;
+        break;
+    case true:
+        // si quiere ver las siguientes tareas se añadira 10 al id k se este mostrando
 
-            //les asigno el valor necesario a cada fila
-            p = todas_tareas[x]['id'];
-            td_id.append(p);
-            tr.append(td_id);
+        pagina++;
+        
+        break;
+    case false:
+         // si quiere ver las tareas anteriores se añadira 10 al id k se este mostrando
+        pagina--;
+        break;
+  }
 
-            p = todas_tareas[x]['fecha_creacion'];
-            td_fecha_f.append(p);
-            tr.append( td_fecha_f);
+  // si el id de la primera tarea es menor que 0 le dejamos las 10 primeras tareas
+  if (pagina < 1 ) {
+      pagina = 1;
+      return;
+  }
 
-            p = todas_tareas[x]['fecha_finalizacion'];
-            td_fecha_i.append(p);
-            tr.append(td_fecha_i);
+  //vaciamos el tbody para que que aparezcan las 10 tareas que queremos y no se añadan a las que ya estan
 
-            p = todas_tareas[x]['tipo'];
-            if(todas_tareas[x]['prioridad'] == 0){
-                tr.style.backgroundColor = 'red';
-            }
-            td_tipo.append(p);
-            tr.append(td_tipo);
+  tbody.innerHTML = "";
 
-            p = todas_tareas[x]['estado'];
-            td_estado.append(p);
-            tr.append(td_estado);
+    for(let x=(pagina - 1) * 10;x<pagina * 10;x++){
+        if (!todas_tareas[x]) continue;
+        //creo los elementos necesarios para crear la tabla
+        let p = document.createElement('p');
+        let tr = document.createElement('tr');
+        
 
-            p = todas_tareas[x]['descripcion'];
-            td_desc.append(p);
-            tr.append(td_desc);
+        let td_id = document.createElement('td');
+        let td_fecha_i = document.createElement('td');
+        let td_fecha_f = document.createElement('td');
+        let td_tipo = document.createElement('td');
+        let td_estado = document.createElement('td');
+        let td_asc = document.createElement('td');
+        let td_tec = document.createElement('td');
+        
             
-            //añado todas las filas al tbody para que aparezcan en la tabla
-            tbody.append(tr);
-    }
-}
 
-function diezAtras(){
+        //les asigno el valor necesario a cada fila
+        p = todas_tareas[x]['id'];
+        td_id.append(p);
+        tr.append(td_id);
 
-  //cogo el primer y último id
+        p = todas_tareas[x]['fecha_creacion'];
+        td_fecha_f.append(p);
+        tr.append( td_fecha_f);
 
-    let id_1 = Number(document.getElementsByTagName('tr')[1].firstElementChild.innerHTML);
-    let id_2 = Number(document.getElementsByTagName('tr')[10].firstElementChild.innerHTML);
-    
-    //compruebo que el id no sea menor de 1 ni de 10 para poder mostrar bien de 10 en 10
-    if(id_1 > 1 && id_2 >10){
-        //les resto a los id anteriores 10 para tener los id anteriores y mostrarlos
-        id_1 = id_1 -10;
-        id_2 = id_2 -10;
-        let tbody = document.getElementsByTagName('tbody')[0];
-        tbody.innerHTML= "";//borro el tbody para que no aparezcan todos juntos sino de 10 en 10
-        for(let x =id_1-1;x<id_2;x++){
-             //creo los elementos necesarios para crear la tabla
+        p = todas_tareas[x]['fecha_finalizacion'];
+        td_fecha_i.append(p);
+        tr.append(td_fecha_i);
 
-            let p = document.createElement('p');
+        p = todas_tareas[x]['tipo'];
+        td_tipo.append(p);
+        tr.append(td_tipo);
 
-            let td_id = document.createElement('td');
-            let td_fecha_i = document.createElement('td');
-            let td_fecha_f = document.createElement('td');
-            let td_tipo = document.createElement('td');
-            let td_estado = document.createElement('td');
-            let td_desc = document.createElement('td');
-            let tr = document.createElement('tr');
+        p = todas_tareas[x]['estado'];
+        td_estado.append(p);
+        
+        //Dependiendo de la prioridad de la tarea, la fila va a ser de un color u otro
 
-            //les asigno el valor necesario a cada fila
-
-            p = todas_tareas[x]['id'];
-            td_id.append(p);
-            tr.append(td_id);
-
-            p = todas_tareas[x]['fecha_creacion'];
-            td_fecha_f.append(p);
-            tr.append( td_fecha_f);
-
-            p = todas_tareas[x]['fecha_finalizacion'];
-            td_fecha_i.append(p);
-            tr.append(td_fecha_i);
-
-            p = todas_tareas[x]['tipo'];
-            if(todas_tareas[x]['prioridad'] == 0){
-                tr.style.backgroundColor = 'red';
-            }
-            td_tipo.append(p);
-            tr.append(td_tipo);
-
-            p = todas_tareas[x]['estado'];
-            td_estado.append(p);
-            tr.append(td_estado);
-
-            p = todas_tareas[x]['descripcion'];
-            td_desc.append(p);
-            tr.append(td_desc);
-
-            //añado todas las filas al tbody para que aparezcan en la tabla
-
-            tbody.append(tr);
-        }
-    }
-}
-
-function diezDelante(){
-    //cogo el primer y último id 
-    let id_1 = Number(document.getElementsByTagName('tr')[1].firstElementChild.innerHTML);
-    let id_2 = Number(document.getElementsByTagName('tr')[10].firstElementChild.innerHTML);
-    
-    //compruebo que sea 1 o mayor y 10 o mayor y les sumo 10 para mostrar las 10 tareas siguientes
-
-    if(id_1 >= 1 && id_2>=10){
-        id_1 = id_1 +10;
-        id_2 = id_2 +10;
-
-        let tbody = document.getElementsByTagName('tbody')[0];
-        tbody.innerHTML= ""; //borro el tbody para que no aparezcan todos juntos sino de 10 en 10
-        for(let x =id_1-1;x<id_2;x++){ //la x es el primer id -1 porque sino no coge el siguiente valor del ultimo id ej: si el ultimo id anterior ha sido 10 sin el -1 la siguiente vez que vayas a ver  las tareas en vez de empezar en el 11 empiezan en el 12
+        switch(todas_tareas[x]['prioridad']){  
+            case 1: td_estado.style.backgroundColor = 'rgba(56,180,59,0.2)';
+                break;
             
-             //creo los elementos necesarios para crear la tabla
-
-            let p = document.createElement('p');
-
-            let td_id = document.createElement('td');
-            let td_fecha_i = document.createElement('td');
-            let td_fecha_f = document.createElement('td');
-            let td_tipo = document.createElement('td');
-            let td_estado = document.createElement('td');
-            let td_desc = document.createElement('td');
-            let tr = document.createElement('tr');
-
-            //les asigno el valor necesario a cada fila
-
-            p = todas_tareas[x]['id'];
-            td_id.append(p);
-            tr.append(td_id);
-
-            p = todas_tareas[x]['fecha_creacion'];
-            td_fecha_f.append(p);
-            tr.append( td_fecha_f);
-
-            p = todas_tareas[x]['fecha_finalizacion'];
-            td_fecha_i.append(p);
-            tr.append(td_fecha_i);
-
-            p = todas_tareas[x]['tipo'];
-            if(todas_tareas[x]['prioridad'] == 0){
-                tr.style.backgroundColor = 'red';
-            }
-            else
-            if(todas_tareas[x]['prioridad'] == 1){
-                tr.style.backgroundColor = 'orange';
-            }
-            td_tipo.append(p);
-            tr.append(td_tipo);
-
-            p = todas_tareas[x]['estado'];
-            td_estado.append(p);
-            tr.append(td_estado);
-
-            p = todas_tareas[x]['descripcion'];
-            td_desc.append(p);
-            tr.append(td_desc);
-
-            //añado todas las filas al tbody para que aparezcan en la tabla
-
-            tbody.append(tr);
+            case 2: td_estado.style.backgroundColor = 'rgba(80,80,206,0.2)';
+                break;
+            
+            case 3: td_estado.style.backgroundColor = 'rgba(255,255,0,0.2)';
+                break;
+            
+            case 4: td_estado.style.backgroundColor = 'rgba(236,171,49,0.2)';
+                break;
+            
+            case 5: td_estado.style.backgroundColor = 'rgba(139,0,0,0.2)';
+                break;        
         }
+
+        tr.append(td_estado);
+
+        p = todas_tareas[x]['ascensor_ref'];
+        td_asc.append(p);
+        tr.append(td_asc);
+
+        p = todas_tareas[x]['tecnico_codigo'];
+        td_tec.append(p);
+        tr.append(td_tec);
+    
+        
+        //añado todas las filas al tbody para que aparezcan en la tabla
+        
+        tbody.append(tr);
     }
 }
+
 
 // Listeneres modificaciones filtros
 var obtenerDatosAsincrono;
 var ms_asincronia = 800;
+
+//Filtro por la referencia del ascensor
+
 $('#filtro-num_ref').on('keyup', evt => {
+    tbody.innerHTML= "";
     filtro_numref = evt.target.value;
+
+    clearTimeout(obtenerDatosAsincrono);
+    obtenerDatosAsincrono = setTimeout(obtenerDatos, ms_asincronia);
+    obtenerDatosAsincrono;
+});
+
+//Filtro por la referencia por el tipo de tarea
+
+$('#tipo').on('change', evt => {
+    tbody.innerHTML= "";
+    filtro_tipo = evt.target.value;
+
+    clearTimeout(obtenerDatosAsincrono);
+    obtenerDatosAsincrono = setTimeout(obtenerDatos, ms_asincronia);
+    obtenerDatosAsincrono;
+});
+
+//Filtro por el estado de la tarea
+
+$('#estado').on('change', evt => {
+    tbody.innerHTML= "";
+    filtro_estado = evt.target.value;
 
     clearTimeout(obtenerDatosAsincrono);
     obtenerDatosAsincrono = setTimeout(obtenerDatos, ms_asincronia);

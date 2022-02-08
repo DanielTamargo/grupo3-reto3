@@ -9,17 +9,29 @@
         </div>
         <div class="col-3">
             <p class="mb-1">Tipo</p>
-            <input class="form-control bg-dark" id="filtro-tipo" type="text" placeholder="Tipo">
+            <select id="tipo" class="col-12 mt-2 rounded-pill bg-dark text-center">
+                        <option id="t1" value="" disabled selected>Selecciona una opción</option>
+                        <option id="t1" value="averia">Aver&iacute;a</option>
+                        <option value="revision">Revisi&oacute;n</option>
+                        <option value="incidencia">Incidencia</option>
+                    </select>
         </div>
         <div class="col-3">
             <p class="mb-1">Estado</p>
-            <input class="form-control bg-dark" id="filtro-estado" type="text" placeholder="Estado">
+            <select id="estado" class="col-12 mt-2 rounded-pill bg-dark text-center">
+                        <option id="e1" value="" disabled selected>Selecciona una opción</option>
+                        <option id="t1" value="finalizado">Finalizado</option>
+                        <option value="sintratar">Sin tratar</option>
+                        <option value="retrasado">Retrasado</option>
+                        <option value="imposiblesolucionar">Imposible solucionar</option>
+                        <option value="materialnecesario">Se necesita material</option>
+                    </select>
         </div>
         </div>   
         <div class="row">
             <div class="col-12 d-flex justify-content-between mb-2">
-                <button class="btn btn-outline-light" onclick="diezAtras()">&#60;</button>
-                <button class="btn btn-outline-light" onclick="diezDelante()">&#62;</button>
+                <button class="btn btn-outline-light" onclick="mostrarTareas(false)">&#60;</button>
+                <button class="btn btn-outline-light" onclick="mostrarTareas(true)">&#62;</button>
             </div>
         </div>
         <thead>
@@ -29,7 +41,8 @@
                 <th scope="col">Fecha Fin</th>
                 <th scope="col">Tipo</th>
                 <th scope="col">Estado</th>
-                <th scope="col">Descripci&oacute;n</th>
+                <th scope="col">Referencia Ascensor</th>
+                <th scope="col">T&eacute;cnico</th>
             </tr>
         </thead>
         <tbody class="tareas">

@@ -23,7 +23,7 @@ Igobide | Nueva tarea
                         link_css="{{ asset('css/app.css') }}"
                     ></index-ascensores> --}}
                     <div class="ascensores">
-                        <h3 class="text-muted">Lista de ascensores instalados</h3>
+                        <h3 class="text-black">Lista de ascensores instalados</h3>
                         <div class="row my-3">
                             <div class="col-4">
                                 <p class="mb-1">Número de referencia</p>
@@ -68,13 +68,13 @@ Igobide | Nueva tarea
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Selecciona un técnico</h5>
-            <h5 class="modal-title text-muted ms-2" id="exampleModalLabel">(ordenado por número de urgencias y tareas pendientes)</h5>
+            <h5 class="modal-title text-black ms-2" id="exampleModalLabel">(ordenado por número de urgencias y tareas pendientes)</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container px-4">
                     <div class="ascensores">
-                        <h3 class="text-muted">Lista de técnicos</h3>
+                        <h3 class="text-black">Lista de técnicos</h3>
                         <table class="border table table-hover rounded empleados">
                             <thead>
                                 <tr class="table-primary">
@@ -112,7 +112,7 @@ Igobide | Nueva tarea
                     <input type="hidden" name="operador_codigo" value="{{ Auth::user()->puesto->codigo }}">
                 @else
                     @if (isset($operadores))
-                        <h3 class="text-muted">Operador asignado</h3>
+                        <h3 class="text-black">Operador asignado</h3>
                         <div class="row mb-3">
                             <div class="col-12">
                                 <select id="tipo-averia" name="operador_codigo" class="col-12 mt-2 rounded-pill bg-dark text-center">
@@ -127,7 +127,7 @@ Igobide | Nueva tarea
                     @endif
                 @endif
 
-                <h3 class="text-muted">Datos cliente</h3>
+                <h3 class="text-black">Datos cliente</h3>
                 <div class="row">
                     <div class="col-12">
                         <input type="tel" name="cliente_nombre" placeholder="Nombre" class="form-control rounded-pill mt-2 bg-dark"/>
@@ -136,7 +136,7 @@ Igobide | Nueva tarea
                 </div>
 
                 <hr>
-                <h3 class="text-muted">Datos tarea</h3>
+                <h3 class="text-black">Datos tarea</h3>
                 <div class="row">
                     <div class="col-12">
                         <input type="text" id="ascensor_num_ref" name="ascensor_num_ref" placeholder="Número de referencia ascensor" class="form-control rounded-pill mt-2 bg-dark"/>
