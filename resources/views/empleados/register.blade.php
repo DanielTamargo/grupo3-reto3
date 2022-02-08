@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 col-sm-10 col-xs-12"> <!-- Responsive -->
 
-            <h2 class="text-muted">Registrar nuevo empleado</h2>
+            <h2 class="text-black">Registrar nuevo empleado</h2>
             <hr>
 
             @if ($errors->any())

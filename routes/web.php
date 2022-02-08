@@ -29,6 +29,7 @@ Route::get('/api/v1/ascensores', [App\Http\Controllers\Api\V1\ApiController::cla
 Route::get('/api/v1/codigosJefes', [App\Http\Controllers\Api\V1\ApiController::class, 'codigosJefes']);
 Route::get('/api/v1/tecnicos-disponibles', [App\Http\Controllers\Api\V1\ApiController::class, 'obtenerTecnicosDisponibles']);
 Route::get('/api/v1/estadisticas', [App\Http\Controllers\Api\V1\ApiController::class, 'obtenerEstadisticas']);
+Route::get('/api/v1/tareas', [App\Http\Controllers\Api\V1\ApiController::class, 'obtenerTareas']);
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -130,6 +131,7 @@ OPERADORES
 Route::get('/operador', function () {return view('operadores.home-operador')->with('home',true);})->name('home.operador');
 Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaTarea'])->name('nuevatarea.create');
 Route::post('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'crearTarea'])->name('tarea.store');
+Route::get('/operador/listar-tareas', [App\Http\Controllers\OperadorController::class, 'listarTareas'])->name('tareas.index');
 Route::get('/operador/nuevo-parte', [App\Http\Controllers\OperadorController::class, 'crearParte'])->name('crearparte.create');
 Route::get('/operador/ultimas-revisiones', [App\Http\Controllers\OperadorController::class, 'mostrarUltimasRevisiones'])->name('ultimasrevisiones.show');
 Route::get('/operador/asignar-revisiones', [App\Http\Controllers\OperadorController::class, 'asignarRevisiones'])->name('asignarrevisiones.create');
@@ -200,8 +202,6 @@ GENERAL
 Route::get('/ascensores', [App\Http\Controllers\GeneralController::class, 'indexAscensores'])
     ->middleware('auth')
     ->name('ascensores.index');
-Route::get('/tarea-creada', [App\Http\Controllers\GeneralController::class, 'indexAscensores'])
-    ->middleware('auth'); // TODO dani: eliminar
 
 
   /*

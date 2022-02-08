@@ -102,7 +102,7 @@ class OperadorController extends Controller
         // Utilizamos siempre esta dirección porque es una aplicación piloto, realmente utilizaríamos $cliente->email
         Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
 
-        return redirect()->route('inicio', ['tarea_creada' => true]); // TODO dani: redirigir a listado tareas de alaitz
+        return redirect()->route('tareas.index', ['tarea_creada' => true]); // TODO dani: redirigir a listado tareas de alaitz
     }
 
     public function nuevaTarea() {
@@ -124,7 +124,19 @@ class OperadorController extends Controller
     public function asignarRevisiones(){
         return view('operadores.nuevaRevision');
     }
+    public function listarTareas(){
+        //cogemos todas las tareas y comprobamos sus credenciales
+        $tareas = Tarea::all();
 
+        if(Auth::user()->rol != 'tecnico'){
+            //si es administrador le paso las 10 primeras tareas
+            $tareas = $tareas->where('id','>',0)->where('id','<',11);
+        }
+        else{
+            return view('inicio');
+        }
+        return view('operadores.lista-tarea')->with('tareas',$tareas);
+    }
     /**
      * Store a newly created resource in storage.
      *

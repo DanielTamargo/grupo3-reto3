@@ -5,7 +5,7 @@
         @if (Auth::user()->rol == "administrador")
             <h3 class="text-black">Lista de usuarios registrados</h3>
         @else
-            <h3 class="text-muted">Lista de técnicos a tu cargo</h3>
+            <h3 class="text-black">Lista de técnicos a tu cargo</h3>
         @endif
         <a href="{{ route('empleados.new') }}" class="btn btn-outline-success my-3">Nuevo empleado</a>
         <a href="{{ route('empleados.export.excel') }}" class="btn btn-outline-light my-3">Exportar a Excel</a>

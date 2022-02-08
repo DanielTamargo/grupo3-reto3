@@ -42,7 +42,7 @@
                     texto="Ver historial tareas"
                     rol="jefeequipo"
                     id_p="6"
-                    ruta="#"></boton-panel>
+                    ruta="{{route('tareas.index')}}"></boton-panel>
                    
                 </div>
    
