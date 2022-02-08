@@ -1,32 +1,6 @@
 @extends('layouts.app')
 
-@section('title')
-    Igobide | Empleados
-@endsection
-
 @section('content')
-
-    @if (isset($_GET["usuario_creado"]) && $_GET["usuario_creado"])
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript">
-        const Toast2 = Swal.mixin({
-            toast: true,
-            position: 'top-right',
-            iconColor: 'white',
-            customClass: {
-                popup: 'colored-toast'
-            },
-            showConfirmButton: false,
-            timer: 2500,
-            timerProgressBar: true
-        });
-        Toast2.fire({
-            icon: 'success',
-            title: 'Usuario creado con éxito'
-        });
-    </script>
-    @endif
-
     <div class="container px-4">
         @if (Auth::user()->rol == "administrador")
             <h3 class="text-black">Lista de usuarios registrados</h3>
@@ -86,18 +60,17 @@
                             </div>
                         </td>
                     </tr>
-
-                    {{-- Bootstrap tooptips --}}
-                    <script src="{{ asset('js/lib/bootstrap.bundle.min.js')}}"></script>
-                    <script type="text/javascript">
-                        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                            return new bootstrap.Tooltip(tooltipTriggerEl);
-                        });
-                    </script>
-
-                @endforeach
-            </tbody>
-        </table>
+                    @endforeach
+                </tbody>
+            </table>
+            {{-- Da problemas con el nav-bar --}}
+            {{-- Bootstrap tooptips --}}
+            {{-- <script src="{{ asset('js/lib/bootstrap.bundle.min.js')}}"></script>
+            <script type="text/javascript">
+                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+            </script> --}}
     </div>
 @endsection
