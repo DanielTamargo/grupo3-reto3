@@ -23,7 +23,7 @@ Igobide | Nueva tarea
                         link_css="{{ asset('css/app.css') }}"
                     ></index-ascensores> --}}
                     <div class="ascensores">
-                        <h3 class="text-black">Lista de ascensores instalados</h3>
+                        <h3 class="text-muted">Lista de ascensores instalados</h3>
                         <div class="row my-3">
                             <div class="col-4">
                                 <p class="mb-1">Número de referencia</p>
@@ -68,13 +68,13 @@ Igobide | Nueva tarea
         <div class="modal-content">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Selecciona un técnico</h5>
-            <h5 class="modal-title text-black ms-2" id="exampleModalLabel">(ordenado por número de urgencias y tareas pendientes)</h5>
+            <h5 class="modal-title text-muted ms-2" id="exampleModalLabel">(ordenado por número de urgencias y tareas pendientes)</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container px-4">
                     <div class="ascensores">
-                        <h3 class="text-black">Lista de técnicos</h3>
+                        <h3 class="text-muted">Lista de técnicos</h3>
                         <table class="border table table-hover rounded empleados">
                             <thead>
                                 <tr class="table-primary">
@@ -99,15 +99,6 @@ Igobide | Nueva tarea
 
 <div class="col-12 d-flex flex-column justify-content-center align-items-center">
     <div class="row">
-        @if ($errors->any())
-            <div class="col-12 alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
         <div class="col-12">
             <h2>Nueva Averia</h2>
         </div>
@@ -115,19 +106,18 @@ Igobide | Nueva tarea
 
     <div class="row mt-1">
         <div class="col-12">
-
-            <form action="{{ route('tarea.store') }}" method="post">
+            <form action="" method="post">
             @csrf
                 @if (Auth::user()->rol == "operador")
                     <input type="hidden" name="operador_codigo" value="{{ Auth::user()->puesto->codigo }}">
                 @else
                     @if (isset($operadores))
-                        <h3 class="text-black">Operador asignado</h3>
+                        <h3 class="text-muted">Operador asignado</h3>
                         <div class="row mb-3">
                             <div class="col-12">
                                 <select id="tipo-averia" name="operador_codigo" class="col-12 mt-2 rounded-pill bg-dark text-center">
                                     @foreach ($operadores as $operador)
-                                        <option value="{{ $operador->codigo }}" @if(old('operador_codigo') == $operador->codigo) selected @endif>{{ $operador->user->nombre }} {{ $operador->user->apellidos }}</option>
+                                        <option value="{{ $operador->codigo }}">{{ $operador->user->nombre }} {{ $operador->user->apellidos }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -137,19 +127,19 @@ Igobide | Nueva tarea
                     @endif
                 @endif
 
-                <h3 class="text-black">Datos cliente</h3>
+                <h3 class="text-muted">Datos cliente</h3>
                 <div class="row">
                     <div class="col-12">
-                        <input value="{{ old('cliente_nombre') }}" required type="tel" name="cliente_nombre" placeholder="Nombre" class="form-control rounded-pill mt-2 bg-dark"/>
-                        <input value="{{ old('cliente_email') }}" required type="tel" name="cliente_email" placeholder="Email" class="form-control rounded-pill mt-2 bg-dark"/>
+                        <input type="tel" name="cliente_nombre" placeholder="Nombre" class="form-control rounded-pill mt-2 bg-dark"/>
+                        <input type="tel" name="cliente_email" placeholder="Email" class="form-control rounded-pill mt-2 bg-dark"/>
                     </div>
                 </div>
 
                 <hr>
-                <h3 class="text-black">Datos tarea</h3>
+                <h3 class="text-muted">Datos tarea</h3>
                 <div class="row">
                     <div class="col-12">
-                        <input value="{{ old('ascensor_num_ref') }}" required type="text" id="ascensor_num_ref" name="ascensor_num_ref" placeholder="Número de referencia ascensor" class="form-control rounded-pill mt-2 bg-dark"/>
+                        <input type="text" id="ascensor_num_ref" name="ascensor_num_ref" placeholder="Número de referencia ascensor" class="form-control rounded-pill mt-2 bg-dark"/>
                     </div>
                     <div class="col-12">
                         <p id="seleccionar-ascensor" class="btn btn-primary w-100 rounded-pill mt-2 text-white" data-bs-toggle="modal" data-bs-target="#modal-ascensores">Seleccionar Ascensor</p>
@@ -158,7 +148,7 @@ Igobide | Nueva tarea
 
                 <div class="row">
                     <div class="col-12">
-                        <input value="{{ old('tecnico_codigo') }}" required type="text" id="tecnico_codigo" name="tecnico_codigo" placeholder="Código del técnico" class="form-control rounded-pill mt-2 bg-dark"/>
+                        <input type="text" id="tecnico_codigo" name="tecnico_codigo" placeholder="Código del técnico" class="form-control rounded-pill mt-2 bg-dark"/>
                     </div>
                     <div class="col-12">
                         <p id="seleccionar-tecnico" class="btn btn-primary w-100 rounded-pill mt-2 text-white" data-bs-toggle="modal" data-bs-target="#modal-tecnicos">Seleccionar Técnico</p>
@@ -169,9 +159,9 @@ Igobide | Nueva tarea
                     <div class="col-12">
                         <p class="text-center mb-0">Tipo de tarea</p>
                         <select id="tipo-averia" name="tipo" class="col-12 mt-0 rounded-pill bg-dark text-center">
-                            <option value="incidencia" @if(old('tipo') == "incidencia") selected @endif>Incidencia</option>
-                            <option value="averia" @if(old('tipo') == "averia") selected @endif>Avería</option>
-                            <option value="revision" @if(old('tipo') == "revision") selected @endif>Revisión</option>
+                            <option value="incidencia">Incidencia</option>
+                            <option value="averia">Avería</option>
+                            <option value="revision">Revisión</option>
                         </select>
                     </div>
                 </div>
@@ -181,10 +171,10 @@ Igobide | Nueva tarea
                         <p id="prioridad-texto" class="text-center mb-0">Prioridad de la tarea - Baja</p>
                         <div class="row">
                             <div class="col-10">
-                                <input id="prioridad-range" type="range" class="form-range" value="{{ old('prioridad') ? old('prioridad') : '1' }}" min="1" max="5">
+                                <input id="prioridad-range" type="range" class="form-range" value="1" min="1" max="5">
                             </div>
                             <div class="col-2 nt">
-                                <input class="bg-dark" style="border: none;" type="number" name="prioridad" id="prioridad" value="{{ old('prioridad') ? old('prioridad') : '1' }}" max="5" min="1">
+                                <input class="bg-dark" style="border: none;" type="number" name="prioridad" id="prioridad" value="1" max="5" min="1">
                             </div>
                         </div>
                         <div class="progress">
@@ -199,7 +189,7 @@ Igobide | Nueva tarea
 
                 <div class="row">
                     <div class="col-12">
-                        <textarea name="descripcion" id="descripcion" cols="50" rows="10" placeholder="Descripción" class="form-control rounded mt-2 bg-dark">{{ old('descripcion') }}</textarea>
+                        <textarea name="descripcion" id="descripcion" cols="50" rows="10" placeholder="Descripción" class="form-control rounded mt-2 bg-dark"></textarea>
                     </div>
                 </div>
 

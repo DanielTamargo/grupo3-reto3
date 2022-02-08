@@ -62,14 +62,8 @@ function printearErrores() {
     }
     elm.html(contenido);
 }
-function seleccionRol(evt, old_rol) {
-    var rol;
-    let jefe_codigo;
-    if (!old_rol) rol = evt.target.value;
-    else {
-        rol = old_rol;
-        jefe_codigo = $("#old-jefe-seleccionado")[0].value;
-    }
+function seleccionRol(evt) {
+    var rol = evt.target.value;
     if (rol == "tecnico") {
         $.ajaxSetup({
             headers: {
@@ -85,7 +79,7 @@ function seleccionRol(evt, old_rol) {
                 var contenido = "\n                <label for=\"jefe_codigo\" class=\"\">Jefe asignado</label>\n                <select name=\"jefe_codigo\" id=\"registro-jefe_codigo\" class=\"form-select  bg-dark\">";
                 jefes = data.jefes;
                 for (var key in jefes) {
-                    contenido += "<option " + (jefe_codigo == jefes[key]["codigo"] ? 'selected' : '') + " value=\"".concat(key, "\">").concat(jefes[key]["nombre"], " (").concat(jefes[key]["codigo"], ")</option>");
+                    contenido += "<option value=\"".concat(key, "\">").concat(jefes[key]["nombre"], " (").concat(jefes[key]["codigo"], ")</option>");
                 }
                 contenido += "</select>";
                 $("#registro-jefe-asignado").html(contenido);
@@ -109,8 +103,4 @@ function seleccionJefe() {
         $("#registro-jefe-asignado").notify("\u00A1Ojo! Este jefe ya tiene ".concat(num_tecnicos, " t\u00E9cnicos asignados"), "warn");
     }
 }
-if ($("#old-rol-seleccionado").length) {
-    if ($("#old-rol-seleccionado")[0] && $("#old-rol-seleccionado")[0].value == "tecnico") {
-        seleccionRol(undefined, "tecnico");
-    }
-}
+//# sourceMappingURL=register.js.map

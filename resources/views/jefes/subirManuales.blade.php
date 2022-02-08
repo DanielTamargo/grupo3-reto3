@@ -3,7 +3,7 @@
 <div class="col-12 d-flex flex-column justify-content-center align-items-center">
     <div class="row">
         <div class="col-12">
-            <h2>Submir manuales</h2>
+            <h2>Subir manuales</h2>
         </div>
     </div>
 

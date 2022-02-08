@@ -12,41 +12,10 @@ Igobide | Administrador
     @if (isset($usuario_creado) && $usuario_creado)
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-right',
-            iconColor: 'white',
-            customClass: {
-                popup: 'colored-toast'
-            },
-            showConfirmButton: false,
-            timer: 2500,
-            timerProgressBar: true
-        });
-        Toast.fire({
+        Swal.fire({
+            text: 'El usuario se ha creado con éxito',
             icon: 'success',
-            title: 'Usuario creado con éxito'
-        });
-    </script>
-    @endif
-
-    @if (isset($tarea_creada) && $tarea_creada)
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript">
-        const Toast2 = Swal.mixin({
-            toast: true,
-            position: 'top-right',
-            iconColor: 'white',
-            customClass: {
-                popup: 'colored-toast'
-            },
-            showConfirmButton: false,
-            timer: 2500,
-            timerProgressBar: true
-        });
-        Toast2.fire({
-            icon: 'success',
-            title: 'Tarea creada con éxito'
+            timer: 2000
         });
     </script>
     @endif
@@ -87,6 +56,11 @@ Igobide | Administrador
                     id_p="4"
                     ruta="{{ route('ascensores.index') }}"></boton-panel>
                     <boton-panel
+                    texto="Ver modelos registrados"
+                    rol="administrador"
+                    id_p="5"
+                    ruta="{{ route('modelos.index') }}"></boton-panel>
+                    <boton-panel
                     texto="Crear una nueva tarea"
                     rol="administrador"
                     id_p="6"
@@ -95,7 +69,7 @@ Igobide | Administrador
                     texto="Ver listado de tareas general"
                     rol="administrador"
                     id_p="6"
-                    ruta="{{route('tareas.index')}}"></boton-panel>
+                    ruta=""></boton-panel>
                 </div>
             </div>
         </div>

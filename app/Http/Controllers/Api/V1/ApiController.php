@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Ascensor;
 use App\Models\JefeEquipo;
 use App\Models\Tarea;
 use App\Models\Tecnico;
@@ -200,35 +199,5 @@ class ApiController extends Controller
         ], 200);
     }
 
-    public function obtenerTareas(){
-        if(Auth::user()->rol !='tecnico'){
-            $ascensores = Ascensor::all();
-            $tecnicos = Tecnico::all();
-
-            $filtro_numref = $_GET["filtro_numref"];
-            $filtro_tipo = $_GET["filtro_tipo"];
-            $filtro_estado = $_GET["filtro_estado"];
-            if(Auth::user()->rol == 'administrador'){
-                $tareas = Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")->where('tipo','like',"%$filtro_tipo%")->where('estado','like',"%$filtro_estado%")->get();
-            }
-            if(Auth::user()->rol == 'jefeequipo'){
-                //$tareas = Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")->where('tipo','like',"%$filtro_tipo%")->where('estado','like',"%$filtro_estado%")->where()->get();
-                $tareas = array_filter(Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")->where('tipo','like',"%$filtro_tipo%")->where('estado','like',"%$filtro_estado%")->get()->toArray(), function($tar) {
-                    // dd(array_column(Auth::user()->puesto->tecnicos->toArray(), "codigo"));
-                    return in_array($tar['tecnico_codigo'], array_column(Auth::user()->puesto->tecnicos->toArray(), "codigo"));
-                });
-                // dd($tareas);
-                $tareas = array_values($tareas);
-            }
-
-            return response()->json([
-                'ok' => true,
-                'tareas' => $tareas,
-                'filtro' => $filtro_estado,
-                'ascensores' => $ascensores,
-                'tecnicos' => $tecnicos,
-            ], 200);
-        }
-    }
 
 }

@@ -29,7 +29,6 @@ Route::get('/api/v1/ascensores', [App\Http\Controllers\Api\V1\ApiController::cla
 Route::get('/api/v1/codigosJefes', [App\Http\Controllers\Api\V1\ApiController::class, 'codigosJefes']);
 Route::get('/api/v1/tecnicos-disponibles', [App\Http\Controllers\Api\V1\ApiController::class, 'obtenerTecnicosDisponibles']);
 Route::get('/api/v1/estadisticas', [App\Http\Controllers\Api\V1\ApiController::class, 'obtenerEstadisticas']);
-Route::get('/api/v1/tareas', [App\Http\Controllers\Api\V1\ApiController::class, 'obtenerTareas']);
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -65,7 +64,19 @@ Route::get('/descargar/manual/{manual_nombre}', [\App\Http\Controllers\DownloadC
 EMAILS
 ----------------------------------------------------------------------------------------------
 */
-Route::get('/send/email/cliente', [App\Http\Controllers\EmailController::class, 'notificarCliente'])->name('email.cliente');
+Route::get('/send/email/cliente', function () {
+
+    $detalles = [
+        'asunto' => 'test',
+        'rol_destinatario' => 'cliente',
+        'titulo' => 'Email de Igobide Ascensores',
+        'mensaje' => 'Testeando los emails!'
+    ];
+
+    Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+
+    dd("Email is Sent.");
+})->name('email.cliente');
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -121,7 +132,7 @@ Route::get('/tecnico/piezas', [App\Http\Controllers\TecnicoController::class, 'p
 
 Route::post('/tecnico/partes', [App\Http\Controllers\ParteController::class, 'store'])->name('partes.store');
 Route::post('/tecnico/historial', [App\Http\Controllers\TecnicoController::class, 'showHistorial'])->name("tecnico.searchhistorial");
-
+Route::post('/tecnico/piezas', [App\Http\Controllers\TecnicoController::class, 'formPiezas'])->name('tecnico.formpiezas');
 /*
 ----------------------------------------------------------------------------------------------
 OPERADORES
@@ -130,8 +141,6 @@ OPERADORES
 
 Route::get('/operador', function () {return view('operadores.home-operador')->with('home',true);})->name('home.operador');
 Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaTarea'])->name('nuevatarea.create');
-Route::post('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'crearTarea'])->name('tarea.store');
-Route::get('/operador/listar-tareas', [App\Http\Controllers\OperadorController::class, 'listarTareas'])->name('tareas.index');
 Route::get('/operador/nuevo-parte', [App\Http\Controllers\OperadorController::class, 'crearParte'])->name('crearparte.create');
 Route::get('/operador/ultimas-revisiones', [App\Http\Controllers\OperadorController::class, 'mostrarUltimasRevisiones'])->name('ultimasrevisiones.show');
 Route::get('/operador/asignar-revisiones', [App\Http\Controllers\OperadorController::class, 'asignarRevisiones'])->name('asignarrevisiones.create');
@@ -168,10 +177,10 @@ Route::get('/empleados/nuevo', [App\Http\Controllers\Auth\RegisterController::cl
 /*Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
     ->middleware('auth')
     ->name('empleados.store');*/ //<- implementado con auth
-Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
-      ->middleware('auth')
-      ->name('empleados.show');
-Route::put('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
+// Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
+//     ->middleware('auth')
+//     ->name('empleados.show');
+Route::post('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
     ->middleware('auth')
     ->name('empleados.edit');
 Route::delete('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'eliminarEmpleado'])
@@ -218,4 +227,4 @@ Route::get('/modelos/{id}', [App\Http\Controllers\ModeloController::class, 'show
 Route::post('/modelos/{id}/actualizar', [App\Http\Controllers\ModeloController::class, 'store'])
     ->middleware('auth')
     ->name('modelos.store');
-
+  

@@ -4,7 +4,6 @@
  * @param {number} prioridad valor de la prioridad
  */
 function actualizarProgressBars(prioridad) {
-    console.log(prioridad)
     switch (prioridad) {
         case 1:
             document.getElementById('prioridad-pb-2').style.display = "none";
@@ -67,5 +66,4 @@ document.getElementById('prioridad-range').addEventListener('change', actualizar
 document.getElementById('prioridad').addEventListener('change', controlarPrioridad);
 document.getElementById('prioridad').addEventListener('keypress', controlarIntro);
 // Inicializamos las progress bars
-let prioridad = document.getElementById('prioridad');
-actualizarProgressBars(Number(prioridad.value));
+actualizarProgressBars(1);

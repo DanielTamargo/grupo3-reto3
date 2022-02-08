@@ -25,8 +25,8 @@
         <nav class="col-12 navbar navbar-expand-md navbar-light bg-primary shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('/img/logoIgobideGrande_negro.png') }}" alt="" class="img-fluid w-50 d-none d-md-block"/>
-                    <img src="{{ asset('/img/logo_peque.png') }}" alt="" class="img-fluid w-50 d-md-none d-block"/>
+                    <img src="./img/logoIgobideGrande_negro.png" alt="" class="img-fluid w-50 d-none d-md-block"/>
+                    <img src="./img/logo_peque.png" alt="" class="img-fluid w-50 d-md-none d-block"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

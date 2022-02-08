@@ -12,10 +12,9 @@ use App\Models\User;
 use App\Models\Tecnico;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -33,31 +32,26 @@ class RegisterController extends Controller
      */
     protected function store(Request $request)
     {
-        // Comprobamos permisos
-        $user = Auth::user();
-        if (!$user || $user->rol != "administrador" && $user->rol != "operador") return view('errors.403');
-
-        // Validamos los datos
-        $old_email = $request->email;
         $request["email"] .= "@igobide.com";
+
+
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
             'dni' => 'required|string|max:12|unique:users',
             'telefono' => 'required|string|max:20',
-            'email' => 'required|string|max:255|unique:users',
+            'email' => 'required|string|max:255|unique:users', 
             'password' => 'required|string|min:8',
             'rol' => 'required|string|max:255',
             'jefe_codigo' => 'string|max:255',
         ]);
 
         if ($validator->fails()) {
-            $request["email"] = $old_email;
             return back()
                     ->withErrors($validator)
                     ->withInput();
         }
-
+        
         // Registramos dos entidades, el usuario y su entidad puesto relacionada
 
         // Usuario
@@ -105,18 +99,6 @@ class RegisterController extends Controller
             }
         }
 
-        // Enviamos email al empleado con la URL al login y sus credenciales
-        $detalles = [
-            'asunto' => 'Usuario Registrado',
-            'rol_destinatario' => 'nuevo-empleado',
-            'nombre' => $request->nombre,
-            'usuario' => $old_email,
-            'password' => $request->password
-        ];
-
-        // Siempre se envían a esta cuenta puesto que es un proyecto piloto
-        Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
-
-        return redirect()->route('inicio', ['usuario_creado' => true]);
+        return redirect()->route('inicio', ['usuario_creado' => true]); // TODO dani: comprobar que redirige a donde queremos
     }
 }

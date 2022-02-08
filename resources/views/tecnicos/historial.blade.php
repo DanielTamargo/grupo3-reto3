@@ -41,7 +41,10 @@ Historial
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-heading{{ $x }}">
                         <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ $x }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse{{ $x }}">
-                        id: {{ $tareas[$x]->id }}
+                            <span class="me-2 text-decoration-underline">
+                                id: {{ $tareas[$x]->id }}
+                            </span>
+                            tipo: {{ $tareas[$x]->tipo }}
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapse{{ $x }}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-heading{{ $x }}">

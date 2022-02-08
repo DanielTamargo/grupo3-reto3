@@ -20,7 +20,7 @@
             </a>
         </div>
         <div class="col">
-            <p class="display-5 mt-3">Ascensores igobide</p>
+            <!-- aqui logout/register -->
         </div>
     </header>
     <div class="row pt-2" id="maincontainer">
