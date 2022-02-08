@@ -1,4 +1,9 @@
 @extends('layouts.app')
+
+@section('title')
+    Igobide | Tareas
+@endsection
+
 @section('content')
 <div class="col-12">
     @if (isset($_GET["tarea_creada"]) && $_GET["tarea_creada"])
@@ -22,8 +27,10 @@
     </script>
     @endif
 
-    <table class="border table table-hover rounded empleados">
-    <div class="row my-3">
+    <input type="hidden" id="ruta-show-modelo" value="{{ route('modelos.show', ['id' => 'modelo_id']) }}">
+    <input type="hidden" id="ruta-show-tecnico" value="{{ route('empleados.show', ['user_id' => 'empleado_id']) }}">
+
+    <div class="row">
         <div class="col-3">
             <p class="mb-1">Número de referencia</p>
             <input class="form-control bg-dark" id="filtro-num_ref" type="text" placeholder="Código referencia">
@@ -47,14 +54,15 @@
                         <option value="imposiblesolucionar">Imposible solucionar</option>
                         <option value="materialnecesario">Se necesita material</option>
                     </select>
-        </div>
         </div>   
-        <div class="row">
+        <div class="row mt-2">
             <div class="col-12 d-flex justify-content-between mb-2">
                 <button class="btn btn-outline-light" onclick="mostrarTareas(false)">&#60;</button>
                 <button class="btn btn-outline-light" onclick="mostrarTareas(true)">&#62;</button>
             </div>
         </div>
+    </div>
+    <table class="border table table-hover rounded empleados">
         <thead>
             <tr class="table-primary">
                 <th scope="col">Codigo</th>
@@ -67,15 +75,7 @@
             </tr>
         </thead>
         <tbody class="tareas">
-            {{-- Bootstrap tooptips --}}
-                <script src="{{ asset('js/lib/bootstrap.bundle.min.js')}}"></script>
-                <script type="text/javascript">
-                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-                    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-                        return new bootstrap.Tooltip(tooltipTriggerEl);
-                    });
-                </script>
-  
+
         </tbody>
     </table>
 </div>
