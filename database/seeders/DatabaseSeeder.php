@@ -234,6 +234,7 @@ class DatabaseSeeder extends Seeder
                                 $timestamp_parte = $fecha_parte->getTimestamp();
                                 $fecha_parte->setTimestamp(rand($timestamp_parte, time()));
                             } else {
+                                $finalizado = true;
                                 $estado = EnumsEstadosTareas::IMPOSIBLESOLUCIONAR;
                                 $tarea->fecha_finalizacion = $fecha_parte;
                             }

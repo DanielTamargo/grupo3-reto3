@@ -166,10 +166,10 @@ Route::get('/empleados/nuevo', [App\Http\Controllers\Auth\RegisterController::cl
 /*Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
     ->middleware('auth')
     ->name('empleados.store');*/ //<- implementado con auth
-// Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
-//     ->middleware('auth')
-//     ->name('empleados.show');
-Route::post('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
+Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
+      ->middleware('auth')
+      ->name('empleados.show');
+Route::put('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
     ->middleware('auth')
     ->name('empleados.edit');
 Route::delete('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'eliminarEmpleado'])

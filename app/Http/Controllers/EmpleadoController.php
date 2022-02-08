@@ -6,10 +6,43 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Exports\EmpleadosExport;
+use Illuminate\Support\Facades\Hash;
 use Excel;
 
 class EmpleadoController extends Controller
 {
+    public function editarEmpleado(Request $request) {
+        $user = Auth::user();
+        if (!$user) return view('errors.403'); //<- no loggeado
+
+        if ($user->rol != "administrador" && $user->id != $request->user_id) return view('errors.403'); //<- sin permisos
+
+        $user = User::find($request->user_id); //<- obtener usuario consultado
+        if (!$user) return view('errors.404'); //<- empleado no existe
+
+        if (strlen($request->password) < 8 || strlen($request->password) > 150) { // 150 por contemplar una contraseña extra-mega-ultra-segura que quizás supondría demasiado, quizás
+            if (strlen($request->password) > 150) return back()->with('error', '¡Tranquilo! La contraseña debe tener un máximo de 150 caracteres');
+            else return back()->with('error', 'La contraseña debe tener mínimo 8 caracteres');
+        }
+
+        $user->password = Hash::make($request->password); // <- la guardamos encriptada
+        $user->save();
+
+        return back()->with('exito', 'La contraseña ha sido modificada con éxito');
+    }
+
+    public function mostrarEmpleado($user_id) {
+        $user = Auth::user();
+        if (!$user) return view('errors.403'); //<- no loggeado
+
+        if ($user->rol != "administrador" && $user->id != $user_id) return view('errors.403'); //<- sin permisos
+
+        $user = User::find($user_id); //<- obtener usuario consultado
+        if (!$user) return view('errors.404'); //<- empleado no existe
+
+        return view('empleados.show')->with('user', $user);
+    }
+
     public function listarEmpleados(Request $request)
     {
         $user = Auth::user();
