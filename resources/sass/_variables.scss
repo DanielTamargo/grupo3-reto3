@@ -61,6 +61,11 @@ $azul1: rgb(116, 185, 255);
 $azul2: rgb(9, 132, 227);
 $azul3: rgb(30, 55, 153);
 
+$prioridad5: rgb(59, 180, 59);
+$prioridad4: rgb(80, 80, 206);
+$prioridad3: $yellow;
+$prioridad2: rgb(236, 171, 49);
+$prioridad1: $red;
 
 // scss-docs-start colors-map
 $colors: (
@@ -76,8 +81,7 @@ $colors: (
   "cyan":       $cyan,
   "white":      $white,
   "gray":       $gray-600,
-  "gray-dark":  $gray-800,
-
+  "gray-dark":  $gray-800
 ) !default;
 // scss-docs-end colors-map
 
@@ -115,7 +119,12 @@ $custom-colors: (
   "morado3": $morado3,
   "azul1": $azul1,
   "azul2": $azul2,
-  "azul3": $azul3
+  "azul3": $azul3,
+  "prioridad1": $prioridad1,
+  "prioridad2": $prioridad2,
+  "prioridad3": $prioridad3,
+  "prioridad4": $prioridad4,
+  "prioridad5": $prioridad5
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
@@ -887,7 +896,7 @@ $input-disabled-border-color:           null !default;
 $input-color:                           $body-color !default;
 $input-border-color:                    $black !default;
 $input-border-width:                    $input-btn-border-width !default;
-$input-focus-border-width:              2px !default;        
+$input-focus-border-width:              2px !default;
 $input-box-shadow:                      $box-shadow-inset !default;
 
 $input-border-radius:                   $border-radius !default;

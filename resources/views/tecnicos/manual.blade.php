@@ -11,10 +11,13 @@ manuales
     <p class="display-4">Manuales disponibles</p>
     <ul class="list-group text-white">
         <!-- despues blade generara los item de esta lista-->
-        <li class="list-group-item">un manual <a href="#" class="float-end">descargar</a></li>
-        <li class="list-group-item">un manual<a href="#" class="float-end">descargar</a></li>
-        <li class="list-group-item">un manual<a href="#" class="float-end">descargar</a></li>
-        <li class="list-group-item">un manual<a href="#" class="float-end">descargar</a></li>
-        <li class="list-group-item">un manual<a href="#" class="float-end">descargar</a></li>
+        @if (count($manuales) != 0)
+            @for ($x = 0; $x < count($manuales); $x++)
+                <li class="list-group-item">{{ $manuales[$x] }} <a href="/descargar/manual/{{ $manuales[$x] }}" class="float-end">descargar</a></li>
+
+            @endfor
+        @else
+        <p>error, no se encontraron manuales disponibles</p>
+        @endif
     </ul>
 @endsection

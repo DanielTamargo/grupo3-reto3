@@ -120,7 +120,7 @@ Route::get('/tecnico/piezas', [App\Http\Controllers\TecnicoController::class, 'p
 
 Route::post('/tecnico/partes', [App\Http\Controllers\ParteController::class, 'store'])->name('partes.store');
 Route::post('/tecnico/historial', [App\Http\Controllers\TecnicoController::class, 'showHistorial'])->name("tecnico.searchhistorial");
-
+Route::post('/tecnico/piezas', [App\Http\Controllers\TecnicoController::class, 'formPiezas'])->name('tecnico.formpiezas');
 /*
 ----------------------------------------------------------------------------------------------
 OPERADORES

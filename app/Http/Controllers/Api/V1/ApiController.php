@@ -185,10 +185,10 @@ class ApiController extends Controller
 
         foreach ($datos_tecnicos as $datos_tecnico){
             array_push($datos_tecnicos_estadisticas,['codigo'=>$datos_tecnico['codigo'],'jefe_codigo'=>$datos_tecnico['jefe_codigo']]);
-        }   
+        }
         foreach ($datos_tareas as $datos_tarea){
             array_push($datos_tareas_estadisticas,['tipo'=>$datos_tarea['tipo'],'estado'=>$datos_tarea['estado'],'ascensor_ref'=>$datos_tarea['ascensor_ref'],'tecnico_codigo'=>$datos_tarea['tecnico_codigo'],'fecha_fin'=>$datos_tarea['fecha_finalizacion']]);
-        }   
+        }
         $user = Auth::user();
         return response()->json([
             'ok' => true,
@@ -209,11 +209,20 @@ class ApiController extends Controller
             $filtro_tipo = $_GET["filtro_tipo"];
             $filtro_estado = $_GET["filtro_estado"];
             if(Auth::user()->rol == 'administrador'){
-                $tareas = Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")->where('tipo','like',"%$filtro_tipo%")->where('estado','like',"%$filtro_estado%")->get();
+                $tareas = Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")
+                        ->where('tipo','like',"%$filtro_tipo%")
+                        ->where('estado','like',"%$filtro_estado%")
+                        ->orderBy('id', 'desc')
+                        ->get();
             }
             if(Auth::user()->rol == 'jefeequipo'){
                 //$tareas = Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")->where('tipo','like',"%$filtro_tipo%")->where('estado','like',"%$filtro_estado%")->where()->get();
-                $tareas = array_filter(Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")->where('tipo','like',"%$filtro_tipo%")->where('estado','like',"%$filtro_estado%")->get()->toArray(), function($tar) {
+                $tareas = array_filter(Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")
+                                            ->where('tipo','like',"%$filtro_tipo%")
+                                            ->where('estado','like',"%$filtro_estado%")
+                                            ->orderBy('id', 'desc')
+                                            ->get()
+                                            ->toArray(), function($tar) {
                     // dd(array_column(Auth::user()->puesto->tecnicos->toArray(), "codigo"));
                     return in_array($tar['tecnico_codigo'], array_column(Auth::user()->puesto->tecnicos->toArray(), "codigo"));
                 });

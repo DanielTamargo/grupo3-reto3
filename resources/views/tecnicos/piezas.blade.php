@@ -9,11 +9,22 @@ Pedir piezas
 
 @section('content')
     <p class="display-4">Pedir piezas</p>
-    <form action="">
+    @if(session()->has('success'))
+        <div class="alert alert-success">
+            La peticion fue enviada correctamente
+        </div>
+    @elseif(session()->has('error'))
+        <div class="alert alert-warning">
+            Hubo un problema al enviar
+        </div>
+    @else
+    @endif
+    <form action="{{route('tecnico.formpiezas')}}" method="POST">
+        @csrf
         <label for="id" class="form-label">Modelo de ascensor:</label>
-        <input type="text" name="" id="id" class="form-control rounded-pill bg-dark text-white">
+        <input type="text" name="" id="id" class="form-control rounded-pill bg-dark text-white" required>
         <label for="material" class="form-label">Material:</label>
-        <textarea name="" id="material"  cols="30" rows="10" class="form-control rounded-3 bg-dark text-white"></textarea>
+        <textarea name="" id="material"  cols="30" rows="10" class="form-control rounded-3 bg-dark text-white" required></textarea>
         <input type="submit" value="Enviar" class="mt-2 btn btn-outline-light float-end">
     </form>
 @endsection

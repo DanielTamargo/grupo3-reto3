@@ -10,16 +10,21 @@ Tareas
 @section('content')
     <p class="display-5">Tareas pendientes</p>
     <div class="accordion">
-        <!-- despues blade generara los item de esta lista.
-
-        posible que las tareas tengan un codigo de color dependiendo de 
-        su prioridad / que aparezcan primero-->
+        <!-- despues blade generara los item de esta lista.-->
         @if (count($tareas) != 0)
             @for ($x = 0; $x < count($tareas); $x++)
             <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-heading{{ $x }}">
                     <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ $x }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse{{ $x }}">
-                    <span class="me-4 bg-info rounded-pill">
+                    <span class="me-4 rounded-pill px-1
+                    @switch ($tareas[$x]->prioridad)
+                    @case (5) bg-prioridad5 @break
+                    @case (4) bg-prioridad4 @break
+                    @case (3) bg-prioridad3 @break
+                    @case (2) bg-prioridad2 @break
+                    @case (1) bg-prioridad1 @break
+                    @default bg-gris3 @break
+                    @endswitch">
                             prioridad: {{ $tareas[$x]->prioridad }}
                     </span>
 

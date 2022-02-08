@@ -39,7 +39,6 @@ class ParteController extends Controller
     public function store(Request $request)
     {
         $parte = new Parte();
-        // falta como manejar excepciones
         
 
 

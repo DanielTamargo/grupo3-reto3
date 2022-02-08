@@ -1,6 +1,32 @@
 @extends('layouts.app')
 
+@section('title')
+    Igobide | Empleados
+@endsection
+
 @section('content')
+
+    @if (isset($_GET["usuario_creado"]) && $_GET["usuario_creado"])
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        const Toast2 = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast'
+            },
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true
+        });
+        Toast2.fire({
+            icon: 'success',
+            title: 'Usuario creado con éxito'
+        });
+    </script>
+    @endif
+
     <div class="container px-4">
         @if (Auth::user()->rol == "administrador")
             <h3 class="text-black">Lista de usuarios registrados</h3>

@@ -158,15 +158,15 @@ class DatabaseSeeder extends Seeder
         $this->command->line("Creando Modelos");
         $modelos = [];
         array_push($modelos, \App\Models\Modelo::create(['nombre' => 'ELEV2DS', 'num_puertas' => 1, 'peso_max' => 460, 'num_personas' => 4,
-        'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'manual_1.pdf']));
+        'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'ELEV2DS.pdf']));
         array_push($modelos,\App\Models\Modelo::create(['nombre' => 'ASCOP2DZ', 'num_puertas' => 1, 'peso_max' => 340, 'num_personas' => 3,
-        'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'manual_2.pdf']));
+        'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'ASCOP2DZ.pdf']));
         array_push($modelos, \App\Models\Modelo::create(['nombre' => 'LBST2DP', 'num_puertas' => 2, 'peso_max' => 420, 'num_personas' => 4,
-        'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'manual_1.pdf']));
+        'llave' => false, 'tipoaccionamiento' => TiposAccionamientos::HIDRAULICO, 'manual' => 'LBST2DP.pdf']));
         array_push($modelos, \App\Models\Modelo::create(['nombre' => 'ATD2500', 'num_puertas' => 1, 'peso_max' => 460, 'num_personas' => 4,
-        'llave' => true, 'tipoaccionamiento' => TiposAccionamientos::ELECTRICO, 'manual' => 'manual_2.pdf']));
+        'llave' => true, 'tipoaccionamiento' => TiposAccionamientos::ELECTRICO, 'manual' => 'ATD2500.pdf']));
         array_push($modelos, \App\Models\Modelo::create(['nombre' => 'CGT1240', 'num_puertas' => 2, 'peso_max' => 1400, 'num_personas' => 12,
-        'llave' => true, 'tipoaccionamiento' => TiposAccionamientos::ELECTRICO, 'manual' => 'manual_1.pdf']));
+        'llave' => true, 'tipoaccionamiento' => TiposAccionamientos::ELECTRICO, 'manual' => 'CGT1240.pdf']));
         $this->command->comment("Modelos creados con éxito");
 
         // -------------------------------------------------------------------------------------

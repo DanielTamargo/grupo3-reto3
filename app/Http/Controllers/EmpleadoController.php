@@ -40,6 +40,9 @@ class EmpleadoController extends Controller
         $user = User::find($user_id); //<- obtener usuario consultado
         if (!$user) return view('errors.404'); //<- empleado no existe
 
+        // Si lo está consultando un técnico cargaremos una vista distinta, respetando el layout del que hereda
+        if (Auth::user()->rol == "tecnico") return view('empleados.show-pov-tecnico')->with('user', $user);
+
         return view('empleados.show')->with('user', $user);
     }
 

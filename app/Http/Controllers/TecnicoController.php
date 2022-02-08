@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Modelo;
 use App\Models\Tarea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -117,7 +118,10 @@ class TecnicoController extends Controller
         if ($errorview != "") {
             return view($errorview);
         }
-        $tareas = Tarea::where('tecnico_codigo',Auth::user()->puesto->codigo)->where('estado', "!=",'sintratar')->get();
+        $tareas = Tarea::where('tecnico_codigo',Auth::user()->puesto->codigo)
+                ->where('estado', "!=",'sintratar')
+                ->orderBy('fecha_finalizacion','desc')
+                ->get();
 
         return view('tecnicos.historial', ["tareas" => $tareas]);
     }
@@ -135,14 +139,23 @@ class TecnicoController extends Controller
 
         if ($request->boolean('idOpt')) {
             // comprueba que la tarea es del tecnico correspondiente
-            $tareas = Tarea::where('tecnico_codigo',Auth::user()->puesto->codigo)->where('estado', "!=",'sintratar')->where('id',$request->fecha)->get();
+            $tareas = Tarea::where('tecnico_codigo',Auth::user()->puesto->codigo)
+                    ->where('estado', "!=",'sintratar')
+                    ->where('id',$request->fecha)
+                    ->orderBy('fecha_finalizacion','desc')
+                    ->get();
         }
         else {
             // valor entre fechas
             $dia = date("Y-m-d",strtotime($request->fecha));
             $diasiguiente = date("Y-m-d",strtotime($request->fecha) + (24 * 60 * 60));
 
-            $tareas = Tarea::where('tecnico_codigo',Auth::user()->puesto->codigo)->where('estado', "!=",'sintratar')->where('fecha_finalizacion','>',$dia)->where('fecha_finalizacion','<',$diasiguiente)->get();
+            $tareas = Tarea::where('tecnico_codigo',Auth::user()->puesto->codigo)
+                    ->where('estado', "!=",'sintratar')
+                    ->where('fecha_finalizacion','>',$dia)
+                    ->where('fecha_finalizacion','<',$diasiguiente)
+                    ->orderBy('fecha_finalizacion','desc')
+                    ->get();
         }
 
         
@@ -157,7 +170,13 @@ class TecnicoController extends Controller
             return view($errorview);
         }
 
-        return view('tecnicos.manual');
+        $modelos = Modelo::all();
+        $listaManual = [];
+        foreach ($modelos as $modelo) {
+            array_push($listaManual, $modelo->manual);
+        }
+
+        return view('tecnicos.manual', ["manuales" => $listaManual]);
     }
     /* muestra la vista piezas */
     public function piezas() {
@@ -170,9 +189,9 @@ class TecnicoController extends Controller
         return view('tecnicos.piezas');
     }
 
-    /* funcion para validar que el identificador que pasa la ruta viene de un tecnico o un usuario con permiso
-        @param  int $codigo  codigo del usuario/tecnico
-        @return string  el nombre de la vista de error al que redireccionar la peticion, en caso de validar devuelve un string vacio
+    /**  funcion para validar que el identificador que pasa la ruta viene de un tecnico o un usuario con permiso
+    *    @param  int $codigo  codigo del usuario/tecnico
+    *    @return string  el nombre de la vista de error al que redireccionar la peticion, en caso de validar devuelve un string vacio
     */
     private function validarTecnico($user) {
         // VALIDACIONES
@@ -187,5 +206,16 @@ class TecnicoController extends Controller
             return 'errors.403';
         }
         return "";
+    }
+
+    /**
+     * funcion que recibe lo introducido en el formulario de piezas, como el pedir piezas no tiene 
+     * destino a donde enviar datos esta funcion devuelve que los datos han sido enviados correctamente
+     */
+    public function formPiezas(Request $request) {
+        // aqui la funcion qui envia la informacion al departamento correspondiente
+        // 
+
+        return back()->with("success", true);
     }
 }

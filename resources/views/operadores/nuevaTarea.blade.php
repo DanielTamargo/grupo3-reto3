@@ -140,8 +140,8 @@ Igobide | Nueva tarea
                 <h3 class="text-black">Datos cliente</h3>
                 <div class="row">
                     <div class="col-12">
-                        <input value="{{ old('cliente_nombre') }}" required type="tel" name="cliente_nombre" placeholder="Nombre" class="form-control rounded-pill mt-2 bg-dark"/>
-                        <input value="{{ old('cliente_email') }}" required type="tel" name="cliente_email" placeholder="Email" class="form-control rounded-pill mt-2 bg-dark"/>
+                        <input type="text" value="{{ old('cliente_nombre') }}" required type="tel" name="cliente_nombre" placeholder="Nombre" class="form-control rounded-pill mt-2 bg-dark"/>
+                        <input type="text" value="{{ old('cliente_email') }}" required type="tel" name="cliente_email" placeholder="Email" class="form-control rounded-pill mt-2 bg-dark"/>
                     </div>
                 </div>
 
@@ -149,7 +149,7 @@ Igobide | Nueva tarea
                 <h3 class="text-black">Datos tarea</h3>
                 <div class="row">
                     <div class="col-12">
-                        <input value="{{ old('ascensor_num_ref') }}" required type="text" id="ascensor_num_ref" name="ascensor_num_ref" placeholder="Número de referencia ascensor" class="form-control rounded-pill mt-2 bg-dark"/>
+                        <input type="text" value="{{ old('ascensor_num_ref') }}" required type="text" id="ascensor_num_ref" name="ascensor_num_ref" placeholder="Número de referencia ascensor" class="form-control rounded-pill mt-2 bg-dark"/>
                     </div>
                     <div class="col-12">
                         <p id="seleccionar-ascensor" class="btn btn-primary w-100 rounded-pill mt-2 text-white" data-bs-toggle="modal" data-bs-target="#modal-ascensores">Seleccionar Ascensor</p>
@@ -158,7 +158,7 @@ Igobide | Nueva tarea
 
                 <div class="row">
                     <div class="col-12">
-                        <input value="{{ old('tecnico_codigo') }}" required type="text" id="tecnico_codigo" name="tecnico_codigo" placeholder="Código del técnico" class="form-control rounded-pill mt-2 bg-dark"/>
+                        <input type="text" value="{{ old('tecnico_codigo') }}" required type="text" id="tecnico_codigo" name="tecnico_codigo" placeholder="Código del técnico" class="form-control rounded-pill mt-2 bg-dark"/>
                     </div>
                     <div class="col-12">
                         <p id="seleccionar-tecnico" class="btn btn-primary w-100 rounded-pill mt-2 text-white" data-bs-toggle="modal" data-bs-target="#modal-tecnicos">Seleccionar Técnico</p>

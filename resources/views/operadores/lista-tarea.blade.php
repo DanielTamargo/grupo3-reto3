@@ -54,7 +54,7 @@
                         <option value="imposiblesolucionar">Imposible solucionar</option>
                         <option value="materialnecesario">Se necesita material</option>
                     </select>
-        </div>   
+        </div>
         <div class="row mt-2">
             <div class="col-12 d-flex justify-content-between mb-2">
                 <button class="btn btn-outline-light" onclick="mostrarTareas(false)">&#60;</button>

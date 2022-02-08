@@ -35,7 +35,7 @@ class RegisterController extends Controller
     {
         // Comprobamos permisos
         $user = Auth::user();
-        if (!$user || $user->rol != "administrador" && $user->rol != "operador") return view('errors.403');
+        if (!$user || $user->rol != "administrador" && $user->rol != "jefeequipo") return view('errors.403');
 
         // Validamos los datos
         $old_email = $request->email;
@@ -117,6 +117,6 @@ class RegisterController extends Controller
         // Siempre se envían a esta cuenta puesto que es un proyecto piloto
         Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
 
-        return redirect()->route('inicio', ['usuario_creado' => true]);
+        return redirect()->route('empleados.index', ['usuario_creado' => true]);
     }
 }
