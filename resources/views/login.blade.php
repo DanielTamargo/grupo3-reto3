@@ -9,6 +9,9 @@
 
     <title>Igobide | Login</title>
 
+    {{-- Icono página --}}
+    <link rel="icon" href="{{ asset('/img/logo_peque.png') }}">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 

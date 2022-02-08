@@ -7,6 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- Icono página --}}
+    <link rel="icon" href="{{ asset('/img/logo_peque.png') }}">
+
     @php
         $titulo = config('app.name', 'Igobide');
     @endphp
@@ -104,8 +107,6 @@
                                     </form>
                                 </div>
                             </li>
-                      
-                          
                         @endguest
                     </ul>
                 </div>
