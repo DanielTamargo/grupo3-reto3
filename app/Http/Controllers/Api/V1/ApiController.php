@@ -217,11 +217,12 @@ class ApiController extends Controller
                 // dd($tareas);
                 $tareas = array_values($tareas);
             }
-
+            $tecnicos = Tecnico::all();
             return response()->json([
                 'ok' => true,
                 'tareas' => $tareas,
-                'filtro' => $filtro_estado
+                'filtro' => $filtro_estado,
+                'tecnicos' => $tecnicos
             ], 200);
         }
     }
