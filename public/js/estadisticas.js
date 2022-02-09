@@ -100,6 +100,7 @@ function estadistica1Mostrar(){
 function ascensoresArregladosUnAnno(){
     let fecha = new Date();
     let annoActual = fecha.getFullYear();
+    console.log(annoActual -1)
     let mes_num = [01,02,03,04,05,06,07,08,09,10,11,12];
 
     if(rol == 'administrador'){
@@ -118,20 +119,19 @@ function ascensoresArregladosUnAnno(){
         
     }
     else{
-
         for(let y =0;y<mes_num.length;y++){
             let cantidadAverias =0;
             for(let z=0;z<tareas.length;z++){
                 let tecnico = datos_tecnicos.find(tc => tc.codigo == tareas[z].tecnico_codigo);
-                if (tecnico.jefe_codigo == id) {
-                    if (tareas[y]['fecha_fin'] != null && Number(tareas[y]['fecha_fin'].substring(0,4)) == annoActual -1 && mes_num[z] == tareas[y]['fecha_fin'].substring(5,7)){
+                if (tecnico.jefe_codigo == id) { 
+                    if (tareas[z]['fecha_fin'] != null && Number(tareas[z]['fecha_fin'].substring(0,4)) == annoActual -1 && mes_num[y] == tareas[z]['fecha_fin'].substring(5,7)){
                         cantidadAverias++;
                     }
                 }
             }
             averiasUnAno.push(cantidadAverias);
         }
-        console.log(averiasUnAno)
+        
 
     }
 }
