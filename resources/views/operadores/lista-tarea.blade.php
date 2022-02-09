@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="col-12">
-    @if (isset($_GET["tarea_creada"]) && $_GET["tarea_creada"])
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (isset($_GET["tarea_creada"]) && $_GET["tarea_creada"])
     <script type="text/javascript">
         const Toast2 = Swal.mixin({
             toast: true,

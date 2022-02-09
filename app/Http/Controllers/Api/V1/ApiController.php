@@ -7,7 +7,6 @@ use App\Models\Ascensor;
 use App\Models\JefeEquipo;
 use App\Models\Tarea;
 use App\Models\Tecnico;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * OLD api controller
+ * 
+ * El funcional y actualizado está en /http/controllers/api/v1
+ */
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models;
 use Illuminate\Support\Facades\Auth;
 
 class CredencialesController extends Controller

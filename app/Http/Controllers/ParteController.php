@@ -7,7 +7,6 @@ use App\Models\Tarea;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 
 class ParteController extends Controller
@@ -22,8 +21,6 @@ class ParteController extends Controller
     {
         $parte = new Parte();
         
-
-
         $parte->tecnico_codigo = Auth::user()->puesto->codigo;
         $parte->tarea_id = $request->idtarea;
         $parte->tarea_estado = $request->estado;

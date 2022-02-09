@@ -12,12 +12,15 @@ var ruta_tecnico = $('#ruta-show-tecnico').val();
 var ascensores = [];
 var tecnicos = [];
 
+var spinner;
+
 $(document).ready(function(){
     obtenerDatos();
 });
 
 
 function obtenerDatos(){
+    Swal.showLoading();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -180,6 +183,14 @@ function mostrarTareas(suma){
         //añado todas las filas al tbody para que aparezcan en la tabla
         tbody.append(tr);
     }
+
+    // Ocultamos el spinner
+    Swal.fire({
+        title: '',
+        text: '',
+        timer: 10,
+        showConfirmButton: false,
+    });
 }
 
 
@@ -200,6 +211,7 @@ $('#filtro-num_ref').on('keyup', evt => {
 //Filtro por la referencia por el tipo de tarea
 
 $('#tipo').on('change', evt => {
+    Swal.showLoading();
     filtro_tipo = evt.target.value;
 
     clearTimeout(obtenerDatosAsincrono);
@@ -210,6 +222,7 @@ $('#tipo').on('change', evt => {
 //Filtro por el estado de la tarea
 
 $('#estado').on('change', evt => {
+    Swal.showLoading();
     filtro_estado = evt.target.value;
 
     clearTimeout(obtenerDatosAsincrono);

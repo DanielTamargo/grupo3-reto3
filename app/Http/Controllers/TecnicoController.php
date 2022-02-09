@@ -4,11 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Modelo;
 use App\Models\Tarea;
+use App\Models\Tecnico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class TecnicoController extends Controller
 {
+
+    /* obtiene y muestra su historial de tareas para que lo revisen jefes de equipo y administradores */
+    public function listarTareas(Request $request) {
+        $user = Auth::user();
+        if (!$user) return view('errors.403');        
+
+        if ($user->rol != "administrador" && $user->rol != "jefeequipo" && $user->rol != "operador") return view('errors.403');
+
+        $tecnico = Tecnico::find($request->tecnico_codigo);
+        if (!$tecnico) return view('errors.404');
+
+        return view('tecnicos.tareas-index')
+            ->with('tareas', Tarea::where('tecnico_codigo', $request->tecnico_codigo)
+                                ->orderBy('id', 'desc')
+                                ->get())
+            ->with('tecnico', $tecnico);
+    }
 
     /* muestra la vista nuevaParte */
     public function nuevaParte($idtarea) {

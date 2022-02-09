@@ -141,4 +141,22 @@ class EmpleadoController extends Controller
         return $data;
     }
 
+
+    /**
+     * Elimina empleado
+     */
+    public function eliminarEmpleado(Request $request) {
+        $user = Auth::user();
+
+        if (!$user) return view('errors.403'); // <- usuario registrado
+
+        if ($user->rol != "administrador" && $user->rol != "jefeequipo") return view('errors.403'); // <- sin privilegios
+
+        $empleado = User::find($request->id);
+        $empleado->delete();
+
+        return back()->with('usuario_eliminado', true);
+    }
+
+
 }

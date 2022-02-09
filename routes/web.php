@@ -32,32 +32,11 @@ Route::get('/api/v1/tareas', [App\Http\Controllers\Api\V1\ApiController::class, 
 
 /*
 ----------------------------------------------------------------------------------------------
-RUTAS CON PRUEBAS
-----------------------------------------------------------------------------------------------
-*/
-Route::get('/pruebas', function() {
-    return view('pruebas.usuarios')
-        ->with('users', App\Models\User::all())
-        ->with('jefesequipos', App\Models\JefeEquipo::all())
-        ->with('tecnicos', App\Models\Tecnico::all())
-        ->with('operadores', App\Models\Operador::all())
-        ->with('mostrar_usuarios', true)
-        ->with('modelos', App\Models\Modelo::all())
-        ->with('ascensores', App\Models\Ascensor::all())
-        ->with('mostrar_modelos', true);
-})->name('pruebas.usuarios');
-Route::get('/pruebas/ficheros', function() {
-    return view('pruebas.ficheros');
-})->name('pruebas.ficheros');
-
-/*
-----------------------------------------------------------------------------------------------
 DESCARGAR FICHERO
 ----------------------------------------------------------------------------------------------
 */
 Route::get('/descargar/manual/{manual_nombre}', [\App\Http\Controllers\DownloadController::class, 'descargarManual'])
-    ->middleware('auth')
-    ->name('descargar.manual.modelo');
+    ->middleware('auth')->name('descargar.manual.modelo');
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -78,11 +57,9 @@ Route::get('/login', function () {
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])
     ->name("login");
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
-    ->middleware('auth') // <- Necesario estar loggeado! Un usuario no se puede registrar por su cuenta!
-    ->name("register.create");
+    ->middleware('auth')->name("register.create");
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'store'])
-    ->middleware('auth') // <- Necesario estar loggeado! Un usuario no se puede registrar por su cuenta!
-    ->name('register.store');
+    ->middleware('auth')->name('register.store');
 
 
 /*
@@ -94,8 +71,7 @@ Route::get('/home', function() {
     return redirect()->route('inicio');
 })->name('home');
 Route::get('/', [App\Http\Controllers\GeneralController::class, 'inicio'])
-  ->middleware('auth')
-  ->name('inicio');
+  ->middleware('auth')->name('inicio');
 
 
 /*
@@ -112,24 +88,39 @@ Route::get('/tecnico', function() {
     return view('tecnicos.home', ['usuario' => Auth::user()->nombre]);
 })->name("tecnico.home");
 
-Route::get('/tecnico/nueva-parte/{idtarea}', [App\Http\Controllers\TecnicoController::class, 'nuevaParte'])->name("tecnico.create");
-Route::get('/tecnico/tareas', [App\Http\Controllers\TecnicoController::class, 'showTareas'])->name("tecnico.show");
-Route::get('/tecnico/historial', [App\Http\Controllers\TecnicoController::class, 'showHistorialDefault'])->name("tecnico.historial");
-Route::get('/tecnico/manuales', [App\Http\Controllers\TecnicoController::class, 'showManual'])->name("tecnico.manual");
-Route::get('/tecnico/piezas', [App\Http\Controllers\TecnicoController::class, 'piezas'])->name("tecnico.piezas");
+Route::get('/tecnico/nueva-parte/{idtarea}', [App\Http\Controllers\TecnicoController::class, 'nuevaParte'])
+    ->middleware('auth')->name("tecnico.create");
+Route::get('/tecnico/tareas', [App\Http\Controllers\TecnicoController::class, 'showTareas'])
+    ->middleware('auth')->name("tecnico.show");
+Route::get('/tecnico/historial', [App\Http\Controllers\TecnicoController::class, 'showHistorialDefault'])
+    ->middleware('auth')->name("tecnico.historial");
+Route::get('/tecnico/manuales', [App\Http\Controllers\TecnicoController::class, 'showManual'])
+    ->middleware('auth')->name("tecnico.manual");
+Route::get('/tecnico/piezas', [App\Http\Controllers\TecnicoController::class, 'piezas'])
+    ->middleware('auth')->name("tecnico.piezas");
+Route::get('/tecnico/tareas/{tecnico_codigo}', [App\Http\Controllers\TecnicoController::class, 'listarTareas'])
+    ->middleware('auth')->name("tecnico.tareas");
 
-Route::post('/tecnico/partes', [App\Http\Controllers\ParteController::class, 'store'])->name('partes.store');
-Route::post('/tecnico/historial', [App\Http\Controllers\TecnicoController::class, 'showHistorial'])->name("tecnico.searchhistorial");
-Route::post('/tecnico/piezas', [App\Http\Controllers\TecnicoController::class, 'formPiezas'])->name('tecnico.formpiezas');
+Route::post('/tecnico/partes', [App\Http\Controllers\ParteController::class, 'store'])
+    ->middleware('auth')->name('partes.store');
+Route::post('/tecnico/historial', [App\Http\Controllers\TecnicoController::class, 'showHistorial'])
+    ->middleware('auth')->name("tecnico.searchhistorial");
+Route::post('/tecnico/piezas', [App\Http\Controllers\TecnicoController::class, 'formPiezas'])
+    ->middleware('auth')->name('tecnico.formpiezas');
+
 /*
 ----------------------------------------------------------------------------------------------
 OPERADORES
 ----------------------------------------------------------------------------------------------
 */
-Route::get('/operador', function () {return view('operadores.home-operador')->with('home',true);})->name('home.operador');
-Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaTarea'])->name('nuevatarea.create');
-Route::post('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'crearTarea'])->name('tarea.store');
-Route::get('/operador/listar-tareas', [App\Http\Controllers\OperadorController::class, 'listarTareas'])->name('tareas.index');
+Route::get('/operador', function () {return view('operadores.home-operador')->with('home',true);})
+    ->middleware('auth')->name('home.operador');
+Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaTarea'])
+    ->middleware('auth')->name('nuevatarea.create');
+Route::post('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'crearTarea'])
+    ->middleware('auth')->name('tarea.store');
+Route::get('/operador/listar-tareas', [App\Http\Controllers\OperadorController::class, 'listarTareas'])
+    ->middleware('auth')->name('tareas.index');
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -139,9 +130,9 @@ JEFES DE EQUIPO
 Route::get('/jefes', function () {return view('jefes.home-jefes')->with('home',true);})
     ->middleware('auth')->name('home.jefe');
 Route::get('/estadisticas', [App\Http\Controllers\Estadisticas::class, 'mostrar'])
-->middleware('auth')->name('estadisticas.create');
+    ->middleware('auth')->name('estadisticas.create');
 Route::get('/estadisticas/mostrar', function () {return view('estadisticas');})
-->middleware('auth')->name('estadisticas');
+    ->middleware('auth')->name('estadisticas');
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -153,11 +144,11 @@ Route::get('/empleados', [App\Http\Controllers\EmpleadoController::class, 'lista
 Route::get('/empleados/nuevo', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
     ->middleware('auth')->name('empleados.new');
 Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
-      ->middleware('auth')->name('empleados.show');
+    ->middleware('auth')->name('empleados.show');
 Route::put('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
     ->middleware('auth')->name('empleados.edit');
-Route::delete('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'eliminarEmpleado'])
-    ->middleware('auth')->name('empleados.delete'); // TODO
+Route::delete('/empleados', [App\Http\Controllers\EmpleadoController::class, 'eliminarEmpleado'])
+    ->middleware('auth')->name('empleados.delete');
 
 /* EXPORTS */
 Route::get('/empleados/export/excel', [App\Http\Controllers\EmpleadoController::class, 'exportarExcel'])
@@ -181,7 +172,6 @@ GENERAL
 */
 Route::get('/ascensores', [App\Http\Controllers\GeneralController::class, 'indexAscensores'])
     ->middleware('auth')->name('ascensores.index');
-
 
 /*
 ----------------------------------------------------------------------------------------------
