@@ -234,12 +234,8 @@ class ApiController extends Controller
                 'ok' => true,
                 'tareas' => $tareas,
                 'filtro' => $filtro_estado,
-<<<<<<< HEAD
-                'tecnicos' => $tecnicos
-=======
                 'ascensores' => $ascensores,
                 'tecnicos' => $tecnicos,
->>>>>>> 6e29abed016fdeac7baeec5cf700a3b4c3167153
             ], 200);
         }
     }
