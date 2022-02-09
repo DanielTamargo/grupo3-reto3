@@ -1,4 +1,5 @@
 var todas_tareas = [];
+var tecnicos = [];
 var tbody = document.getElementsByTagName('tbody')[0];
 var filtro_numref = "";
 var filtro_estado = "";
@@ -34,8 +35,13 @@ function obtenerDatos(){
             console.log(json);
             //cogo todas las tareas e inicializo las primeras 10
             todas_tareas = json['tareas'];
+<<<<<<< HEAD
+            tecnicos = json['tecnicos'];
+            
+=======
             tecnicos = json["tecnicos"];
             ascensores = json["ascensores"];
+>>>>>>> 6e29abed016fdeac7baeec5cf700a3b4c3167153
             mostrarTareas(null);
         }
     })

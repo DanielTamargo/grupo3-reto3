@@ -229,13 +229,17 @@ class ApiController extends Controller
                 // dd($tareas);
                 $tareas = array_values($tareas);
             }
-
+            $tecnicos = Tecnico::all();
             return response()->json([
                 'ok' => true,
                 'tareas' => $tareas,
                 'filtro' => $filtro_estado,
+<<<<<<< HEAD
+                'tecnicos' => $tecnicos
+=======
                 'ascensores' => $ascensores,
                 'tecnicos' => $tecnicos,
+>>>>>>> 6e29abed016fdeac7baeec5cf700a3b4c3167153
             ], 200);
         }
     }
