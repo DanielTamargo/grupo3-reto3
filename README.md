@@ -1,10 +1,43 @@
+# Reto 3: Gestor de incidencias
+
+> Equipo: **Grupo 3**
+> Miembros:
+> - Alaitz Candela
+> - Txaber Gardeazabal
+> - Daniel Tamargo
+
+
 # Documentación
 
-- [Documentación oficial](https://docs.google.com/document/d/15u0PaB_mEqGvk5ZPORyIXmBB0YKbojBCD4IFSglbZDw/edit?usp=sharing)
+- [Documentación oficial](/docs/documentacion.pdf)
 - [Guía de estilos](https://drive.google.com/file/d/1v7vTEXKilpHgWdseXUB9QLZJ-KFQpqs0/view?usp=sharing)
 - [Bibliografía](/docs/bibliografia.md)
 
-# Set up
+
+# Credenciales de acceso a la aplicación
+
+La aplicación está hosteada en el siguiente enlace:
+https://igobide.herokuapp.com/login
+
+- Administradores:
+  - daniel.tamargo / password
+  - alaitz.candela / password
+  - txaber.gardeazabal / password
+
+> Nota: los siguientes datos son autogenerados, intentaremos actualizarlos en caso de volver a lanzar el seeding
+
+- Operadores: 
+  - rosa.torres / password
+  - jaime.delacruz / password
+- Jefes de Equipo:
+  - nicolas.perea / password
+  - noelia.escobar / password
+- Tecnicos:
+  - iker.delrio / password
+  - margarita.aguayo / password
+
+
+# Set up del proyecto
 
 Partiendo de que ya tenemos Laravel (homestead) funcionando, realizamos una serie de pasos para configurar el proyecto y poder trabajar todos juntos sobre el mismo.  
 
