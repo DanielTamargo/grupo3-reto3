@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ascensor;
 use App\Models\JefeEquipo;
 use App\Models\Tarea;
 use App\Models\Tecnico;
@@ -201,6 +202,8 @@ class ApiController extends Controller
 
     public function obtenerTareas(){
         if(Auth::user()->rol !='tecnico'){
+            $ascensores = Ascensor::all();
+            $tecnicos = Tecnico::all();
 
             $filtro_numref = $_GET["filtro_numref"];
             $filtro_tipo = $_GET["filtro_tipo"];
@@ -222,7 +225,12 @@ class ApiController extends Controller
                 'ok' => true,
                 'tareas' => $tareas,
                 'filtro' => $filtro_estado,
+<<<<<<< HEAD
                 'tecnicos' => $tecnicos
+=======
+                'ascensores' => $ascensores,
+                'tecnicos' => $tecnicos,
+>>>>>>> 6e29abed016fdeac7baeec5cf700a3b4c3167153
             ], 200);
         }
     }

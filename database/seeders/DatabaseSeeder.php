@@ -234,6 +234,7 @@ class DatabaseSeeder extends Seeder
                                 $timestamp_parte = $fecha_parte->getTimestamp();
                                 $fecha_parte->setTimestamp(rand($timestamp_parte, time()));
                             } else {
+                                $finalizado = true;
                                 $estado = EnumsEstadosTareas::IMPOSIBLESOLUCIONAR;
                                 $tarea->fecha_finalizacion = $fecha_parte;
                             }
@@ -291,8 +292,5 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         $this->command->comment("Tareas (+clientes) pendientes creadas con éxito");
-
-        // TODO dani (opcional): Datos fijos para finalizar: un jefe de equipo, un tecnico y unas cuantas tareas para el técnico
-
     }
 }

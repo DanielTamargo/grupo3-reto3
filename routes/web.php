@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth; //<- para que no salte el error todo el rato! >:[
-use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,36 +64,24 @@ Route::get('/descargar/manual/{manual_nombre}', [\App\Http\Controllers\DownloadC
 EMAILS
 ----------------------------------------------------------------------------------------------
 */
-Route::get('/send/email/cliente', function () {
-
-    $detalles = [
-        'asunto' => 'test',
-        'rol_destinatario' => 'cliente',
-        'titulo' => 'Email de Igobide Ascensores',
-        'mensaje' => 'Testeando los emails!'
-    ];
-
-    Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
-
-    dd("Email is Sent.");
-})->name('email.cliente');
+// Se llamará a la clase Mail cuando se necesite enviar email, no hay necesidad de utilizar controladores intermedios
+// Route::get('/send/email/cliente', [App\Http\Controllers\EmailController::class, 'notificarCliente'])->name('email.cliente');
 
 /*
 ----------------------------------------------------------------------------------------------
 LOGIN / REGISTRAR NUEVO USUARIO
 ----------------------------------------------------------------------------------------------
 */
-
 Route::get('/login', function () {
     return view('login');
 })->name("login");
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])
     ->name("login");
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
-    ->middleware('auth')
+    ->middleware('auth') // <- Necesario estar loggeado! Un usuario no se puede registrar por su cuenta!
     ->name("register.create");
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'store'])
-    ->middleware('auth')
+    ->middleware('auth') // <- Necesario estar loggeado! Un usuario no se puede registrar por su cuenta!
     ->name('register.store');
 
 
@@ -139,31 +126,22 @@ Route::post('/tecnico/historial', [App\Http\Controllers\TecnicoController::class
 OPERADORES
 ----------------------------------------------------------------------------------------------
 */
-
 Route::get('/operador', function () {return view('operadores.home-operador')->with('home',true);})->name('home.operador');
 Route::get('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'nuevaTarea'])->name('nuevatarea.create');
+Route::post('/operador/nueva-tarea', [App\Http\Controllers\OperadorController::class, 'crearTarea'])->name('tarea.store');
 Route::get('/operador/listar-tareas', [App\Http\Controllers\OperadorController::class, 'listarTareas'])->name('tareas.index');
-Route::get('/operador/nuevo-parte', [App\Http\Controllers\OperadorController::class, 'crearParte'])->name('crearparte.create');
-Route::get('/operador/ultimas-revisiones', [App\Http\Controllers\OperadorController::class, 'mostrarUltimasRevisiones'])->name('ultimasrevisiones.show');
-Route::get('/operador/asignar-revisiones', [App\Http\Controllers\OperadorController::class, 'asignarRevisiones'])->name('asignarrevisiones.create');
 
 /*
 ----------------------------------------------------------------------------------------------
 JEFES DE EQUIPO
 ----------------------------------------------------------------------------------------------
 */
-
-Route::get('/jefes', function () {return view('jefes.home-jefes')->with('home',true);})->name('home.jefe');
-Route::get('/jefes/estadisticas', [App\Http\Controllers\JefeEquipoController::class, 'estadisticasShow'])->name('estadisticas.show');
-Route::get('/jefes/nuevosusuarios', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaNuevosUsuarios'])->name('usuarios.create');
-Route::get('/jefes/borrarusuarios', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaBorrarUsuarios'])->name('usuarios.borrar.create');
-// Route::get('/jefes/borrarUsuarios/{id}', [App\Http\Controllers\JefeEquipoController::class, 'borrarUsuarios'])->name('usuarios.delete');
-Route::get('/jefes/modificarusuarios', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaModificarUsuarios'])->name('usuarios.modificar.create');
-Route::get('/jefes/subirmanuales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaSubirManuales'])->name('manuales.create');
-Route::get('/jefes/historiales', [App\Http\Controllers\JefeEquipoController::class, 'mostrarVistaHistorial'])->name('historial.create');
-Route::get('/estadisticas', [App\Http\Controllers\Estadisticas::class, 'mostrar'])->name('estadisticas.create');
-Route::get('/estadisticas/mostrar', function () {return view('estadisticas');})->name('estadisticas');
-
+Route::get('/jefes', function () {return view('jefes.home-jefes')->with('home',true);})
+    ->middleware('auth')->name('home.jefe');
+Route::get('/estadisticas', [App\Http\Controllers\Estadisticas::class, 'mostrar'])
+->middleware('auth')->name('estadisticas.create');
+Route::get('/estadisticas/mostrar', function () {return view('estadisticas');})
+->middleware('auth')->name('estadisticas');
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -171,29 +149,21 @@ EMPLEADOS
 ----------------------------------------------------------------------------------------------
 */
 Route::get('/empleados', [App\Http\Controllers\EmpleadoController::class, 'listarEmpleados'])
-    ->middleware('auth')
-    ->name('empleados.index');
+    ->middleware('auth')->name('empleados.index');
 Route::get('/empleados/nuevo', [App\Http\Controllers\Auth\RegisterController::class, 'create'])
-    ->middleware('auth')
-    ->name('empleados.new');
-/*Route::post('/empleados/nuevo', [App\Http\Controllers\EmpleadoController::class, 'guardarEmpleado'])
-    ->middleware('auth')
-    ->name('empleados.store');*/ //<- implementado con auth
-// Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
-//     ->middleware('auth')
-//     ->name('empleados.show');
-Route::post('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
-    ->middleware('auth')
-    ->name('empleados.edit');
+    ->middleware('auth')->name('empleados.new');
+Route::get('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'mostrarEmpleado'])
+      ->middleware('auth')->name('empleados.show');
+Route::put('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'editarEmpleado'])
+    ->middleware('auth')->name('empleados.edit');
 Route::delete('/empleados/{user_id}', [App\Http\Controllers\EmpleadoController::class, 'eliminarEmpleado'])
-    ->middleware('auth')
-    ->name('empleados.delete');
+    ->middleware('auth')->name('empleados.delete'); // TODO
+
+/* EXPORTS */
 Route::get('/empleados/export/excel', [App\Http\Controllers\EmpleadoController::class, 'exportarExcel'])
-    ->middleware('auth')
-    ->name('empleados.export.excel');
+    ->middleware('auth')->name('empleados.export.excel');
 Route::get('/empleados/export/csv', [App\Http\Controllers\EmpleadoController::class, 'exportarCSV'])
-    ->middleware('auth')
-    ->name('empleados.export.csv');
+    ->middleware('auth')->name('empleados.export.csv');
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -202,8 +172,7 @@ ADMINISTRADORES
 */
 Route::get('/administrador', function (Request $request) {
     return view('administradores.home')->with('home',true)->with('usuario_creado', $request->usuario_creado);
-})->middleware('auth')
-  ->name('administrador.home');
+})->middleware('auth')->name('administrador.home');
 
 /*
 ----------------------------------------------------------------------------------------------
@@ -211,22 +180,18 @@ GENERAL
 ----------------------------------------------------------------------------------------------
 */
 Route::get('/ascensores', [App\Http\Controllers\GeneralController::class, 'indexAscensores'])
-    ->middleware('auth')
-    ->name('ascensores.index');
+    ->middleware('auth')->name('ascensores.index');
 
 
-  /*
+/*
 ----------------------------------------------------------------------------------------------
 MODELOS
 ----------------------------------------------------------------------------------------------
 */
 Route::get('/modelos', [App\Http\Controllers\GeneralController::class, 'indexModelos'])
-    ->middleware('auth')
-    ->name('modelos.index');
+    ->middleware('auth')->name('modelos.index'); // TODO
 Route::get('/modelos/{id}', [App\Http\Controllers\ModeloController::class, 'show'])
-    ->middleware('auth')
-    ->name('modelos.show');
+    ->middleware('auth')->name('modelos.show');
 Route::post('/modelos/{id}/actualizar', [App\Http\Controllers\ModeloController::class, 'store'])
-    ->middleware('auth')
-    ->name('modelos.store');
-  
+    ->middleware('auth')->name('modelos.store');
+

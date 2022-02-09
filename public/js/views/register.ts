@@ -113,9 +113,20 @@ function printearErrores(): void {
 /**
  * Listener de selección de rol
  * Si selecciona técnico, se mostrará el técnico jefe a asociar
+ *
+ * Si recibe old_rol será debido a que el controlador devolvió la vista por algún error
+ * generalmente el error se deberá a un dni o email ya existentes en la BBDD
  */
-function seleccionRol(evt): void {
-    let rol: string = evt.target.value;
+function seleccionRol(evt: any, old_rol: string): void {
+    let rol: string;
+    let jefe_codigo: string;
+
+    // Si old_rol existe, recargamos las elecciones del cliente
+    if (!old_rol) rol = evt.target.value;
+    else {
+        rol = old_rol;
+        jefe_codigo = $("#old-jefe-seleccionado")[0].value;
+    }
 
     // Si selecciona rol técnico, cargamos los jefes disponibles para que seleccione
     //   si está registrando el técnico un jefe de equipo, solo podrá seleccionarse a sí mismo
@@ -131,14 +142,14 @@ function seleccionRol(evt): void {
             url: "/api/v1/codigosJefes",
             success: function (data) {
                 if (!data.ok) throw Error("Error en la petición");
-                
+
                 let contenido: string = `
                 <label for="jefe_codigo" class="">Jefe asignado</label>
                 <select name="jefe_codigo" id="registro-jefe_codigo" class="form-select bg-dark">`;
 
                 jefes = data.jefes;
                 for (let key in jefes) {
-                    contenido += `<option value="${key}">${jefes[key]["nombre"]} (${jefes[key]["codigo"]})</option>`;
+                    contenido += `<option value="${key}" ${jefe_codigo == jefes[key]["codigo"] ? 'selected' : ''}>${jefes[key]["nombre"]} (${jefes[key]["codigo"]})</option>`;
                 }
 
                 contenido += "</select>";
@@ -160,11 +171,18 @@ function seleccionRol(evt): void {
 /**
  * Comprueba si el jefe ya tiene varios empleados a su cargo y si es un número notable (default: 5), lo notifica
  */
-function seleccionJefe() {
+function seleccionJefe(): void {
     let num_tecnicos: number = jefes[String($("#registro-jefe_codigo").val())].num_tecnicos;
     $("#registro-jefe-asignado").notify(``, { autoHideDelay: 0, showDuration: 0 }); // <- para ocultar posible notificación previa
     if (num_tecnicos >= 5) {
         $("#registro-jefe-asignado").notify(`¡Ojo! Este jefe ya tiene ${num_tecnicos} técnicos asignados`, "warn")
+    }
+}
+
+// Comprobamos si ha seleccionado rol y ha vuelto a la vista debido a un error
+if ($("#old-rol-seleccionado").length) {
+    if ($("#old-rol-seleccionado")[0] && $("#old-rol-seleccionado")[0].value == "tecnico") {
+        seleccionRol(undefined, "tecnico");
     }
 }
 

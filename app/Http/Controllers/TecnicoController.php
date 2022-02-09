@@ -86,7 +86,6 @@ class TecnicoController extends Controller
 
     /* muestra la vista nuevaParte */
     public function nuevaParte($idtarea) {
-
         $errorview = $this->validarTecnico(Auth::user());
         if ($errorview != "") {
             return view($errorview);

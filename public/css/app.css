@@ -12271,6 +12271,17 @@ div#modal-ascensores, div#modal-tecnicos {
   padding: 0;
 }
 
+/* Alertas toast sweet alert 2*/
+.colored-toast.swal2-icon-error {
+  color: white;
+  background-color: #c26262 !important;
+}
+
+.colored-toast.swal2-icon-success {
+  color: white;
+  background-color: #3a7e56 !important;
+}
+
 /**
 QUITAR FLECHAS SUBIR BAJAR EN INPUT NUMBER EN NUEVA TAREA
 **/

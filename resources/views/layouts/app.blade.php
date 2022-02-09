@@ -7,6 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- Icono página --}}
+    <link rel="icon" href="{{ asset('/img/logo_peque.png') }}">
+
     @php
         $titulo = config('app.name', 'Igobide');
     @endphp
@@ -52,12 +55,12 @@
                         <div class="navegador d-flex">
                             <a class="nav-link mx-1" href="{{ route('empleados.index') }}">Empleados</a>
                             <a class="mx-1 nav-link" href="{{ route('ascensores.index') }}">Ascensores</a>
-                            <a class="mx-1 nav-link" href="#">Tareas</a>
+                            <a class="mx-1 nav-link" href="{{route('tareas.index')}}">Tareas</a>
                         </div>
                         @elseif(Auth::user()->rol == 'operador')
                         <div class="navegador d-flex">
                             <a class="mx-1 nav-link"  href="{{route('nuevatarea.create')}}">Nueva tarea</a>
-                            <a class="mx-1 nav-link"  href="#">Tareas</a>
+                            <a class="mx-1 nav-link"  href="{{route('tareas.index')}}">Tareas</a>
                             <a class="mx-1 nav-link"  href="{{route('ascensores.index')}}">Ascensores</a>
                         </div>
                         @elseif(Auth::user()->rol == 'jefeequipo')
@@ -92,7 +95,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item"  href="#">Editar Perfil</a>
+                                    <a class="dropdown-item"  href="{{ route('empleados.show', ["user_id" => Auth::user()->id]) }}">Editar Perfil</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -104,8 +107,6 @@
                                     </form>
                                 </div>
                             </li>
-                      
-                          
                         @endguest
                     </ul>
                 </div>

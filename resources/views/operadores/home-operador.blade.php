@@ -1,11 +1,54 @@
 @extends('layouts.app')
 @section('content')
 
+        {{-- Si se ha marcado 'usuario creado' saltará la alerta correspondiente, proporcionando una experiencia más interactiva --}}
+        @if (isset($usuario_creado) && $usuario_creado)
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="text/javascript">
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-right',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast'
+                },
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true
+            });
+            Toast.fire({
+                icon: 'success',
+                title: 'Usuario creado con éxito'
+            });
+        </script>
+        @endif
+
+        @if (isset($tarea_creada) && $tarea_creada)
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="text/javascript">
+            const Toast2 = Swal.mixin({
+                toast: true,
+                position: 'top-right',
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast'
+                },
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true
+            });
+            Toast2.fire({
+                icon: 'success',
+                title: 'Tarea creada con éxito'
+            });
+        </script>
+        @endif
+
         <div class="col-12 h-75 d-flex flex-column justify-content-center align-items-center ">
 
             <div class="row ">
                 <div class="col-12">
-                    <h2>¡Bienvenido/a {{Auth::user()->nombre}}!</h2> 
+                    <h2>¡Bienvenido/a {{Auth::user()->nombre}}!</h2>
                 </div>
             </div>
 
@@ -26,7 +69,7 @@
                     rol="operador"
                     id_p="3"
                     ruta="{{ route('ascensores.index') }}"></boton-panel>
-                   
+
                 </div>
             </div>
 
