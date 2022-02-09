@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Parte;
 use App\Models\Tarea;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 
 class ParteController extends Controller
@@ -30,9 +32,13 @@ class ParteController extends Controller
 
         $parte->save();
 
+        $fecha_parte = new DateTime();
+        $fecha_parte->setTimestamp(time());
+
         $tarea = Tarea::find($request->idtarea);
         $tarea->estado = $request->estado;
         $tarea->tipo = $request->tipo;
+        $tarea->fecha_finalizacion = $fecha_parte;
         $tarea->save();
 
         // Notificamos al cliente

@@ -6,12 +6,14 @@
                 margin-top: 1em;
             }
             .form-personal.no-edit {
-                min-width: 350px;
-                margin-bottom: 5px
+                max-width: 250px !important;
+                margin-bottom: 5px;
             }
-            @media (max-width: 360px) {
+            
+            @media (min-width: 3200px) {
                 .form-personal.no-edit {
                     min-width: 95vw;
+                    width: 95vw;
                 }
             }
         </style>

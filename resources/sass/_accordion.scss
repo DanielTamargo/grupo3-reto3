@@ -55,10 +55,11 @@
 
 .accordion-header {
   margin-bottom: 0;
+  background-color: $accordion-bg;
 }
 
 .accordion-item {
-  background-color: $accordion-bg;
+  background-color: $gris3;
   border: $accordion-border-width solid $accordion-border-color;
 
   &:first-of-type {

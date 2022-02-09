@@ -5524,10 +5524,11 @@ textarea.form-control-lg {
 
 .accordion-header {
   margin-bottom: 0;
+  background-color: #74b9ff;
 }
 
 .accordion-item {
-  background-color: #74b9ff;
+  background-color: #c8d6ff;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
 .accordion-item:first-of-type {
