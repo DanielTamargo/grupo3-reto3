@@ -31,4 +31,10 @@ class GeneralController extends Controller
     public function indexAscensores() {
         return view('ascensores.index')->with('ascensores', \App\Models\Ascensor::all());
     }
+    /**
+     * Carga la vista de listado de modelos con todos los modelos
+     */
+    public function indexModelos() {
+        return view('modelos.index')->with('modelos', \App\Models\Modelo::all());
+    }
 }

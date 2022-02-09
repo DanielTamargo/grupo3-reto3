@@ -36,14 +36,18 @@
                     <boton-panel
                     texto="Ver ascensores"
                     rol="jefeequipo"
-                    id_p="5"
+                    id_p="4"
                     ruta="{{ route('ascensores.index') }}"></boton-panel>
                     <boton-panel
                     texto="Ver historial tareas"
                     rol="jefeequipo"
-                    id_p="6"
+                    id_p="5"
                     ruta="{{route('tareas.index')}}"></boton-panel>
-                   
+                    <boton-panel
+                    texto="Ver listado de modelos"
+                    rol="jefeequipo"
+                    id_p="6"
+                    ruta="{{route('modelos.index')}}"></boton-panel>
                 </div>
    
 </div>

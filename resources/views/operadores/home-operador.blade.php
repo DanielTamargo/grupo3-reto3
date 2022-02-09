@@ -62,14 +62,18 @@
                     <boton-panel
                     texto="Ver historial de tareas"
                     rol="operador"
-                    id_p="3"
+                    id_p="2"
                     ruta="{{route('tareas.index')}}"></boton-panel>
                     <boton-panel
                     texto="Ver ascensores instalados"
                     rol="operador"
                     id_p="3"
                     ruta="{{ route('ascensores.index') }}"></boton-panel>
-
+                    <boton-panel
+                    texto="Ver listado de modelos"
+                    rol="operador"
+                    id_p="4"
+                    ruta="{{route('modelos.index')}}"></boton-panel>
                 </div>
             </div>
 

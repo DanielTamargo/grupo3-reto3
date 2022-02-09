@@ -96,6 +96,11 @@ Igobide | Administrador
                     rol="administrador"
                     id_p="6"
                     ruta="{{route('tareas.index')}}"></boton-panel>
+                    <boton-panel
+                    texto="Ver listado de modelos"
+                    rol="administrador"
+                    id_p="7"
+                    ruta="{{route('modelos.index')}}"></boton-panel>
                 </div>
             </div>
         </div>

@@ -188,8 +188,8 @@ Route::get('/ascensores', [App\Http\Controllers\GeneralController::class, 'index
 MODELOS
 ----------------------------------------------------------------------------------------------
 */
-Route::get('/modelos', [App\Http\Controllers\GeneralController::class, 'indexModelos'])
-    ->middleware('auth')->name('modelos.index'); // TODO
+Route::get('/modelos/lista', [App\Http\Controllers\GeneralController::class, 'indexModelos'])
+    ->middleware('auth')->name('modelos.index');
 Route::get('/modelos/{id}', [App\Http\Controllers\ModeloController::class, 'show'])
     ->middleware('auth')->name('modelos.show');
 Route::post('/modelos/{id}/actualizar', [App\Http\Controllers\ModeloController::class, 'store'])
