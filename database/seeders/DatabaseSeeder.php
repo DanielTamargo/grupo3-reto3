@@ -25,15 +25,15 @@ class DatabaseSeeder extends Seeder
     {
         // VARIABLES QUE VARIARÁN EL NÚMERO DE DATOS A GENERAR
         $v_num_jefes_equipos = 5; // mínimo 1, default 5
-        $v_num_min_tecnicos_equipo = 1; // mínimo 1, default 1
-        $v_num_max_tecnicos_equipo = 5; // default 5
-        $v_num_min_operadores = 4; // mínimo 1, default 4
-        $v_num_max_operadores = 8; // default 8
-        $v_num_min_ascensores_modelo = 1; // default 1
-        $v_num_max_ascensores_modelo = 8; // default 8
+        $v_num_min_tecnicos_equipo = 2; // mínimo 1, default 1
+        $v_num_max_tecnicos_equipo = 7; // default 5
+        $v_num_min_operadores = 5; // mínimo 1, default 4
+        $v_num_max_operadores = 10; // default 8
+        $v_num_min_ascensores_modelo = 10; // default 1
+        $v_num_max_ascensores_modelo = 45; // default 8
         $v_num_min_tareas = 0; // POR ASCENSOR, default 0
         $v_num_max_tareas = 15; // POR ASCENSOR, default 15
-        $v_num_min_tareas_pendientes = 15; // default 15
+        $v_num_min_tareas_pendientes = 25; // default 15
         $v_num_max_tareas_pendientes = 30; // default 30
 
         // COMIENZO DEL SEEDING

@@ -104,11 +104,22 @@ function mostrarTareas(suma){
         td_fecha_f.append(p);
         tr.append( td_fecha_f);
 
-        p = todas_tareas[x]['fecha_finalizacion'];
+        p = todas_tareas[x]['fecha_finalizacion'] ? todas_tareas[x]['fecha_finalizacion'] : 'Sin finalizar';
         td_fecha_i.append(p);
         tr.append(td_fecha_i);
 
-        p = todas_tareas[x]['tipo'];
+        //p = todas_tareas[x]['tipo'];
+        switch(todas_tareas[x]['tipo']){  
+            case "averia": 
+                p = "Avería";
+                break;     
+            case "revision": 
+                p = "Revisión";
+                break;     
+            case "incidencia": 
+                p = "Incidencia";
+                break;        
+        }
         td_tipo.append(p);
         tr.append(td_tipo);
 

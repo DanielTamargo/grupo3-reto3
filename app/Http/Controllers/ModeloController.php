@@ -47,13 +47,14 @@ class ModeloController extends Controller
             $archivo = $request->file('manual');
            
             if($archivo->guessExtension() == 'pdf'){
+                $modelo = Modelo::find($id);
+
                 //Guardamos el archivo
-                $manual = $request->modelo_id . "-" . time() . "-" . $archivo->getClientOriginalName();
+                $manual = $request->modelo_id . "-" . time() . "-" . $modelo->nombre . ".pdf";
                 $ruta = public_path('modelos/' . $manual);
                 copy($archivo, $ruta);
                 
                 //Subimos los cambios a la base de datos
-                $modelo = Modelo::find($id);
                 $modelo->manual= $manual;
                 $modelo->save();
                 return redirect('/modelos/' . $request->modelo_id)->with('exito','Documento subido correctamente');

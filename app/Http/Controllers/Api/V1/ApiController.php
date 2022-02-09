@@ -201,21 +201,22 @@ class ApiController extends Controller
     }
 
     public function obtenerTareas(){
-        if(Auth::user()->rol !='tecnico'){
+        $user = Auth::user();
+        if($user && ($user->rol == 'jefeequipo' || $user->rol == 'administrador' || $user->rol == 'operador')){
             $ascensores = Ascensor::all();
             $tecnicos = Tecnico::all();
 
             $filtro_numref = $_GET["filtro_numref"];
             $filtro_tipo = $_GET["filtro_tipo"];
             $filtro_estado = $_GET["filtro_estado"];
-            if(Auth::user()->rol == 'administrador'){
+            if($user->rol == 'administrador' || $user->rol == 'operador'){
                 $tareas = Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")
                         ->where('tipo','like',"%$filtro_tipo%")
                         ->where('estado','like',"%$filtro_estado%")
                         ->orderBy('id', 'desc')
                         ->get();
             }
-            if(Auth::user()->rol == 'jefeequipo'){
+            if($user->rol == 'jefeequipo'){
                 //$tareas = Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")->where('tipo','like',"%$filtro_tipo%")->where('estado','like',"%$filtro_estado%")->where()->get();
                 $tareas = array_filter(Tarea::where('ascensor_ref', 'like', "%$filtro_numref%")
                                             ->where('tipo','like',"%$filtro_tipo%")
@@ -237,6 +238,11 @@ class ApiController extends Controller
                 'ascensores' => $ascensores,
                 'tecnicos' => $tecnicos,
             ], 200);
+        } else {
+            return response()->json([
+                'ok' => false,
+                'message' => 'No dispones de los suficientes permisos para solicitar estos datos',
+            ]);
         }
     }
 

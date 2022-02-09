@@ -86,6 +86,7 @@ class OperadorController extends Controller
 
         // Notificamos al empleado
         $detalles = [
+            "prioridad" => intval($request->prioridad),
             "rol_destinatario" => "nueva-tarea-tecnico",
             "asunto" => "Nueva tarea (id: $tarea->id)",
             "tarea_id" => $tarea->id
@@ -102,7 +103,7 @@ class OperadorController extends Controller
         // Utilizamos siempre esta dirección porque es una aplicación piloto, realmente utilizaríamos $cliente->email
         Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
 
-        return redirect()->route('tareas.index', ['tarea_creada' => true]); // TODO dani: redirigir a listado tareas de alaitz
+        return redirect()->route('tareas.index', ['tarea_creada' => true]);
     }
 
     public function nuevaTarea() {

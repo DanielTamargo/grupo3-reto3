@@ -11,7 +11,9 @@
 <body>
     <h1 class="titulo">Ascensores Igobide</h1>
     <p>Te ha sido asignada una nueva tarea</p>
-
+    @if ($detalles['prioridad'] == 5)
+        <p><b>Se trata de una urgencia</b> por lo que tendrás que acudir <b>lo antes posible</b>.</p>
+    @endif
     <p>Puedes consultar su información en el siguiente enlace: <br>
         {{ route('tecnico.show') }}</p>
 

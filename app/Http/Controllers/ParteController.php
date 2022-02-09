@@ -4,32 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Parte;
 use App\Models\Tarea;
-use App\Models\Tecnico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ParteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -55,51 +35,16 @@ class ParteController extends Controller
         $tarea->tipo = $request->tipo;
         $tarea->save();
 
+        // Notificamos al cliente
+        $detalles = [
+            "rol_destinatario" => "nuevo-parte",
+            "asunto" => "Actualización incidencia",
+            "estado" => $request->estado,
+            "nombre" => $tarea->cliente->nombre
+        ];
+        // Utilizamos siempre esta dirección porque es una aplicación piloto, realmente utilizaríamos $cliente->email
+        Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+
         return redirect("/tecnico/tareas");
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Parte  $parte
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Parte $parte)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Parte  $parte
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Parte $parte)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Parte  $parte
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Parte $parte)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Parte  $parte
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Parte $parte)
-    {
-        //
     }
 }
