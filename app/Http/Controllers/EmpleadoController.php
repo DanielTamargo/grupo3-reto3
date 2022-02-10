@@ -79,7 +79,7 @@ class EmpleadoController extends Controller
         if ($user->rol != "administrador" && $user->rol != "jefeequipo") return view('errors.403'); //<- sin permisos
 
         $usuarios = [];
-        if ($user->rol == "administrador") $usuarios = User::all()->orderBy('id', 'desc');
+        if ($user->rol == "administrador") $usuarios = User::where('id', '>', 0)->orderBy('id', 'desc')->get();
         if ($user->rol == "jefeequipo") {
             $usuarios_tecnicos = User::where('rol', 'tecnico')->orderBy('id', 'desc')->get();
             foreach($usuarios_tecnicos as $tecnico) {
