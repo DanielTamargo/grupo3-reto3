@@ -8,16 +8,6 @@ Igobide | Modelos
     <div class="container px-4">
         <div class="modelos">
             <h3 class="text-black">Lista de modelos</h3>
-            <div class="row my-3">
-                <div class="col-4">
-                    <p class="mb-1">Número de referencia</p>
-                    <input class="form-control bg-dark" id="filtro-num_ref" type="text" placeholder="Código referencia">
-                </div>
-                <div class="col-8">
-                    <p class="mb-1">Ubicación</p>
-                    <input class="form-control bg-dark" id="filtro-ubicacion" type="text" placeholder="Dirección">
-                </div>
-            </div>
             <table class="border table table-hover rounded empleados">
                 <thead>
                     <tr class="table-primary">
