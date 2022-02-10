@@ -25,7 +25,7 @@ Historial
             </button>
 
         </div>
-        <div class="form-check rounded-pill bg-dark text-white">
+        <div class="form-check rounded-pill bg-dark text-black">
             <input class="form-check-input" type="checkbox" name="idOpt" id="flexCheckDefault">
             <label class="form-check-label" for="flexCheckDefault">
                 Buscar por identificador
