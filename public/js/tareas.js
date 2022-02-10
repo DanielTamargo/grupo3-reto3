@@ -20,7 +20,7 @@ $(document).ready(function(){
 
 
 function obtenerDatos(){
-    Swal.showLoading();
+    mostrarSpinner();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -35,7 +35,7 @@ function obtenerDatos(){
             'filtro_tipo': filtro_tipo
         },
         success: function(json){
-            console.log(json);
+            // console.log(json);
             //cogo todas las tareas e inicializo las primeras 10
             todas_tareas = json['tareas'];
             tecnicos = json["tecnicos"];
@@ -184,13 +184,23 @@ function mostrarTareas(suma){
         tbody.append(tr);
     }
 
-    // Ocultamos el spinner
-    Swal.fire({
-        title: '',
-        text: '',
-        timer: 10,
-        showConfirmButton: false,
-    });
+    try {
+        if (todas_tareas.length <= 0) {
+            $('#lista-tareas').html('<tr><td colspan="7">No se ha encontrado ninguna tarea</td></tr>')
+        }
+    } catch(ex) {
+        console.info('No se han podido parsear las tareas.');
+    }
+
+    // Ocultamos el spinner (solo si el toast no está mostrándose)
+    if (!toastON) {
+        Swal.fire({
+            title: '',
+            text: '',
+            timer: 10,
+            showConfirmButton: false,
+        });
+    }
 }
 
 
@@ -199,7 +209,6 @@ var obtenerDatosAsincrono;
 var ms_asincronia = 800;
 
 //Filtro por la referencia del ascensor
-
 $('#filtro-num_ref').on('keyup', evt => {
     filtro_numref = evt.target.value;
 
@@ -209,9 +218,8 @@ $('#filtro-num_ref').on('keyup', evt => {
 });
 
 //Filtro por la referencia por el tipo de tarea
-
 $('#tipo').on('change', evt => {
-    Swal.showLoading();
+    mostrarSpinner();
     filtro_tipo = evt.target.value;
 
     clearTimeout(obtenerDatosAsincrono);
@@ -220,12 +228,18 @@ $('#tipo').on('change', evt => {
 });
 
 //Filtro por el estado de la tarea
-
 $('#estado').on('change', evt => {
-    Swal.showLoading();
+    mostrarSpinner();
     filtro_estado = evt.target.value;
 
     clearTimeout(obtenerDatosAsincrono);
     obtenerDatosAsincrono = setTimeout(obtenerDatos, ms_asincronia);
     obtenerDatosAsincrono;
 });
+
+// Mostramos el spinner (solo si el toast no está mostrándose)
+function mostrarSpinner() {
+    if (!toastON) {
+        Swal.showLoading();
+    }
+}

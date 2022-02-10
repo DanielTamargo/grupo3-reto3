@@ -4,20 +4,19 @@
 @extends('layouts.tecnico')
 
 @section('title')
-manuales
+Igobide | Manuales
 @endsection
 
 @section('content')
     <p class="display-4">Manuales disponibles</p>
     <ul class="list-group text-white">
         <!-- despues blade generara los item de esta lista-->
-        @if (count($manuales) != 0)
-            @for ($x = 0; $x < count($manuales); $x++)
-                <li class="list-group-item">{{ $manuales[$x] }} <a href="/descargar/manual/{{ $manuales[$x] }}" class="float-end">descargar</a></li>
-
-            @endfor
+        @if (count($modelos) != 0)
+            @foreach ($modelos as $modelo)
+                <li class="list-group-item">{{ $modelo->nombre }}.pdf <a href="{{ route('descargar.manual.modelo', ['modelo_id' => $modelo->id ]) }}" class="float-end">Descargar</a></li>
+            @endforeach
         @else
-        <p>error, no se encontraron manuales disponibles</p>
+        <p>No hay manuales disponibles</p>
         @endif
     </ul>
 @endsection

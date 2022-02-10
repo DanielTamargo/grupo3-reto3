@@ -35,7 +35,7 @@ Route::get('/api/v1/tareas', [App\Http\Controllers\Api\V1\ApiController::class, 
 DESCARGAR FICHERO
 ----------------------------------------------------------------------------------------------
 */
-Route::get('/descargar/manual/{manual_nombre}', [\App\Http\Controllers\DownloadController::class, 'descargarManual'])
+Route::get('/descargar/manual/{modelo_id}', [\App\Http\Controllers\DownloadController::class, 'descargarManual'])
     ->middleware('auth')->name('descargar.manual.modelo');
 
 /*

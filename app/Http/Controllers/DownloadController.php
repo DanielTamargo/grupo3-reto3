@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Modelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -20,15 +21,19 @@ class DownloadController extends Controller
         if (!$user) return back();
 
         // Descargamos ficheros
-        $ruta_fichero = public_path('modelos/' . $request->manual_nombre);
+        $modelo = Modelo::find($request->modelo_id);
+        if (!$modelo) {
+            return back()->with('error','Imposible descargar el PDF :(');
+        }
+
+        $ruta_fichero = public_path('modelos/' . $modelo->manual);
         $existe = File::exists($ruta_fichero);
 
         if (!$existe) {
             return back()->with('error','Imposible descargar el PDF :(');
         }
         
-        
-        return Response::download($ruta_fichero); 
+        return Response::download($ruta_fichero, ($modelo->nombre . ".pdf")); 
     }
 
 }

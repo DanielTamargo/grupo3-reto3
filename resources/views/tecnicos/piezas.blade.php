@@ -4,14 +4,14 @@
 @extends('layouts.tecnico')
 
 @section('title')
-Pedir piezas
+Igobide | Pedir piezas
 @endsection
 
 @section('content')
     <p class="display-4">Pedir piezas</p>
     @if(session()->has('success'))
         <div class="alert alert-success">
-            La peticion fue enviada correctamente
+            La petición fue enviada correctamente
         </div>
     @elseif(session()->has('error'))
         <div class="alert alert-warning">

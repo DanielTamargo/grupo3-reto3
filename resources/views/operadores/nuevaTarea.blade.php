@@ -116,7 +116,7 @@ Igobide | Nueva tarea
     <div class="row mt-1">
         <div class="col-12">
 
-            <form action="{{ route('tarea.store') }}" method="post">
+            <form id="form-nueva-tarea" action="{{ route('tarea.store') }}" method="post">
             @csrf
                 @if (Auth::user()->rol == "operador")
                     <input type="hidden" name="operador_codigo" value="{{ Auth::user()->puesto->codigo }}">
@@ -217,6 +217,7 @@ Igobide | Nueva tarea
     <script src="{{ asset('js/views/ascensores.js')}}" defer></script>
     <script src="{{ asset('js/views/tecnicos.js')}}" defer></script>
     <script src="{{ asset('js/views/nueva-tarea.js')}}" defer></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         var modal_ascensores = document.getElementById('modal-ascensores');
 
@@ -230,6 +231,13 @@ Igobide | Nueva tarea
         modal_tecnicos.addEventListener('shown.bs.modal', function () {
             console.log('Modal Técnicos ON');
             obtenerDatosTecnicos();
+        });
+
+        /* Spinner loading nueva tarea al hacer el submit
+            Debido al envío de los emails, puede tardar un poco, el spinner ayuda a entender que se está procesando
+        */
+        document.getElementById('form-nueva-tarea').addEventListener('submit', (evt) => {
+            Swal.showLoading();
         });
     </script>
 </div>

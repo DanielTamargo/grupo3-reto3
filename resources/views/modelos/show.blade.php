@@ -33,7 +33,7 @@
                 <p id="llave" aria-disabled="true" class="user-select-none form-control no-edit bg-dark rounded-pill text-black">Llave necesaria: {{ $modelo->llave ? 'Sí' : 'No'}}</p>
                 <p id="tipo_accionamiento" aria-disabled="true" class="user-select-none form-control no-edit bg-dark rounded-pill text-black">Tipo accionamiento: {{ Str::ucfirst($modelo->tipoaccionamiento)}}</p>
                 <p id="tipo_accionamiento" aria-disabled="true" class="user-select-none form-control no-edit bg-dark rounded-pill text-black">
-                    <a class="link-success" href="{{ route('descargar.manual.modelo', ['manual_nombre' => $modelo->manual ]) }}">Descargar manual PDF</a>
+                    <a class="link-success" href="{{ route('descargar.manual.modelo', ['modelo_id' => $modelo->id ]) }}">Descargar manual PDF</a>
                 </p>
                 @if(Auth::user()->rol == "jefeequipo" || Auth::user()->rol == "administrador")
                     <form action="{{ route('modelos.store', $modelo->id)}}" method="post" enctype="multipart/form-data">

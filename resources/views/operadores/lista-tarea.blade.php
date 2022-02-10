@@ -9,6 +9,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if (isset($_GET["tarea_creada"]) && $_GET["tarea_creada"])
     <script type="text/javascript">
+        var toastON = true;
         const Toast2 = Swal.mixin({
             toast: true,
             position: 'top-right',
@@ -23,7 +24,13 @@
         Toast2.fire({
             icon: 'success',
             title: 'Tarea creada con éxito'
+        }).then((result) => {
+            toastON = false;
         });
+    </script>
+    @else
+    <script type="text/javascript">
+        var toastON = false;
     </script>
     @endif
 
@@ -74,7 +81,7 @@
                 <th scope="col">Estado</th>
             </tr>
         </thead>
-        <tbody class="tareas">
+        <tbody id="lista-tareas" class="tareas">
 
         </tbody>
     </table>

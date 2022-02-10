@@ -36,7 +36,7 @@ Igobide | Modelos
                             <td>{{ $modelo->llave ? 'Sí' : 'No' }}</td>
                             <td>{{ $modelo->peso_max }}</td>
                             <td>{{ $modelo->num_personas }}</td>
-                            <td><a href="{{ route('descargar.manual.modelo', ['manual_nombre' => $modelo->manual ]) }}">{{ $modelo->nombre }}.pdf</a></td>
+                            <td><a href="{{ route('descargar.manual.modelo', ['modelo_id' => $modelo->id ]) }}">{{ $modelo->nombre }}.pdf</a></td>
                         </tr>
                     @endforeach
                 </tbody>
