@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <table class="border table table-hover rounded empleados">
+    <table class="border table table-hover rounded empleados user-select-none">
         <thead>
             <tr class="table-primary">
                 <th scope="col">Codigo</th>
