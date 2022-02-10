@@ -4,7 +4,7 @@
 @extends('layouts.tecnico')
 
 @section('title')
-Tareas
+Igobide | Tareas
 @endsection
 
 @section('content')
@@ -44,7 +44,7 @@ Tareas
             </div>
             @endfor
         @else
-        <p>de momento no hay averias</p>
+        <p>Sin tareas pendientes asignadas</p>
         @endif
     </div>
 @endsection

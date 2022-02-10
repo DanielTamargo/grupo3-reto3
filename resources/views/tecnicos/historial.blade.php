@@ -28,7 +28,7 @@ Historial
         <div class="form-check rounded-pill bg-dark text-white">
             <input class="form-check-input" type="checkbox" name="idOpt" id="flexCheckDefault">
             <label class="form-check-label" for="flexCheckDefault">
-                buscar por identificador
+                Buscar por identificador
             </label>
         </div>
     </form>
@@ -64,7 +64,7 @@ Historial
                 </div>
             @endfor
         @else
-            <p>no se encuentran tareas con esa especificacion</p>
+            <p>No se encuentran tareas con esa especificación</p>
         @endif
     </div>
     

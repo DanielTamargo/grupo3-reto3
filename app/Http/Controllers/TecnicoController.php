@@ -113,12 +113,7 @@ class TecnicoController extends Controller
         }
 
         $modelos = Modelo::all();
-        $listaManual = [];
-        foreach ($modelos as $modelo) {
-            array_push($listaManual, $modelo->manual);
-        }
-
-        return view('tecnicos.manual', ["manuales" => $listaManual]);
+        return view('tecnicos.manual', ["modelos" => $modelos]);
     }
     /* muestra la vista piezas */
     public function piezas() {
