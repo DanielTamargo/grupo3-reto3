@@ -115,7 +115,11 @@ class RegisterController extends Controller
         ];
 
         // Siempre se envían a esta cuenta puesto que es un proyecto piloto
-        Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+        try {
+            Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+        } catch(\Exception $e) {
+            // Aquí podríamos guardar las excepciones en logs relacionados con los emails...
+        }
 
         return redirect()->route('empleados.index', ['usuario_creado' => true]);
     }

@@ -15,6 +15,14 @@ use Illuminate\Support\Facades\Mail;
 class OperadorController extends Controller
 {
 
+    /**
+     * Crea y guarda una nueva tarea
+     * 
+     * Se valida que el email del cliente tenga formato email y que el operador, tecnico y ascensor sean válidos (es decir, que existan)
+     * Si no pasa la validación, volverá atrás mostrando el error
+     * 
+     * Sólo podrá crear una tarea un administrador o un operador, si no, mostrará error 403
+     */
     public function crearTarea(Request $request) {
         // Comprobamos permisos
         $user = Auth::user();
@@ -72,8 +80,13 @@ class OperadorController extends Controller
             "asunto" => "Nueva tarea (id: $tarea->id)",
             "tarea_id" => $tarea->id
         ];
-        // Utilizamos siempre esta dirección porque es una aplicación piloto, realmente utilizaríamos $tecnico->user->email
-        Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+
+        try {
+            // Utilizamos siempre esta dirección porque es una aplicación piloto, realmente utilizaríamos $tecnico->user->email
+            Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+        } catch(\Exception $e) {
+            // Aquí podríamos llevar logs relacionados con los emails...
+        }
 
         // Notificamos al cliente
         $detalles = [
@@ -81,12 +94,21 @@ class OperadorController extends Controller
             "asunto" => "Incidencia registrada",
             "nombre" => $cliente->nombre
         ];
-        // Utilizamos siempre esta dirección porque es una aplicación piloto, realmente utilizaríamos $cliente->email
-        Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+
+        try {
+            // Utilizamos siempre esta dirección porque es una aplicación piloto, realmente utilizaríamos $cliente->email
+            Mail::to('daniel.tamargo@ikasle.egibide.org')->send(new \App\Mail\GmailManager($detalles));
+        } catch(\Exception $e) {
+            // Aquí podríamos llevar logs relacionados con los emails...
+        }
 
         return redirect()->route('tareas.index', ['tarea_creada' => true]);
     }
 
+    /**
+     * Carga la vista para generar una nueva tarea
+     * Sólo podrán generar tareas administradores y operadores
+     */
     public function nuevaTarea() {
         $user = Auth::user();
         if (!$user) return view('errors.404');
@@ -97,15 +119,12 @@ class OperadorController extends Controller
 
         return view('operadores.nuevaTarea')->with('seleccionar_ascensor', true);
     }
-    public function crearParte(){
-        return view('operadores.nuevoParte');
-    }
-    public function mostrarUltimasRevisiones(){
-        return view('operadores.ultimasRevisiones');
-    }
-    public function asignarRevisiones(){
-        return view('operadores.nuevaRevision');
-    }
+
+
+    /**
+     * Listar las tareas pendientes
+     * Un operador y un administrador podrán ver todas las tareas pendientes
+     */
     public function listarTareas(){
         //cogemos todas las tareas y comprobamos sus credenciales
         $tareas = Tarea::all();

@@ -137,14 +137,13 @@ class TecnicoController extends Controller
     */
     private function validarTecnico($user) {
         // VALIDACIONES
-        // El middleware auth contemplará que el usuario deba estar loggeado
 
         // Validar que el usuario esté autenticado código se reciba correctamente
         if (!$user) return 'errors.403';
 
         // Validar que el usuario tiene permisos para ver la página
-        // Si el usuario es el propio técnico, o un administrador, o su jefe de equipo, podrá ver la página
-        if ($user->rol != "administrador" && $user->rol != "jefeequipo" && $user->rol != "tecnico") {
+        // Si el usuario es el propio técnico o un administrador
+        if ($user->rol != "tecnico" && $user->rol != "administrador") {
             return 'errors.403';
         }
         return "";

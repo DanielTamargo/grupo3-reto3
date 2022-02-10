@@ -11,6 +11,15 @@ use Excel;
 
 class EmpleadoController extends Controller
 {
+    /**
+     * Edita el empleado.
+     * En la petición recibiremos el id de usuario a modificar y la nueva contraseña
+     * Si el empleado no existe, devolverá error 404
+     * Si el usuario navegador no tiene permisos para ver el perfil, devolverá error 403
+     * 
+     * Si la contraseña es menor de 8 caracteres, volverá a la vista anterior notificando el error
+     *      también si es mayor de 150 caracteres (por poner un límite)
+     */
     public function editarEmpleado(Request $request) {
         $user = Auth::user();
         if (!$user) return view('errors.403'); //<- no loggeado
@@ -31,27 +40,43 @@ class EmpleadoController extends Controller
         return back()->with('exito', 'La contraseña ha sido modificada con éxito');
     }
 
+    /**
+     * Muestra los datos de un empleado (show)
+     * Si el empleado no existe, devolverá error 404
+     * Si el usuario navegador no tiene permisos para ver el perfil, devolverá error 403
+     * @param number $user_id id del usuario
+     */
     public function mostrarEmpleado($user_id) {
         $user = Auth::user();
         if (!$user) return view('errors.403'); //<- no loggeado
 
-        if ($user->rol != "administrador" && $user->id != $user_id) return view('errors.403'); //<- sin permisos
+        $empleado = User::find($user_id);
+        if (!$empleado) return view ('errors.404'); //<- no existe
 
-        $user = User::find($user_id); //<- obtener usuario consultado
-        if (!$user) return view('errors.404'); //<- empleado no existe
+        // Sólo podrán ver el perfil el propio usuario, un administrador o un jefe de equipo a sus técnicos
+        if ($user->rol != "administrador" && $user->id != $user_id &&
+                !($user->rol == "jefeequipo" && $empleado->rol == "tecnico" && $user->puesto->codigo == $empleado->puesto->jefe_codigo)) {
+                    return view('errors.403'); //<- sin permisos // TODO dani: probar
+        }
 
         // Si lo está consultando un técnico cargaremos una vista distinta, respetando el layout del que hereda
-        if (Auth::user()->rol == "tecnico") return view('empleados.show-pov-tecnico')->with('user', $user);
+        if ($user->rol == "tecnico") return view('empleados.show-pov-tecnico')->with('user', $empleado);
 
-        return view('empleados.show')->with('user', $user);
+        return view('empleados.show')->with('user', $empleado);
     }
 
+    /**
+     * Muestra un listado de los empleados registrados
+     * El administrador verá todos los empleados, el jefe de equipo verá sólo sus técnicos
+     * 
+     * Si el usuario navegador no tiene permisos para ver el perfil, devolverá error 403
+     */
     public function listarEmpleados(Request $request)
     {
         $user = Auth::user();
 
-        if (!$user) return redirect()->route('login');
-        if ($user->rol != "administrador" && $user->rol != "jefeequipo") return view('errors.403');
+        if (!$user) return redirect()->route('login'); //<- no loggeado
+        if ($user->rol != "administrador" && $user->rol != "jefeequipo") return view('errors.403'); //<- sin permisos
 
         $usuarios = [];
         if ($user->rol == "administrador") $usuarios = User::all();
@@ -68,6 +93,9 @@ class EmpleadoController extends Controller
 
     /**
      * Obtiene un listado de empleados y lo exporta a Excel
+     * 
+     * Solo podrán ejecutarlo administradores y jefes de equipo
+     * Si no tiene permisos simplemente volverá
      *
      * El nombre del fichero será empleados-fecha.xlsx
      * La fecha tendrá el formato YYYY-MM-DD
@@ -83,6 +111,9 @@ class EmpleadoController extends Controller
     /**
      * Obtiene un listado de empleados y lo exporta a CSV
      *
+     * Solo podrán ejecutarlo administradores y jefes de equipo
+     * Si no tiene permisos simplemente volverá
+     * 
      * El nombre del fichero será empleados-fecha.csv
      * La fecha tendrá el formato YYYY-MM-DD
      */
@@ -104,7 +135,7 @@ class EmpleadoController extends Controller
      */
     public function obtenerEmpleados() {
         $user = Auth::user();
-        if (!$user) return back();
+        if (!$user || ($user->rol != "administrador" && $user->rol != "jefeequipo")) return back();
 
         $empleados = [];
         if ($user->rol == "jefeequipo") {
@@ -143,16 +174,19 @@ class EmpleadoController extends Controller
 
 
     /**
-     * Elimina empleado
+     * Elimina el empleado indicado
+     * Solo podrán ejecutarlo administradores y jefes de equipo
+     * Si no tiene permisos mostrará error 403
+     * Si el empleado a eliminar no existe devolverá error 404
      */
     public function eliminarEmpleado(Request $request) {
         $user = Auth::user();
-
         if (!$user) return view('errors.403'); // <- usuario registrado
 
         if ($user->rol != "administrador" && $user->rol != "jefeequipo") return view('errors.403'); // <- sin privilegios
 
         $empleado = User::find($request->id);
+        if (!$empleado) return view('errors.404'); // <- no existe
         $empleado->delete();
 
         return back()->with('usuario_eliminado', true);

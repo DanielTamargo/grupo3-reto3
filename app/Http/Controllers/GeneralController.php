@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 class GeneralController extends Controller
 {
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Redirige al inicio que dependiendo del rol del usuario loggeado será una ruta u otra 
+     * 
+     * Si es un usuario no loggeado será redirigido al login
      */
     public function inicio(Request $request)
     {
@@ -27,12 +27,16 @@ class GeneralController extends Controller
 
     /**
      * Carga la vista de listado de ascensores con todos los ascensores
+     * 
+     * Cualquier empleado podrá consultar la lista de ascensores
      */
     public function indexAscensores() {
         return view('ascensores.index')->with('ascensores', \App\Models\Ascensor::all());
     }
     /**
      * Carga la vista de listado de modelos con todos los modelos
+     * 
+     * Cualquier empleado podrá consultar la lista de modelos
      */
     public function indexModelos() {
         return view('modelos.index')->with('modelos', \App\Models\Modelo::all());

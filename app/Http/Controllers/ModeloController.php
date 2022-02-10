@@ -9,10 +9,8 @@ use Illuminate\Support\Facades\Auth;
 class ModeloController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Recibe y guarda un nuevo manual para el modelo.
+     * Se guarda con el nombre id-timestamp-nombre.pdf para no perder el manual anterior, por si se quisiera recuperar del servidor
      */
     public function store(Request $request, $id)
     {
@@ -48,10 +46,9 @@ class ModeloController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Modelo  $modelo
-     * @return \Illuminate\Http\Response
+     * Muestra el modelo pedido
+     * 
+     * Cualquier usuario loggeado podrá ver el modelo
      */
     public function show($id)
     {
