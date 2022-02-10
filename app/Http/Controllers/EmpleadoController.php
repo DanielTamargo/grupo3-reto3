@@ -16,7 +16,7 @@ class EmpleadoController extends Controller
      * En la petición recibiremos el id de usuario a modificar y la nueva contraseña
      * Si el empleado no existe, devolverá error 404
      * Si el usuario navegador no tiene permisos para ver el perfil, devolverá error 403
-     * 
+     *
      * Si la contraseña es menor de 8 caracteres, volverá a la vista anterior notificando el error
      *      también si es mayor de 150 caracteres (por poner un límite)
      */
@@ -68,7 +68,7 @@ class EmpleadoController extends Controller
     /**
      * Muestra un listado de los empleados registrados
      * El administrador verá todos los empleados, el jefe de equipo verá sólo sus técnicos
-     * 
+     *
      * Si el usuario navegador no tiene permisos para ver el perfil, devolverá error 403
      */
     public function listarEmpleados(Request $request)
@@ -79,9 +79,9 @@ class EmpleadoController extends Controller
         if ($user->rol != "administrador" && $user->rol != "jefeequipo") return view('errors.403'); //<- sin permisos
 
         $usuarios = [];
-        if ($user->rol == "administrador") $usuarios = User::all();
+        if ($user->rol == "administrador") $usuarios = User::all()->orderBy('id', 'desc');
         if ($user->rol == "jefeequipo") {
-            $usuarios_tecnicos = User::where('rol', 'tecnico')->get();
+            $usuarios_tecnicos = User::where('rol', 'tecnico')->orderBy('id', 'desc')->get();
             foreach($usuarios_tecnicos as $tecnico) {
                 if ($tecnico->puesto->jefe_codigo == $user->puesto->codigo) array_push($usuarios, $tecnico);
             }
@@ -93,7 +93,7 @@ class EmpleadoController extends Controller
 
     /**
      * Obtiene un listado de empleados y lo exporta a Excel
-     * 
+     *
      * Solo podrán ejecutarlo administradores y jefes de equipo
      * Si no tiene permisos simplemente volverá
      *
@@ -113,7 +113,7 @@ class EmpleadoController extends Controller
      *
      * Solo podrán ejecutarlo administradores y jefes de equipo
      * Si no tiene permisos simplemente volverá
-     * 
+     *
      * El nombre del fichero será empleados-fecha.csv
      * La fecha tendrá el formato YYYY-MM-DD
      */
