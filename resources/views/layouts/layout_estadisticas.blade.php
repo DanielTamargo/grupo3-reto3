@@ -11,7 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    
+
     {{-- Icono página --}}
     <link rel="icon" href="{{ asset('/img/logo_peque.png') }}">
 
@@ -44,7 +44,7 @@
                             <div class="navegador d-flex">
                                 <a class="nav-link mx-1" href="{{ route('empleados.index') }}">Empleados</a>
                                 <a class="mx-1 nav-link" href="{{ route('ascensores.index') }}">Ascensores</a>
-                                <a class="mx-1 nav-link" href="#">Tareas</a>
+                                <a class="mx-1 nav-link" href="{{ route('tareas.index') }}">Tareas</a>
                             </div>
                             @elseif(Auth::user()->rol == 'jefeequipo')
                             <div class="navegador d-flex">
@@ -107,6 +107,6 @@
     <!-- Los script anteriores son para hacer las estadisitcas -->
     <script src="{{ asset('js/lib/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('js/estadisticas.js') }}"></script>
-    
+
 </body>
 </html>

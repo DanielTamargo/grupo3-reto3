@@ -53,7 +53,7 @@
                                 <div class="navegador d-flex">
                                     <a class="nav-link mx-1" href="{{ route('empleados.index') }}">Empleados</a>
                                     <a class="mx-1 nav-link" href="{{ route('ascensores.index') }}">Ascensores</a>
-                                    <a class="mx-1 nav-link" href="{{route('tareas.index')}}">Tareas</a>
+                                    <a class="mx-1 nav-link" href="{{ route('tareas.index') }}">Tareas</a>
                                 </div>
                             @elseif(Auth::user()->rol == 'operador')
                                 <div class="navegador d-flex">
