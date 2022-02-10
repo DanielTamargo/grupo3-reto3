@@ -2,7 +2,7 @@
 @section('content')
     <div class="col-12 h-75 d-flex flex-column justify-content-center align-items-center">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 mt-3">
                 <h2 class="user-select-none">Datos Modelo</h2>
             </div>
         </div>
@@ -38,11 +38,11 @@
                 @if(Auth::user()->rol == "jefeequipo" || Auth::user()->rol == "administrador")
                     <form action="{{ route('modelos.store', $modelo->id)}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <label class="user-select-none mt-2" for="file">Reemplazar manual</label> 
+                        <label class="user-select-none mt-2" for="file">Reemplazar manual</label>
                         <input type="hidden" name="modelo_id" value="{{ $modelo->id }}">
                         <input type="file" name="manual" id="manual" class="mt-2 form-control bg-dark rounded-pill text-black" />
                         <div class="row">
-                            <div class="col-12 d-flex justify-content-center"> 
+                            <div class="col-12 d-flex justify-content-center">
                                 <button type="submit" class=" mt-2 btn btn-outline-light text-black">Actualizar</button>
                             </div>
                         </div>

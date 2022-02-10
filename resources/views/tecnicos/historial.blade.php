@@ -16,14 +16,14 @@ Historial
             <label for="fec">Fecha:</label>
         </div>
         <div class="input-group mb-3">
-            <input type="text" name="fecha" id="fec" class="form-control rounded-pill bg-dark text-white" placeholder="aaaa-mm-dd" required>
-            <button class="btn btn-outline-light rounded-pill bg-dark text-white">
+            <input type="text" name="fecha" id="fec" class="form-control rounded-pill bg-dark text-black" placeholder="aaaa-mm-dd" required>
+            <button class="btn btn-outline-light rounded-pill bg-dark text-black">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
                 <input type="submit" class="d-none" value="">
             </button>
-            
+
         </div>
         <div class="form-check rounded-pill bg-dark text-white">
             <input class="form-check-input" type="checkbox" name="idOpt" id="flexCheckDefault">
@@ -37,7 +37,7 @@ Historial
         <!-- blade generara los item de esta lista-->
         @if (count($tareas) != 0)
             @for ($x = 0; $x < count($tareas); $x++)
-        
+
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="panelsStayOpen-heading{{ $x }}">
                         <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ $x }}" aria-expanded="false" aria-controls="panelsStayOpen-collapse{{ $x }}">
@@ -67,5 +67,5 @@ Historial
             <p>No se encuentran tareas con esa especificación</p>
         @endif
     </div>
-    
+
 @endsection

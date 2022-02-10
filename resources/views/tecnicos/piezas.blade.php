@@ -22,9 +22,9 @@ Igobide | Pedir piezas
     <form action="{{route('tecnico.formpiezas')}}" method="POST">
         @csrf
         <label for="id" class="form-label">Modelo de ascensor:</label>
-        <input type="text" name="" id="id" class="form-control rounded-pill bg-dark text-white" required>
+        <input type="text" name="" id="id" class="form-control rounded-pill bg-dark text-black" required>
         <label for="material" class="form-label">Material:</label>
-        <textarea name="" id="material"  cols="30" rows="10" class="form-control rounded-3 bg-dark text-white" required></textarea>
+        <textarea name="" id="material"  cols="30" rows="10" class="form-control rounded-3 bg-dark text-black" required></textarea>
         <input type="submit" value="Enviar" class="mt-2 btn btn-outline-light float-end">
     </form>
 @endsection
